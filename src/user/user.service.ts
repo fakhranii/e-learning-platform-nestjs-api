@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto data transfer object/create-user.dto';
-import { UpdateUserDto } from './dto data transfer object/update-user.dto';
+import { Injectable, UseGuards } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities database schema/user.entity';
 import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Injectable()
 export class UserService {
@@ -15,22 +16,28 @@ export class UserService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     Object.assign(user, createUserDto) // target , source
-    return await this.userRepo.save(user);
-
+    await this.userRepo.save(user);
+    delete user.password;
+    return user;
   }
 
+  // @UseGuards(AuthGuard) // should have token to pass
   async findAll(): Promise<User[]> {
     return this.userRepo.find(); // find all 
   }
-
-  async findOne(id: number):Promise<User> {
-    // return this.userRepo.findOne();
-    return this.userRepo.findOneBy({id});
+  
+  async findOneByUsername(username): Promise<User>{
+    return this.userRepo.findOneBy({username});
   }
-
+  
+  async findOne(id: number):Promise<User> {
+    return this.userRepo.findOneBy({id: id});
+  }
+  
+  // @UseGuards(AuthGuard) // should have token to pass
   async update(id: number, updateUserDto: UpdateUserDto) :Promise<User> {
-    const user = await this.findOne(id);
-    Object.assign(user, updateUserDto);
+    const user = await this.findOne(id); 
+    Object.assign(user, updateUserDto); //  target , source 
     return await this.userRepo.save(user)
   }
 
