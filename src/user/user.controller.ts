@@ -13,7 +13,12 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
+  @Get("courses/:id")
+  findAllUserCourses(@Param('id') id: string) {
+    return this.userService.findAllUserCourses(+id);
+  }
+
   @Get()
   findAll() {
     return this.userService.findAll();

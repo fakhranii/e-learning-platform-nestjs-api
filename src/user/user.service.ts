@@ -4,12 +4,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { Course } from 'src/course/entities/course.entity';
 
 @Injectable()
 export class UserService {
   constructor( 
     // oop - first thing run in the file
+    @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
     @InjectRepository(User) private readonly userRepo: Repository<User> 
   ){}
 
@@ -25,13 +26,18 @@ export class UserService {
   async findAll(): Promise<User[]> {
     return this.userRepo.find(); // find all 
   }
+
+  async findAllUserCourses(id: number): Promise<Course[]>{
+    const user = await this.findOne(id);
+   return await this.courseRepo.find({where: {user: user.courses}})
+  }
   
   async findOneByUsername(username): Promise<User>{
     return this.userRepo.findOneBy({username});
   }
   
   async findOne(id: number):Promise<User> {
-    return this.userRepo.findOneBy({id: id});
+    return this.userRepo.findOneBy({id});
   }
   
   // @UseGuards(AuthGuard) // should have token to pass

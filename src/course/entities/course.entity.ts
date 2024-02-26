@@ -9,10 +9,10 @@ export class Course {
   @Column()
   courseName: string; // elzero js 
 
-  @Column({ length: '255' })
+  @Column()
   courseDescription: string; // in this course we'll learn ...........
 
-  @Column()
+  @Column({ type: "simple-array" })
   prerequisites: string; // before start learn nodejs you should know about js 
 
   @Column({
@@ -20,7 +20,7 @@ export class Course {
     enum: ['frontend development', 'backend development', 'mobile development'],
   })
   courseType: string;
-
-  @ManyToOne(() => User, (user) => user.courses , {eager: true})
+  
+  @ManyToOne(() => User, (user) => user.courses)
   user: User;
 }

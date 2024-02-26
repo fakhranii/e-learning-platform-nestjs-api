@@ -21,13 +21,7 @@ export class User {
 
   @Column({ default: false })
   isAdmin: boolean; // true or false
-
   
-
-  @OneToMany(() => Course, (course) => course.user)
-  courses: Course[]
-
-
   @BeforeInsert()
   async correctInputs(): Promise<any> {
     try {
@@ -40,4 +34,8 @@ export class User {
       throw new InternalServerErrorException(); // 500
     }
   }
+  
+  @OneToMany(() => Course, (course) => course.user)
+  courses: Course[];
+
 }
