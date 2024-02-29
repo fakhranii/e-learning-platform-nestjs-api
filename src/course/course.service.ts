@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,30 +10,61 @@ import { UserService } from 'src/user/user.service';
 export class CourseService {
   constructor(
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
-    private readonly userSrv: UserService
-
-  ){}
-  async create(id: number,createCourseDto: CreateCourseDto): Promise<Course> {
+    private readonly userSrv: UserService,
+  ) {}
+  async create(req: any, createCourseDto: CreateCourseDto): Promise<Course> {
+    const user = await this.userSrv.findOne(req.user.id);
+    // console.log(req.user);
+    console.log(user);
     const newCourse = new Course();
-    const user = await this.userSrv.findOne(id);
     newCourse.user = user;
     Object.assign(newCourse, createCourseDto);
     return await this.courseRepo.save(newCourse);
   }
 
-  findAll() {
-    return `This action returns all course`;
+  async findAll(): Promise<Course[]> {
+    return await this.courseRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} course`;
+  async findOne(req: any, id: number): Promise<Course> {
+    const user = await this.userSrv.findOne(req.user.id);
+    if (user) {
+      return await this.courseRepo.findOneBy({ id });
+    } else {
+      throw new HttpException(
+        " You're Not Authorized",
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
+  async update(
+    req: any,
+    id: number,
+    updateCourseDto: UpdateCourseDto,
+  ): Promise<Course> {
+    const user = await this.userSrv.findOne(req.user.id);
+    if (user) {
+      const course = await this.courseRepo.findOneBy({ id });
+      Object.assign(course, updateCourseDto);
+      return await this.courseRepo.save(course);
+    } else {
+      throw new HttpException(
+        " You're Not Authorized",
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+  async remove(req: any, id: number) {
+    const user = await this.userSrv.findOne(req.user.id);
+    if (user) {
+      return this.courseRepo.delete(id);
+    } else {
+      throw new HttpException(
+        " You're Not Authorized",
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
   }
 }

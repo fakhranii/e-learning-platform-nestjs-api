@@ -1,34 +1,83 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('v1/course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
-  @Post(':id')
-  create(@Param('id') id: string ,@Body() createCourseDto: CreateCourseDto) {
-    return this.courseService.create(+id,createCourseDto);
+  /**
+   * @desc   create a new Course by  the current user
+   * @route  /v1/course/:id
+   * @method POST
+   * @access private
+   */
+  @UseGuards(AuthGuard)
+  @Post()
+  create(@Request() req, @Body() createCourseDto: CreateCourseDto) {
+    return this.courseService.create(req, createCourseDto);
   }
 
+  /**
+   * @desc   find all courses
+   * @route  /v1/course/:id
+   * @method GET
+   * @access private
+   */
   @Get()
   findAll() {
     return this.courseService.findAll();
   }
 
+  /**
+   * @desc   find one course by id
+   * @route  /v1/course/:id
+   * @method GET
+   * @access private
+   */
+  @UseGuards(AuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courseService.findOne(+id);
+  findOne(@Request() req, @Param('id') id: string) {
+    return this.courseService.findOne(req, +id);
   }
 
+  /**
+   * @desc   update a course  only by creator or admin
+   * @route  /v1/course/:id
+   * @method PATCH
+   * @access private
+   */
+  @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+id, updateCourseDto);
+  update(
+    @Request() req,
+    @Param('id') id: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    return this.courseService.update(req, +id, updateCourseDto);
   }
 
+  /**
+   * @desc   delete a course only by creator or admin
+   * @route  /v1/course/:id
+   * @method DELETE
+   * @access private
+   */
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.courseService.remove(+id);
+  remove(@Request() req, @Param('id') id: string) {
+    return this.courseService.remove(req, +id);
   }
 }

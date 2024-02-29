@@ -7,20 +7,20 @@ export class Course {
   id: number;
 
   @Column()
-  courseName: string; // elzero js 
+  courseName: string; // elzero js
 
   @Column()
   courseDescription: string; // in this course we'll learn ...........
 
-  @Column({ type: "simple-array" })
-  prerequisites: string; // before start learn nodejs you should know about js 
+  @Column({ type: 'simple-array' })
+  prerequisites: string; // before start learn nodejs you should know about js
 
   @Column({
     type: 'enum',
     enum: ['frontend development', 'backend development', 'mobile development'],
   })
   courseType: string;
-  
-  @ManyToOne(() => User, (user) => user.courses)
+
+  @ManyToOne(() => User, (user) => user.courses, { cascade: true,  eager: true })
   user: User;
 }
