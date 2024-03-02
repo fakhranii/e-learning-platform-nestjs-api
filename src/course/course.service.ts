@@ -14,7 +14,6 @@ export class CourseService {
   ) {}
   async create(req: any, createCourseDto: CreateCourseDto): Promise<Course> {
     const user = await this.userSrv.findOne(req.user.id);
-    // console.log(req.user);
     console.log(user);
     const newCourse = new Course();
     newCourse.user = user;
@@ -28,15 +27,8 @@ export class CourseService {
 
   async findOne(req: any, id: number): Promise<Course> {
     const user = await this.userSrv.findOne(req.user.id);
-    if (user) {
       return await this.courseRepo.findOneBy({ id });
-    } else {
-      throw new HttpException(
-        " You're Not Authorized",
-        HttpStatus.UNAUTHORIZED,
-      );
     }
-  }
 
   async update(
     req: any,
@@ -44,27 +36,13 @@ export class CourseService {
     updateCourseDto: UpdateCourseDto,
   ): Promise<Course> {
     const user = await this.userSrv.findOne(req.user.id);
-    if (user) {
       const course = await this.courseRepo.findOneBy({ id });
       Object.assign(course, updateCourseDto);
       return await this.courseRepo.save(course);
-    } else {
-      throw new HttpException(
-        " You're Not Authorized",
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
   }
 
   async remove(req: any, id: number) {
     const user = await this.userSrv.findOne(req.user.id);
-    if (user) {
       return this.courseRepo.delete(id);
-    } else {
-      throw new HttpException(
-        " You're Not Authorized",
-        HttpStatus.UNAUTHORIZED,
-      );
-    }
   }
 }
