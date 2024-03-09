@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,10 +18,7 @@ export class CourseService {
     private readonly userSrv: UserService,
   ) {}
   async create(req: any, createCourseDto: CreateCourseDto): Promise<Course> {
-    const user = await this.userSrv.findOne(req.user.id);
-    console.log(user);
     const newCourse = new Course();
-    newCourse.user = user;
     Object.assign(newCourse, createCourseDto);
     return await this.courseRepo.save(newCourse);
   }
@@ -25,24 +27,21 @@ export class CourseService {
     return await this.courseRepo.find();
   }
 
-  async findOne(req: any, id: number): Promise<Course> {
-    const user = await this.userSrv.findOne(req.user.id);
-      return await this.courseRepo.findOneBy({ id });
-    }
+  async findOne(req: any, courseId: number): Promise<Course> {
+    return await this.courseRepo.findOneBy({ id: courseId });
+  }
 
   async update(
     req: any,
-    id: number,
+    courseId: number,
     updateCourseDto: UpdateCourseDto,
   ): Promise<Course> {
-    const user = await this.userSrv.findOne(req.user.id);
-      const course = await this.courseRepo.findOneBy({ id });
-      Object.assign(course, updateCourseDto);
-      return await this.courseRepo.save(course);
+    const course = await this.courseRepo.findOneBy({ id: courseId });
+    Object.assign(course, updateCourseDto);
+    return await this.courseRepo.save(course);
   }
 
-  async remove(req: any, id: number) {
-    const user = await this.userSrv.findOne(req.user.id);
-      return this.courseRepo.delete(id);
+  async remove(req: any, courseId: number) {
+    return this.courseRepo.delete(courseId);
   }
 }

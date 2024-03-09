@@ -1,43 +1,53 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('v1/user')
+@Controller('v1/user') //? our request url
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   /**
- * @desc   create new user
- * @route  /v1/user
- * @method POST
- * @access public
- */
-  @Post()
+   * @desc   create new user
+   * @route  /v1/user
+   * @method POST
+   * @access public
+   */
+  @Post() //? POST v1/user/
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   /**
- * @desc   get all courses of current user
- * @route  /v1/user/courses/:id
- * @method GET
- * @access private
- */
+   * @desc   get all courses of current user
+   * @route  /v1/user/courses/:id
+   * @method GET
+   * @access private
+   */
   @UseGuards(AuthGuard)
-  @Get("courses/:id")
-  findAllUserCourses(@Param('id') id: string) {
-    return this.userService.findAllUserCourses(+id);
+  @Get('courses')
+  findAllUserCourses(@Request() req) {
+    return this.userService.findAllUserCourses(req);
   }
 
-   /**
- * @desc   get all users
- * @route  /v1/user/
- * @method GET
- * @access public
- */
-  @Get()
+  /**
+   * @desc   get all users
+   * @route  /v1/user/
+   * @method GET
+   * @access public
+   */
+  @Get() //? GET  v1/user
   findAll() {
     return this.userService.findAll();
   }

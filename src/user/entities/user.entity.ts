@@ -1,7 +1,14 @@
 import { InternalServerErrorException } from '@nestjs/common';
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  OneToMany,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Course } from 'src/course/entities/course.entity';
+import { Review } from 'src/review/entities/review.entity';
 
 //* table name
 @Entity({ name: 'users' })
@@ -21,7 +28,7 @@ export class User {
 
   @Column({ default: false })
   isAdmin: boolean; // true or false
-  
+
   @BeforeInsert()
   async correctInputs(): Promise<any> {
     try {
@@ -34,8 +41,10 @@ export class User {
       throw new InternalServerErrorException(); // 500
     }
   }
-  
-  @OneToMany(() => Course, (course) => course.user)
+
+  @OneToMany(() => Course, (course) => course.subscriber)
   courses: Course[];
 
+  @OneToMany(() => Review, (review) => review.creator)
+  reviews: Review[];
 }
