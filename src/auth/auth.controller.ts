@@ -10,20 +10,33 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './auth.service';
+import { SignInUserDto } from './dto/signin-user.dto';
+import { SignInInstructorDto } from 'src/auth/dto/signin-instructor.dto';
 
 @Controller('v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.signIn(signInDto.username, signInDto.password);
+  @Post('user/signin')
+  userSignIn(@Body() signInUserDto: SignInUserDto) {
+    return this.authService.userSignIn(
+      signInUserDto.username,
+      signInUserDto.password,
+    );
+  }
+
+  @Post('instructor/signin')
+  instructorSignIn(@Body() signInInstructorDto: SignInInstructorDto) {
+    return this.authService.instructorSignIn(
+      signInInstructorDto.username,
+      signInInstructorDto.password,
+    );
   }
 
   @UseGuards(AuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
+  @Get('user/profile')
+  getUserProfile(@Request() req) {
     return req.user;
   }
 }

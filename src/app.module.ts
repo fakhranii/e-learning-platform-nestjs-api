@@ -10,6 +10,13 @@ import { InstructorModule } from './instructor/instructor.module';
   //? app module is the root module
   //* app module is the parent of the whole project, all moduls must be imported here!
   // all project modules.
-  imports: [DatabaseModule, UserModule, CourseModule, AuthModule, ReviewModule, InstructorModule],
+  imports: [
+    DatabaseModule,
+    UserModule,
+    CourseModule,
+    AuthModule,
+    ReviewModule,
+    InstructorModule,
+  ],
 })
 export class AppModule {}

@@ -16,10 +16,9 @@ export class Review {
   @Column({ length: 50 })
   reviewBody: string;
 
-  @ManyToOne(() => Course, (course) => course.reviews)
-  courses: Course;
-
   @ManyToOne(() => User, (user) => user.reviews)
   creator: User;
 
+  @ManyToOne(() => Course, (course) => course.reviews)
+  course: Course;
 }

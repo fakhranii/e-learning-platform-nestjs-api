@@ -17,10 +17,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: false, length: '15' })
+  @Column({ unique: true, length: 15 })
   username: string;
 
-  @Column({ unique: false, length: '25' })
+  @Column({ unique: true, length: 30 })
   email: string;
 
   @Column({ select: false }) // typeorm package
@@ -42,9 +42,9 @@ export class User {
     }
   }
 
-  @OneToMany(() => Course, (course) => course.subscriber)
+  @OneToMany(() => Course, (courses) => courses.subscriber)
   courses: Course[];
 
-  @OneToMany(() => Review, (review) => review.creator)
+  @OneToMany(() => Review, (reviews) => reviews.creator)
   reviews: Review[];
 }

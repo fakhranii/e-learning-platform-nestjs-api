@@ -47,10 +47,14 @@ export class CourseController {
    * @method GET
    * @access private
    */
-  @UseGuards(AuthGuard)
   @Get(':id')
-  findOne(@Request() req, @Param('id') id: string) {
-    return this.courseService.findOne(req, +id);
+  findOne(@Param('id') id: string) {
+    return this.courseService.findOne(+id);
+  }
+
+  @Get('reviews/:slug')
+  allCourseReviews(@Param('slug') slug: string) {
+    return this.courseService.allCourseReviews(slug);
   }
 
   /**

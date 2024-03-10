@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Request,
+  Post,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('review')
+@Controller('v1/review')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-  @Post()
-  create(@Body() createReviewDto: CreateReviewDto) {
-    return this.reviewService.create(createReviewDto);
+  @UseGuards(AuthGuard)
+  @Post(':slug')
+  create(
+    @Request() req,
+    @Param('slug') slug: string,
+    @Body() createReviewDto: CreateReviewDto,
+  ) {
+    return this.reviewService.create(req, slug, createReviewDto);
   }
 
-  @Get()
-  findAll() {
-    return this.reviewService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reviewService.findOne(+id);
-  }
-
+  @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-    return this.reviewService.update(+id, updateReviewDto);
+  update(
+    @Request() req,
+    @Param('id') id: string,
+    @Body() updateReviewDto: UpdateReviewDto,
+  ) {
+    return this.reviewService.update(req, id, updateReviewDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reviewService.remove(+id);
+  @UseGuards(AuthGuard)
+  @Delete(':slug')
+  remove(@Request() req, @Param(':slug') slug: string) {
+    return this.reviewService.remove(req, slug);
   }
 }

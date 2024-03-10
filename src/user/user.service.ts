@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -29,10 +29,8 @@ export class UserService {
 
   // async findAllUserCourses(req: any): Promise<Course[]> {
   async findAllUserCourses(req: any) {
-    const id = req.user.id;
-    // const user = await this.userRepo.findOneBy({ id });
+    const { id } = req.user;
     const user = await this.userRepo.findOne({ where: { id } });
-
     // return await this.courseRepo.find({ where: { creator: user } });
   }
 
