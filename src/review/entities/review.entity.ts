@@ -16,8 +16,8 @@ export class Review {
   @Column({ length: 50 })
   reviewBody: string;
 
-  @ManyToOne(() => User, (user) => user.reviews)
-  creator: User;
+  @ManyToOne(() => User, (user) => user.reviews, { eager: true })
+  reviewCreator: User;
 
   @ManyToOne(() => Course, (course) => course.reviews)
   course: Course;

@@ -4,12 +4,14 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { InstructorService } from './instructor.service';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('v1/instructor')
 export class InstructorController {
@@ -25,21 +27,21 @@ export class InstructorController {
     return this.instructorService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.instructorService.findOne(+id);
+  @UseGuards(AuthGuard)
+  @Get('courses')
+  findAllUserCourses(@Request() req) {
+    return this.instructorService.findAllInstructorCourses(req);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateInstructorDto: UpdateInstructorDto,
-  ) {
-    return this.instructorService.update(+id, updateInstructorDto);
+  @UseGuards(AuthGuard)
+  @Patch()
+  update(@Request() req, @Body() updateInstructorDto: UpdateInstructorDto) {
+    return this.instructorService.update(req, updateInstructorDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.instructorService.remove(+id);
+  @UseGuards(AuthGuard)
+  @Delete()
+  remove(@Request() req) {
+    return this.instructorService.remove(req);
   }
 }

@@ -1,10 +1,11 @@
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Injectable()
 export class UserService {
@@ -27,29 +28,28 @@ export class UserService {
     return this.userRepo.find(); // find all
   }
 
-  // async findAllUserCourses(req: any): Promise<Course[]> {
-  async findAllUserCourses(req: any) {
-    const { id } = req.user;
-    const user = await this.userRepo.findOne({ where: { id } });
-    // return await this.courseRepo.find({ where: { creator: user } });
-  }
-
-  async findOneByUsername(username): Promise<User> {
-    return this.userRepo.findOneBy({ username });
-  }
 
   async findOne(id: number): Promise<User> {
     return this.userRepo.findOneBy({ id });
   }
 
-  // @UseGuards(AuthGuard) // should have token to pass
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.findOne(id);
+  @UseGuards(AuthGuard) // should have token to pass
+  async update(req: any, updateUserDto: UpdateUserDto): Promise<User> {
+    const { id } = req.user;
+    const user = await this.userRepo.findOneBy({ id });
+    if (!user) {
+      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+    }
     Object.assign(user, updateUserDto); //  target , source
     return await this.userRepo.save(user);
   }
 
-  remove(id: number) {
+  async remove(req: any) {
+    const { id } = req.user;
+    const user = await this.userRepo.findOneBy({ id });
+    if (!user) {
+      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+    }
     return this.userRepo.delete(id);
   }
 }

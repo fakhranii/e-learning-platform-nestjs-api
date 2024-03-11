@@ -35,11 +35,6 @@ export class UserController {
    * @method GET
    * @access private
    */
-  @UseGuards(AuthGuard)
-  @Get('courses')
-  findAllUserCourses(@Request() req) {
-    return this.userService.findAllUserCourses(req);
-  }
 
   /**
    * @desc   get all users
@@ -47,7 +42,7 @@ export class UserController {
    * @method GET
    * @access public
    */
-  @Get() //? GET  v1/user
+  @Get()
   findAll() {
     return this.userService.findAll();
   }
@@ -58,7 +53,7 @@ export class UserController {
    * @method GET
    * @access private
    */
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
@@ -71,9 +66,9 @@ export class UserController {
    * @access private
    */
   @UseGuards(AuthGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Patch()
+  update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(req, updateUserDto);
   }
 
   /**

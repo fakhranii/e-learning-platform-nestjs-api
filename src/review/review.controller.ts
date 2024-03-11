@@ -35,12 +35,12 @@ export class ReviewController {
     @Param('id') id: string,
     @Body() updateReviewDto: UpdateReviewDto,
   ) {
-    return this.reviewService.update(req, id, updateReviewDto);
+    return this.reviewService.update(req, +id, updateReviewDto);
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':slug')
-  remove(@Request() req, @Param(':slug') slug: string) {
-    return this.reviewService.remove(req, slug);
+  @Delete(':id')
+  remove(@Request() req, @Param(':id') id: string) {
+    return this.reviewService.remove(req, +id);
   }
 }

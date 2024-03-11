@@ -2,22 +2,18 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
 import { Repository } from 'typeorm';
-import { UserService } from 'src/user/user.service';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
-import { Review } from 'src/review/entities/review.entity';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
-    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
   ) {}
@@ -32,17 +28,16 @@ export class CourseService {
       );
     }
     const newCourse = new Course();
-    newCourse.creator = instructor;
+    newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
     return await this.courseRepo.save(newCourse);
   }
 
-  async allCourseReviews(slug: string) {
-    const courseRev = await this.courseRepo.findOne({ where: { slug } });
-    const reviews = await this.reviewRepo.find({
-      where: { course: courseRev }
+  async allCourseReviews(slug: string): Promise<Course[]> {
+    return await this.courseRepo.find({
+      where: { slug },
+      relations: ['reviews'],
     });
-    return reviews;
   }
 
   async findAll(): Promise<Course[]> {

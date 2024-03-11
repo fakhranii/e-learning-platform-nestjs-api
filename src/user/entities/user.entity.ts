@@ -45,6 +45,6 @@ export class User {
   @OneToMany(() => Course, (courses) => courses.subscriber)
   courses: Course[];
 
-  @OneToMany(() => Review, (reviews) => reviews.creator)
+  @OneToMany(() => Review, (reviews) => reviews.reviewCreator)
   reviews: Review[];
 }

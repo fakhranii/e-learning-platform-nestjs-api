@@ -26,16 +26,32 @@ export class ReviewService {
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     }
     const reviews = new Review();
-    reviews.creator = user;
+    reviews.reviewCreator = user;
     reviews.course = course;
     Object.assign(reviews, createReviewDto);
     return await this.reviewRepo.save(reviews);
   }
 
-  async update(req: any, slug: string, updateReviewDto: UpdateReviewDto) {
+  async update(req: any, reviewId: number, updateReviewDto: UpdateReviewDto) {
+    const { id } = req.user;
+    const user = await this.userRepo.findOneBy({ id });
+    const review = await this.reviewRepo.findOneBy({ id: reviewId });
+    console.log(user);
+    if (user.id !== review.reviewCreator.id) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+    Object.assign(review, updateReviewDto);
+    return await this.reviewRepo.save(review);
   }
 
-  remove(req: any, slug: string) {
-    return `This action removes a  review`;
+  async remove(req: any, reviewId: number) {
+    const { id } = req.user;
+    const user = await this.userRepo.findOneBy({ id });
+    const review = await this.reviewRepo.findOneBy({ id: reviewId });
+    console.log(user);
+    if (user.id !== review.reviewCreator.id) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+    return await this.reviewRepo.delete(review);
   }
 }

@@ -29,7 +29,7 @@ export class Instructor {
   @Column({ select: false })
   password: string;
 
-  @OneToMany(() => Course, (course) => course.creator)
+  @OneToMany(() => Course, (course) => course.courseCreator)
   courses: Course[];
 
   @BeforeInsert()

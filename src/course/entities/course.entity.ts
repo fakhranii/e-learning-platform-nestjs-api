@@ -40,13 +40,14 @@ export class Course {
   @ManyToOne(() => User, (user) => user.courses)
   subscriber: User;
 
-  @ManyToOne(() => Instructor, (Instructor) => Instructor.courses)
-  creator: Instructor;
+  @ManyToOne(() => Instructor, (Instructor) => Instructor.courses, {
+    onDelete: 'CASCADE',
+  })
+  courseCreator: Instructor;
 
   @OneToMany(() => Review, (review) => review.course)
   reviews: Review[];
 
-  @BeforeInsert()
   @BeforeInsert()
   async getSlug(): Promise<any> {
     try {
