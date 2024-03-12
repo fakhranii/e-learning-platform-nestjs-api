@@ -40,7 +40,7 @@ export class ReviewController {
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Request() req, @Param(':id') id: string) {
-    return this.reviewService.remove(req, +id);
+  remove(@Request() req, @Param(':slug') slug: string) {
+    return this.reviewService.remove(req, slug);
   }
 }

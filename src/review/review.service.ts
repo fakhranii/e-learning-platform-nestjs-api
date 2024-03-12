@@ -28,7 +28,9 @@ export class ReviewService {
     const reviews = new Review();
     reviews.reviewCreator = user;
     reviews.course = course;
+    course.reviewsCount++;
     Object.assign(reviews, createReviewDto);
+    await this.courseRepo.save(course);
     return await this.reviewRepo.save(reviews);
   }
 
@@ -44,14 +46,19 @@ export class ReviewService {
     return await this.reviewRepo.save(review);
   }
 
-  async remove(req: any, reviewId: number) {
+  async remove(req: any, slug: string) {
     const { id } = req.user;
-    const user = await this.userRepo.findOneBy({ id });
-    const review = await this.reviewRepo.findOneBy({ id: reviewId });
-    console.log(user);
-    if (user.id !== review.reviewCreator.id) {
-      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: ['reviews'],
+    });
+    const reviews = user.reviews;
+    const course = await this.courseRepo.findOneBy({ slug });
+    if (course && user) {
+      course.reviewsCount--;
+      await this.courseRepo.save(course);
+      return await this.reviewRepo.remove(reviews);
     }
-    return await this.reviewRepo.delete(review);
+    throw new HttpException('user not found', HttpStatus.NOT_FOUND);
   }
 }

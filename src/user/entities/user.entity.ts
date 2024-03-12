@@ -5,6 +5,8 @@ import {
   Column,
   BeforeInsert,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Course } from 'src/course/entities/course.entity';
@@ -29,6 +31,13 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean; // true or false
 
+  @OneToMany(() => Review, (reviews) => reviews.reviewCreator)
+  reviews: Review[];
+
+  @ManyToMany(() => Course, { cascade: ['insert'] })
+  @JoinTable()
+  courses: Course[];
+
   @BeforeInsert()
   async correctInputs(): Promise<any> {
     try {
@@ -41,10 +50,4 @@ export class User {
       throw new InternalServerErrorException(); // 500
     }
   }
-
-  @OneToMany(() => Course, (courses) => courses.subscriber)
-  courses: Course[];
-
-  @OneToMany(() => Review, (reviews) => reviews.reviewCreator)
-  reviews: Review[];
 }

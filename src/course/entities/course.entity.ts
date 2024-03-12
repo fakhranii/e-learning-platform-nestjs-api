@@ -9,6 +9,8 @@ import {
   ManyToOne,
   OneToMany,
   BeforeInsert,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity({ name: 'courses' })
@@ -28,6 +30,12 @@ export class Course {
   @Column()
   courseLink: string;
 
+  @Column()
+  coursesCount: number;
+
+  @Column()
+  reviewsCount: number;
+
   @Column({ type: 'simple-array' })
   prerequisites: string; // before start learn nodejs you should know about js
 
@@ -36,9 +44,6 @@ export class Course {
     enum: ['frontend', 'backend', 'mobile applications'],
   })
   courseType: string;
-
-  @ManyToOne(() => User, (user) => user.courses)
-  subscriber: User;
 
   @ManyToOne(() => Instructor, (Instructor) => Instructor.courses, {
     onDelete: 'CASCADE',
