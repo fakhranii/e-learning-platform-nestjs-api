@@ -29,12 +29,17 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  /**
-   * @desc   get all courses of current user
-   * @route  /v1/user/courses/:id
-   * @method GET
-   * @access private
-   */
+  @UseGuards(AuthGuard)
+  @Post('enroll/:slug')
+  enrollCourse(@Request() req, @Param('slug') slug: string) {
+    return this.userService.enrollCourse(req, slug);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('unenroll/:slug')
+  unEnrollCourse(@Request() req, @Param('slug') slug: string) {
+    return this.userService.unEnrollCourse(req, slug);
+  }
 
   /**
    * @desc   get all users
@@ -78,8 +83,8 @@ export class UserController {
    * @access private
    */
   @UseGuards(AuthGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Delete()
+  remove(@Request() req) {
+    return this.userService.remove(req);
   }
 }

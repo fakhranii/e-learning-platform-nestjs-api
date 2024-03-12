@@ -1,6 +1,11 @@
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { HttpException, HttpStatus, Injectable, UseGuards } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UseGuards,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -23,11 +28,61 @@ export class UserService {
     return user;
   }
 
-  // @UseGuards(AuthGuard) // should have token to pass
+  async enrollCourse(req: any, slug: string) {
+    const { id } = req.user;
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: ['courses'],
+    });
+    const course = await this.courseRepo.findOneBy({ slug });
+
+    //* in this case, if our findIndex return minus one, this means that the articleis not favorite
+    const isCourseEnrolled = user.courses.findIndex(
+      (isCourseEnrolled) => isCourseEnrolled.id === user.id,
+    );
+
+    if (isCourseEnrolled) {
+      throw new HttpException(
+        `You're already enrolled`,
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
+    }
+    user.courses.push(course);
+    course.coursesCount++;
+    await this.userRepo.save(user);
+    await this.courseRepo.save(course);
+    return course;
+  }
+
+  async unEnrollCourse(req: any, slug: string) {
+    const { id } = req.user;
+    const user = await this.userRepo.findOne({
+      where: { id },
+      relations: ['courses'],
+    });
+    const course = await this.courseRepo.findOneBy({ slug });
+
+    //* in this case, if our findIndex return minus one, this means that the articleis not favorite
+    const isCourseEnrolled = user.courses.findIndex(
+      (isCourseEnrolled) => isCourseEnrolled.id === user.id,
+    );
+
+    if (!isCourseEnrolled) {
+      throw new HttpException(
+        `It's not enrolled`,
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
+    }
+    user.courses.splice(isCourseEnrolled, 1);
+    course.coursesCount--;
+    await this.courseRepo.save(course);
+    await this.userRepo.save(user);
+    return course;
+  }
+
   async findAll(): Promise<User[]> {
     return this.userRepo.find(); // find all
   }
-
 
   async findOne(id: number): Promise<User> {
     return this.userRepo.findOneBy({ id });
