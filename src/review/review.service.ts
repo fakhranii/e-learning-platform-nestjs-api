@@ -52,12 +52,12 @@ export class ReviewService {
       where: { id },
       relations: ['reviews'],
     });
-    const reviews = user.reviews;
+    const deletedReviews = user.reviews.splice(-1);
     const course = await this.courseRepo.findOneBy({ slug });
     if (course && user) {
       course.reviewsCount--;
       await this.courseRepo.save(course);
-      return await this.reviewRepo.remove(reviews);
+      return await this.reviewRepo.remove(deletedReviews);
     }
     throw new HttpException('user not found', HttpStatus.NOT_FOUND);
   }

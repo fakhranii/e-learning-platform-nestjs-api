@@ -14,7 +14,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('v1/user') //? our request url
+@Controller('v1/users') //? our request url
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

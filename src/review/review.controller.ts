@@ -14,7 +14,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('v1/review')
+@Controller('v1/reviews')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
@@ -39,7 +39,7 @@ export class ReviewController {
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':id')
+  @Delete(':slug')
   remove(@Request() req, @Param(':slug') slug: string) {
     return this.reviewService.remove(req, slug);
   }

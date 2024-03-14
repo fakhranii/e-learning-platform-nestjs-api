@@ -13,7 +13,7 @@ import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@Controller('v1/instructor')
+@Controller('v1/instructors')
 export class InstructorController {
   constructor(private readonly instructorService: InstructorService) {}
 

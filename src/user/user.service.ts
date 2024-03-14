@@ -22,8 +22,7 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
-    Object.assign(user, createUserDto); // target , source
-    await this.userRepo.save(user); // Repo => entity => DB
+    await this.userRepo.save(user);
     delete user.password;
     return user;
   }
@@ -35,20 +34,16 @@ export class UserService {
       relations: ['courses'],
     });
     const course = await this.courseRepo.findOneBy({ slug });
+    const isCourseEnrolled = course.coursesCount;
 
-    //* in this case, if our findIndex return minus one, this means that the articleis not favorite
-    const isCourseEnrolled = user.courses.findIndex(
-      (isCourseEnrolled) => isCourseEnrolled.id === user.id,
-    );
-
-    if (isCourseEnrolled) {
+    if (isCourseEnrolled > 0) {
       throw new HttpException(
         `You're already enrolled`,
         HttpStatus.METHOD_NOT_ALLOWED,
       );
     }
-    user.courses.push(course);
     course.coursesCount++;
+    user.courses.push(course);
     await this.userRepo.save(user);
     await this.courseRepo.save(course);
     return course;
@@ -61,23 +56,16 @@ export class UserService {
       relations: ['courses'],
     });
     const course = await this.courseRepo.findOneBy({ slug });
+    const isCourseEnrolled = course.coursesCount;
 
-    //* in this case, if our findIndex return minus one, this means that the articleis not favorite
-    const isCourseEnrolled = user.courses.findIndex(
-      (isCourseEnrolled) => isCourseEnrolled.id === user.id,
-    );
-
-    if (!isCourseEnrolled) {
-      throw new HttpException(
-        `It's not enrolled`,
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
+    if (isCourseEnrolled > 0 && isCourseEnrolled !== 0) {
+      user.courses.splice(isCourseEnrolled[1], 1);
+      course.coursesCount--;
+      await this.courseRepo.save(course);
+      await this.userRepo.save(user);
+      return course;
     }
-    user.courses.splice(isCourseEnrolled, 1);
-    course.coursesCount--;
-    await this.courseRepo.save(course);
-    await this.userRepo.save(user);
-    return course;
+    throw new HttpException(`It's not enrolled`, HttpStatus.METHOD_NOT_ALLOWED);
   }
 
   async findAll(): Promise<User[]> {
