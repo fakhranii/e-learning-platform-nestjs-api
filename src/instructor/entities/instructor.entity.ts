@@ -20,6 +20,12 @@ export class Instructor {
   @Column({ unique: true, length: 15 })
   username: string;
 
+  @Column({ length: 30 })
+  firstName: string;
+
+  @Column({ length: 30 })
+  avatar: string;
+
   @Column({ unique: true, length: 30 })
   email: string;
 

@@ -7,6 +7,7 @@ import {
   Delete,
   Request,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { InstructorService } from './instructor.service';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
@@ -25,6 +26,11 @@ export class InstructorController {
   @Get()
   findAll() {
     return this.instructorService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.instructorService.findOne(+id);
   }
 
   @UseGuards(AuthGuard)

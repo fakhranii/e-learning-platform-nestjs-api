@@ -19,6 +19,9 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ length: 30 })
+  fullName: string;
+
   @Column({ unique: true, length: 15 })
   username: string;
 
@@ -30,6 +33,15 @@ export class User {
 
   @Column({ default: false })
   isAdmin: boolean; // true or false
+
+  @Column({ nullable: true }) // typeorm package
+  avatar: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
 
   @OneToMany(() => Review, (reviews) => reviews.reviewCreator)
   reviews: Review[];

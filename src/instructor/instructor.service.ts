@@ -37,6 +37,13 @@ export class InstructorService {
     return await this.instructorRepo.find();
   }
 
+  async findOne(id: number): Promise<Instructor> {
+    return await this.instructorRepo.findOne({
+      where: { id },
+      relations: ['courses'],
+    });
+  }
+
   async update(
     req: any,
     updateInstructorDto: UpdateInstructorDto,

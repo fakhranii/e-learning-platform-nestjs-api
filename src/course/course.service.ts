@@ -1,19 +1,17 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
 import { Repository } from 'typeorm';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { Review } from 'src/review/entities/review.entity';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
+    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
   ) {}
@@ -33,11 +31,12 @@ export class CourseService {
     return await this.courseRepo.save(newCourse);
   }
 
-  async allCourseReviews(slug: string): Promise<Course[]> {
-    return await this.courseRepo.find({
+  async allCourseReviews(slug: string): Promise<Review[]> {
+    const course = await this.courseRepo.findOne({
       where: { slug },
       relations: ['reviews'],
     });
+    return course.reviews;
   }
 
   async findAll(): Promise<Course[]> {
@@ -45,7 +44,10 @@ export class CourseService {
   }
 
   async findOne(courseId: number): Promise<Course> {
-    return await this.courseRepo.findOneBy({ id: courseId });
+    return await this.courseRepo.findOne({
+      where: { id: courseId },
+      relations: ['reviews', 'courseCreator'],
+    });
   }
 
   async update(

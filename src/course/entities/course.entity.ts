@@ -39,13 +39,39 @@ export class Course {
   @Column({ type: 'simple-array' })
   prerequisites: string; // before start learn nodejs you should know about js
 
+  @Column({ type: 'enum', enum: ['Arabic', 'English'], default: 'English' })
+  courseLanguage: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
   @Column({
     type: 'enum',
     enum: ['frontend', 'backend', 'mobile applications'],
   })
   courseType: string;
 
+  @Column({
+    type: 'enum',
+    enum: [true, false],
+    default: false,
+  })
+  isCertified: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: ['intermediate', 'beginner', 'advanced'],
+  })
+  skillLevel: string;
+
+  @Column({ nullable: true })
+  thumbnails: string;
+
   @ManyToOne(() => Instructor, (Instructor) => Instructor.courses, {
+    eager: true,
     onDelete: 'CASCADE',
   })
   courseCreator: Instructor;

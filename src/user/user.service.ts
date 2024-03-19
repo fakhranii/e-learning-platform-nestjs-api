@@ -73,7 +73,7 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepo.findOneBy({ id });
+    return this.userRepo.findOne({ where: { id }, relations: ['courses'] });
   }
 
   @UseGuards(AuthGuard) // should have token to pass

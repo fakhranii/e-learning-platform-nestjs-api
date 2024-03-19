@@ -25,14 +25,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/user",
+							"raw": "localhost:3000/v1/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user"
+								"users"
 							]
 						}
 					},
@@ -46,7 +46,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwODc2MzA0OCwiZXhwIjoxNzA4NzY2NjQ4fQ.25mhX2IsRCIgjHUBDuws2tapkYR17P1sN4oRVBynC4A",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -54,14 +54,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/user",
+							"raw": "localhost:3000/v1/users",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user"
+								"users"
 							]
 						}
 					},
@@ -73,14 +73,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/user/2",
+							"raw": "localhost:3000/v1/users/2",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user",
+								"users",
 								"2"
 							]
 						}
@@ -112,14 +112,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/user/",
+							"raw": "localhost:3000/v1/users/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user",
+								"users",
 								""
 							]
 						}
@@ -151,14 +151,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/user/",
+							"raw": "localhost:3000/v1/users/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user",
+								"users",
 								""
 							]
 						}
@@ -173,7 +173,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJlc2xhbSIsImlhdCI6MTcxMDE1Nzc2NiwiZXhwIjoxNzEwMTYxMzY2fQ.1bGhNbrgn-6xfqUeaPi31y8AJU1XSDWOyw3bdcAi73M",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNzUzMzYsImV4cCI6MTcxMDM3ODkzNn0.0HS1XyAibcPeJ-4HKXCLicXtSL9p4bJgbgRGfMFLu5Q",
 									"type": "string"
 								}
 							]
@@ -181,14 +181,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/user/enroll/python-in-arabic",
+							"raw": "localhost:3000/v1/users/enroll/python-in-arabic",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user",
+								"users",
 								"enroll",
 								"python-in-arabic"
 							]
@@ -204,7 +204,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJlc2xhbSIsImlhdCI6MTcxMDE2MjgwNiwiZXhwIjoxNzEwMTY2NDA2fQ.2dZjJGuoA0_K8qFTb4x5uFCThGgba9GW1_YetZyB9hs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNzUzMzYsImV4cCI6MTcxMDM3ODkzNn0.0HS1XyAibcPeJ-4HKXCLicXtSL9p4bJgbgRGfMFLu5Q",
 									"type": "string"
 								}
 							]
@@ -212,14 +212,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/user/unenroll/python-in-arabic",
+							"raw": "localhost:3000/v1/users/unenroll/python-in-arabic",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"user",
+								"users",
 								"unenroll",
 								"python-in-arabic"
 							]
@@ -371,14 +371,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/course",
+							"raw": "localhost:3000/v1/courses",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"course"
+								"courses"
 							]
 						}
 					},
@@ -412,14 +412,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/course/",
+							"raw": "localhost:3000/v1/courses/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"course",
+								"courses",
 								""
 							]
 						}
@@ -437,7 +437,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNDM3NDUsImV4cCI6MTcxMDM0NzM0NX0.aXkXvcqo-oG4mysSzhWyw3T51lWzRFrkp9CjzluZv1E",
 									"type": "string"
 								}
 							]
@@ -454,15 +454,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/course/15",
+							"raw": "localhost:3000/v1/courses/11",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"course",
-								"15"
+								"courses",
+								"11"
 							]
 						}
 					},
@@ -532,14 +532,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/course/5",
+							"raw": "localhost:3000/v1/courses/5",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"course",
+								"courses",
 								"5"
 							]
 						}
@@ -552,14 +552,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/course/reviews/php-in-arabic",
+							"raw": "localhost:3000/v1/courses/reviews/php-in-arabic",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"course",
+								"courses",
 								"reviews",
 								"php-in-arabic"
 							]
@@ -597,14 +597,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructor/",
+							"raw": "localhost:3000/v1/instructors/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructor",
+								"instructors",
 								""
 							]
 						}
@@ -617,14 +617,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructor",
+							"raw": "localhost:3000/v1/instructors",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructor"
+								"instructors"
 							]
 						}
 					},
@@ -646,14 +646,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructor/courses",
+							"raw": "localhost:3000/v1/instructors/courses",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructor",
+								"instructors",
 								"courses"
 							]
 						}
@@ -685,14 +685,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructor/",
+							"raw": "localhost:3000/v1/instructors/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructor",
+								"instructors",
 								""
 							]
 						}
@@ -724,14 +724,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructor/",
+							"raw": "localhost:3000/v1/instructors/",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructor",
+								"instructors",
 								""
 							]
 						}
@@ -751,7 +751,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAyMDY0MjAsImV4cCI6MTcxMDIxMDAyMH0.6OOtXvPtwlhcm809tqHhz9yFsrwh55gDaVlvuIIF88o",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwNDE4MzUyLCJleHAiOjE3MTA0MjE5NTJ9.TW9sXYAX6cvdnaAJX4W3vGk294p3CECosTkOGBjL4Tc",
 									"type": "string"
 								}
 							]
@@ -760,7 +760,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 5,\r\n    \"reviewBody\": \"test from ramadan 4\"\r\n}",
+							"raw": "{\r\n    \"rating\": 4,\r\n    \"reviewBody\": \"review from ostaz ziad 1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -768,15 +768,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/review/php-in-arabic",
+							"raw": "localhost:3000/v1/reviews/python-in-arabic",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"review",
-								"php-in-arabic"
+								"reviews",
+								"python-in-arabic"
 							]
 						}
 					},
@@ -807,14 +807,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/review/7",
+							"raw": "localhost:3000/v1/reviews/7",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"review",
+								"reviews",
 								"7"
 							]
 						}
@@ -829,7 +829,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAyMDY0MjAsImV4cCI6MTcxMDIxMDAyMH0.6OOtXvPtwlhcm809tqHhz9yFsrwh55gDaVlvuIIF88o",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMzc2NzgzLCJleHAiOjE3MTAzODAzODN9.N0t9-F2N0MdvNeo51KDSThsyes8gx2PPpX23Rxmotag",
 									"type": "string"
 								}
 							]
@@ -846,15 +846,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/review/3",
+							"raw": "localhost:3000/v1/reviews/python-in-arabic",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"review",
-								"3"
+								"reviews",
+								"python-in-arabic"
 							]
 						}
 					},

@@ -52,6 +52,7 @@ export class ReviewService {
       where: { id },
       relations: ['reviews'],
     });
+    // const deletedReviews = user.reviews.splice(-);
     const deletedReviews = user.reviews.splice(-1);
     const course = await this.courseRepo.findOneBy({ slug });
     if (course && user) {
