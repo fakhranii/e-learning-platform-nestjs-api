@@ -26,8 +26,10 @@ export class CourseService {
       );
     }
     const newCourse = new Course();
+    instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
+    await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);
   }
 
@@ -44,10 +46,14 @@ export class CourseService {
   }
 
   async findOne(courseId: number): Promise<Course> {
-    return await this.courseRepo.findOne({
+    const course = await this.courseRepo.findOne({
       where: { id: courseId },
       relations: ['reviews', 'courseCreator'],
     });
+    if (!course) {
+      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
+    return course;
   }
 
   async update(

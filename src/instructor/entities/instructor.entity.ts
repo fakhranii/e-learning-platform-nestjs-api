@@ -20,14 +20,23 @@ export class Instructor {
   @Column({ unique: true, length: 15 })
   username: string;
 
-  @Column({ length: 30 })
-  firstName: string;
+  @Column({ length: 30, nullable: true })
+  fullName: string;
 
-  @Column({ length: 30 })
+  @Column({ length: 30, nullable: true })
   avatar: string;
 
   @Column({ unique: true, length: 30 })
   email: string;
+
+  @Column({ default: 0 })
+  studentsCount: number;
+
+  @Column({ default: 0 })
+  coursesCount: number;
+
+  @Column({ default: 0 })
+  ratingsCount: number;
 
   @Column({ default: true })
   isInstructor: boolean;

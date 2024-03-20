@@ -23,7 +23,7 @@ export class User {
   fullName: string;
 
   @Column({ unique: true, length: 15 })
-  username: string;
+  username?: string;
 
   @Column({ unique: true, length: 30 })
   email: string;
@@ -56,10 +56,11 @@ export class User {
       this.email = this.email.toLowerCase().trim();
       this.username = this.username.toLowerCase().trim();
       this.password = this.password.trim();
+      this.fullName = this.fullName.trim();
       this.password = await bcrypt.hash(this.password, 10);
     } catch (e) {
       console.log(e);
-      throw new InternalServerErrorException(); // 500
+      // (); // 500
     }
   }
 }

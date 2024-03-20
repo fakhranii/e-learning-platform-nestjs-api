@@ -11,6 +11,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { Instructor } from 'src/instructor/entities/instructor.entity';
 
 @Injectable()
 export class UserService {
@@ -18,10 +19,13 @@ export class UserService {
     // oop - first thing run in the file
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
+    @InjectRepository(Instructor)
+    private readonly instructorRepo: Repository<Instructor>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
+    Object.assign(user, createUserDto);
     await this.userRepo.save(user);
     delete user.password;
     return user;
@@ -34,7 +38,11 @@ export class UserService {
       relations: ['courses'],
     });
     const course = await this.courseRepo.findOneBy({ slug });
-    const isCourseEnrolled = course.coursesCount;
+    const isCourseEnrolled = course.numberOfStudents;
+    const courseCreator = course.courseCreator.id;
+    const instructor = await this.instructorRepo.findOneBy({
+      id: courseCreator,
+    });
 
     if (isCourseEnrolled > 0) {
       throw new HttpException(
@@ -42,8 +50,11 @@ export class UserService {
         HttpStatus.METHOD_NOT_ALLOWED,
       );
     }
-    course.coursesCount++;
+    instructor.studentsCount++;
+    course.courseCreator.studentsCount++;
+    course.numberOfStudents++;
     user.courses.push(course);
+    await this.instructorRepo.save(instructor);
     await this.userRepo.save(user);
     await this.courseRepo.save(course);
     return course;
@@ -56,11 +67,11 @@ export class UserService {
       relations: ['courses'],
     });
     const course = await this.courseRepo.findOneBy({ slug });
-    const isCourseEnrolled = course.coursesCount;
+    const isCourseEnrolled = course.numberOfStudents;
 
     if (isCourseEnrolled > 0 && isCourseEnrolled !== 0) {
       user.courses.splice(isCourseEnrolled[1], 1);
-      course.coursesCount--;
+      course.numberOfStudents--;
       await this.courseRepo.save(course);
       await this.userRepo.save(user);
       return course;

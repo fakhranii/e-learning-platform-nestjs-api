@@ -1,7 +1,6 @@
 import slugify from 'slugify';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
-import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,8 +8,6 @@ import {
   ManyToOne,
   OneToMany,
   BeforeInsert,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 
 @Entity({ name: 'courses' })
@@ -19,7 +16,7 @@ export class Course {
   id: number;
 
   @Column({ unique: true })
-  courseName: string; // elzero js
+  title: string; // elzero js
 
   @Column()
   slug: string;
@@ -30,17 +27,26 @@ export class Course {
   @Column()
   courseLink: string;
 
-  @Column()
-  coursesCount: number;
+  @Column({ nullable: true })
+  numberOfStudents: number;
 
-  @Column()
-  reviewsCount: number;
+  @Column({ default: 0 })
+  numberOfRatings: number;
+
+  @Column({ type: 'enum', enum: [false, true], default: false })
+  isBestSelling: boolean;
+
+  @Column({ length: 50 })
+  whatYouWillLearn: string;
+
+  @Column({ default: '85%', length: 6 })
+  passPercentage: string;
 
   @Column({ type: 'simple-array' })
   prerequisites: string; // before start learn nodejs you should know about js
 
   @Column({ type: 'enum', enum: ['Arabic', 'English'], default: 'English' })
-  courseLanguage: string;
+  language: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
@@ -52,7 +58,7 @@ export class Course {
     type: 'enum',
     enum: ['frontend', 'backend', 'mobile applications'],
   })
-  courseType: string;
+  category: string;
 
   @Column({
     type: 'enum',
@@ -72,7 +78,6 @@ export class Course {
 
   @ManyToOne(() => Instructor, (Instructor) => Instructor.courses, {
     eager: true,
-    onDelete: 'CASCADE',
   })
   courseCreator: Instructor;
 
@@ -82,7 +87,7 @@ export class Course {
   @BeforeInsert()
   async getSlug(): Promise<any> {
     try {
-      this.slug = slugify(this.courseName, '-');
+      this.slug = slugify(this.title, '-');
     } catch (e) {
       return 'there is an error with slugify';
     }

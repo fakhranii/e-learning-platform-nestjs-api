@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { User } from '../user/entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Review } from './entities/review.entity';
+import { Instructor } from 'src/instructor/entities/instructor.entity';
 
 @Injectable()
 export class ReviewService {
@@ -13,6 +14,8 @@ export class ReviewService {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
     @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
+    @InjectRepository(Instructor)
+    private readonly instructorRepo: Repository<Instructor>,
   ) {}
   async create(
     req: any,
@@ -22,15 +25,22 @@ export class ReviewService {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
     const course = await this.courseRepo.findOneBy({ slug });
+    const courseCreator = course.courseCreator.id;
+    const instructor = await this.instructorRepo.findOneBy({
+      id: courseCreator,
+    });
+
     if (!user) {
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     }
     const reviews = new Review();
     reviews.reviewCreator = user;
     reviews.course = course;
-    course.reviewsCount++;
+    instructor.ratingsCount++;
+    course.numberOfRatings++;
     Object.assign(reviews, createReviewDto);
     await this.courseRepo.save(course);
+    await this.instructorRepo.save(instructor);
     return await this.reviewRepo.save(reviews);
   }
 
@@ -56,7 +66,7 @@ export class ReviewService {
     const deletedReviews = user.reviews.splice(-1);
     const course = await this.courseRepo.findOneBy({ slug });
     if (course && user) {
-      course.reviewsCount--;
+      course.numberOfRatings--;
       await this.courseRepo.save(course);
       return await this.reviewRepo.remove(deletedReviews);
     }
