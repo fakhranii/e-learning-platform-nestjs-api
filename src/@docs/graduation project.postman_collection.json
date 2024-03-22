@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"alo\",\r\n    \"email\": \"alo@gmail.com\",\r\n    \"password\": \"alo\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"ali zakria ahmed\",\r\n    \"username\": \"ahmeeedder\",\r\n    \"email\": \"Ahmedrd@gmail.com\",\r\n    \"password\": \"ahmmremmed\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,7 +73,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/users/2",
+							"raw": "localhost:3000/v1/users/1",
 							"host": [
 								"localhost"
 							],
@@ -81,7 +81,7 @@
 							"path": [
 								"v1",
 								"users",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -164,68 +164,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "enroll course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNzUzMzYsImV4cCI6MTcxMDM3ODkzNn0.0HS1XyAibcPeJ-4HKXCLicXtSL9p4bJgbgRGfMFLu5Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/users/enroll/python-in-arabic",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"users",
-								"enroll",
-								"python-in-arabic"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unEnroll course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNzUzMzYsImV4cCI6MTcxMDM3ODkzNn0.0HS1XyAibcPeJ-4HKXCLicXtSL9p4bJgbgRGfMFLu5Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/users/unenroll/python-in-arabic",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"users",
-								"unenroll",
-								"python-in-arabic"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -239,7 +177,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"alo\",\r\n    \"password\": \"alo\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -269,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"fo\",\r\n    \"password\": \"fo\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -354,7 +292,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJmYSIsImlhdCI6MTcxMDEyODIxNywiZXhwIjoxNzEwMTMxODE3fQ.rcEpWY9tkMt4OJCyM8ohLy0BTVK8jjutkJZ3O-wYXJo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAzNTc2LCJleHAiOjE3MTA5MDcxNzZ9.P60KcN4WfWgUPmdVNlOPeDReAWC3rADL8Aw8HVuyFaU",
 									"type": "string"
 								}
 							]
@@ -363,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"courseName\": \"test2233 in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"courseType\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"css in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -437,7 +375,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJhbG8iLCJpYXQiOjE3MTAzNDM3NDUsImV4cCI6MTcxMDM0NzM0NX0.aXkXvcqo-oG4mysSzhWyw3T51lWzRFrkp9CjzluZv1E",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwODI0OTEyLCJleHAiOjE3MTA4Mjg1MTJ9.gYgS-krLMLmGrbFXBiLzW8bCpWU4KynDZqTlMBURtWQ",
 									"type": "string"
 								}
 							]
@@ -454,7 +392,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/11",
+							"raw": "localhost:3000/v1/courses/18",
 							"host": [
 								"localhost"
 							],
@@ -462,7 +400,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"11"
+								"18"
 							]
 						}
 					},
@@ -552,7 +490,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/reviews/php-in-arabic",
+							"raw": "localhost:3000/v1/courses/reviews/python-in-arabic",
 							"host": [
 								"localhost"
 							],
@@ -561,6 +499,68 @@
 								"v1",
 								"courses",
 								"reviews",
+								"python-in-arabic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enroll course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/courses/enroll/php-in-arabic",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"enroll",
+								"php-in-arabic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unEnroll course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/courses/unenroll/php-in-arabic",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"unenroll",
 								"php-in-arabic"
 							]
 						}
@@ -625,6 +625,26 @@
 							"path": [
 								"v1",
 								"instructors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get an instructor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/instructors/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"instructors",
+								"1"
 							]
 						}
 					},
@@ -751,7 +771,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwNDE4MzUyLCJleHAiOjE3MTA0MjE5NTJ9.TW9sXYAX6cvdnaAJX4W3vGk294p3CECosTkOGBjL4Tc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTA0MzY5LCJleHAiOjE3MTA5MDc5Njl9.dPNpA-7szk0INW9xYwDJwazvmvFD_csD34yURRnLEFs",
 									"type": "string"
 								}
 							]
@@ -760,7 +780,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 4,\r\n    \"reviewBody\": \"review from ostaz ziad 1\"\r\n}",
+							"raw": "{\r\n    \"rating\": 4,\r\n    \"reviewBody\": \"review from ostaz ziad last one\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -768,7 +788,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/python-in-arabic",
+							"raw": "localhost:3000/v1/reviews/php-in-arabic",
 							"host": [
 								"localhost"
 							],
@@ -776,7 +796,7 @@
 							"path": [
 								"v1",
 								"reviews",
-								"python-in-arabic"
+								"php-in-arabic"
 							]
 						}
 					},
@@ -829,7 +849,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMzc2NzgzLCJleHAiOjE3MTAzODAzODN9.N0t9-F2N0MdvNeo51KDSThsyes8gx2PPpX23Rxmotag",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwNDE4MzUyLCJleHAiOjE3MTA0MjE5NTJ9.TW9sXYAX6cvdnaAJX4W3vGk294p3CECosTkOGBjL4Tc",
 									"type": "string"
 								}
 							]

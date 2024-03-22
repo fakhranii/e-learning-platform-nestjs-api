@@ -31,54 +31,7 @@ export class UserService {
     return user;
   }
 
-  async enrollCourse(req: any, slug: string) {
-    const { id } = req.user;
-    const user = await this.userRepo.findOne({
-      where: { id },
-      relations: ['courses'],
-    });
-    const course = await this.courseRepo.findOneBy({ slug });
-    const isCourseEnrolled = course.numberOfStudents;
-    const courseCreator = course.courseCreator.id;
-    const instructor = await this.instructorRepo.findOneBy({
-      id: courseCreator,
-    });
-
-    if (isCourseEnrolled > 0) {
-      throw new HttpException(
-        `You're already enrolled`,
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
-    }
-    instructor.studentsCount++;
-    course.courseCreator.studentsCount++;
-    course.numberOfStudents++;
-    user.courses.push(course);
-    await this.instructorRepo.save(instructor);
-    await this.userRepo.save(user);
-    await this.courseRepo.save(course);
-    return course;
-  }
-
-  async unEnrollCourse(req: any, slug: string) {
-    const { id } = req.user;
-    const user = await this.userRepo.findOne({
-      where: { id },
-      relations: ['courses'],
-    });
-    const course = await this.courseRepo.findOneBy({ slug });
-    const isCourseEnrolled = course.numberOfStudents;
-
-    if (isCourseEnrolled > 0 && isCourseEnrolled !== 0) {
-      user.courses.splice(isCourseEnrolled[1], 1);
-      course.numberOfStudents--;
-      await this.courseRepo.save(course);
-      await this.userRepo.save(user);
-      return course;
-    }
-    throw new HttpException(`It's not enrolled`, HttpStatus.METHOD_NOT_ALLOWED);
-  }
-
+ 
   async findAll(): Promise<User[]> {
     return this.userRepo.find(); // find all
   }

@@ -18,35 +18,17 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
-  /**
-   * @desc   create a new Course by  the current user
-   * @route  /v1/course/:id
-   * @method POST
-   * @access private
-   */
   @UseGuards(AuthGuard)
   @Post()
   create(@Request() req, @Body() createCourseDto: CreateCourseDto) {
     return this.courseService.create(req, createCourseDto);
   }
 
-  /**
-   * @desc   find all courses
-   * @route  /v1/course/:id
-   * @method GET
-   * @access private
-   */
   @Get()
   findAll() {
     return this.courseService.findAll();
   }
 
-  /**
-   * @desc   find one course by id
-   * @route  /v1/course/:id
-   * @method GET
-   * @access private
-   */
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.courseService.findOne(+id);
@@ -57,12 +39,18 @@ export class CourseController {
     return this.courseService.allCourseReviews(slug);
   }
 
-  /**
-   * @desc   update a course  only by creator or admin
-   * @route  /v1/course/:id
-   * @method PATCH
-   * @access private
-   */
+  @UseGuards(AuthGuard)
+  @Post('enroll/:slug')
+  enrollCourse(@Request() req, @Param('slug') slug: string) {
+    return this.courseService.enrollCourse(req, slug);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('unenroll/:slug')
+  unEnrollCourse(@Request() req, @Param('slug') slug: string) {
+    return this.courseService.unEnrollCourse(req, slug);
+  }
+
   @UseGuards(AuthGuard)
   @Patch(':id')
   update(
@@ -73,12 +61,6 @@ export class CourseController {
     return this.courseService.update(req, +id, updateCourseDto);
   }
 
-  /**
-   * @desc   delete a course only by creator or admin
-   * @route  /v1/course/:id
-   * @method DELETE
-   * @access private
-   */
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Request() req, @Param('id') id: string) {
