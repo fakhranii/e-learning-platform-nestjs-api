@@ -20,16 +20,27 @@ export class AuthService {
   async userSignIn(
     username: string,
     password: string,
-  ): Promise<{ access_token: string }> {
+  ): Promise<{ user: User; token: string }> {
     const user = await this.userRepo.findOne({
       where: { username },
-      select: ['password', 'username', 'email', 'isAdmin', 'id'],
+      select: [
+        'password',
+        'username',
+        'email',
+        'isAdmin',
+        'id',
+        'avatar',
+        'fullName',
+        'createdAt',
+      ],
     });
     const matched = comparePasswords(password, user.password);
+    delete user.password;
     if (matched) {
       const payload = { id: user.id, username: user.username }; // key : value
       return {
-        access_token: await this.jwtService.signAsync(payload),
+        user,
+        token: await this.jwtService.signAsync(payload),
       };
     }
   }
@@ -37,11 +48,30 @@ export class AuthService {
   async instructorSignIn(
     username: string,
     password: string,
-  ): Promise<{ access_token: string }> {
-    const instructor = await this.instructorRepo.findOneBy({ username });
-    const payload = { id: instructor.id, username: instructor.username };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+  ): Promise<{ instructor: Instructor; token: string }> {
+    const instructor = await this.instructorRepo.findOne({
+      where: { username },
+      select: [
+        'username',
+        'password',
+        'isInstructor',
+        'coursesCount',
+        'fullName',
+        'studentsCount',
+        'avatar',
+        'ratingsCount',
+        'instructorDescription',
+        'createdAt',
+      ],
+    });
+    const matched = comparePasswords(password, instructor.password);
+    delete instructor.password;
+    if (matched) {
+      const payload = { id: instructor.id, username: instructor.username };
+      return {
+        instructor,
+        token: await this.jwtService.signAsync(payload),
+      };
+    }
   }
 }

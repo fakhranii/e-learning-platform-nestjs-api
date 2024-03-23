@@ -23,7 +23,7 @@ export class Instructor {
   @Column({ length: 30, nullable: true })
   fullName: string;
 
-  @Column({ length: 30, nullable: true })
+  @Column({ nullable: true })
   avatar: string;
 
   @Column({ unique: true, length: 30 })
@@ -40,6 +40,9 @@ export class Instructor {
 
   @Column({ default: true })
   isInstructor: boolean;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
   @Column({ select: false })
   password: string;
