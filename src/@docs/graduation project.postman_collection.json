@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"ali zakria ahmed\",\r\n    \"username\": \"ahmeeedder\",\r\n    \"email\": \"Ahmedrd@gmail.com\",\r\n    \"password\": \"ahmmremmed\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"rami\",\r\n    \"username\": \"rami\",\r\n    \"email\": \"rami@gmail.com\",\r\n    \"password\": \"rami\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -95,7 +95,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJtb3N0YWZhIiwiaWF0IjoxNzEwMTI4NzQwLCJleHAiOjE3MTAxMzIzNDB9.KWl8cV443nDuim6ntmzYxtD-LxCB5QlDNirmbkhwvKg",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExMTkzMjI1LCJleHAiOjE3MTExOTY4MjV9.S-WYxrVjbs4DdL6t0TFmO49d-NIL5cfGyeqxw2NDAr0",
 									"type": "string"
 								}
 							]
@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad date\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -483,89 +483,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "get all course review",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/courses/reviews/python-in-arabic",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"courses",
-								"reviews",
-								"python-in-arabic"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "enroll course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/courses/enroll/php-in-arabic",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"courses",
-								"enroll",
-								"php-in-arabic"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "unEnroll course",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/courses/unenroll/php-in-arabic",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"courses",
-								"unenroll",
-								"php-in-arabic"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -645,36 +562,6 @@
 								"v1",
 								"instructors",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "all instrucor courses",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMTIwNzYwLCJleHAiOjE3MTAxMjQzNjB9.srhXgwZrRdPVWyVCcR8XoR8-a8LvPKgjQZ37sEEWOQQ",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/v1/instructors/courses",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"instructors",
-								"courses"
 							]
 						}
 					},
@@ -761,7 +648,7 @@
 			]
 		},
 		{
-			"name": "course review",
+			"name": "review",
 			"item": [
 				{
 					"name": "create an review",
@@ -875,6 +762,134 @@
 								"v1",
 								"reviews",
 								"python-in-arabic"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "instructor/courses",
+			"item": [
+				{
+					"name": "all instrucor courses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMTIwNzYwLCJleHAiOjE3MTAxMjQzNjB9.srhXgwZrRdPVWyVCcR8XoR8-a8LvPKgjQZ37sEEWOQQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/instructors/courses",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"instructors",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "course/reviews",
+			"item": [
+				{
+					"name": "get all course review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/courses/python-in-arabic/reviews",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"python-in-arabic",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "course enroll",
+			"item": [
+				{
+					"name": "enroll course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/courses/php-in-arabic/enroll",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"php-in-arabic",
+								"enroll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unEnroll course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/courses/php-in-arabic/unenroll",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"php-in-arabic",
+								"unenroll"
 							]
 						}
 					},

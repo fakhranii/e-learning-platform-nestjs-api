@@ -34,19 +34,19 @@ export class CourseController {
     return this.courseService.findOne(+id);
   }
 
-  @Get('reviews/:slug')
+  @Get('/:slug/reviews')
   allCourseReviews(@Param('slug') slug: string) {
     return this.courseService.allCourseReviews(slug);
   }
 
   @UseGuards(AuthGuard)
-  @Post('enroll/:slug')
+  @Post('/:slug/enroll')
   enrollCourse(@Request() req, @Param('slug') slug: string) {
     return this.courseService.enrollCourse(req, slug);
   }
 
   @UseGuards(AuthGuard)
-  @Delete('unenroll/:slug')
+  @Delete('/:slug/unenroll')
   unEnrollCourse(@Request() req, @Param('slug') slug: string) {
     return this.courseService.unEnrollCourse(req, slug);
   }
