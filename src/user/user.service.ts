@@ -10,7 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 
 @Injectable()
@@ -31,7 +30,6 @@ export class UserService {
     return user;
   }
 
- 
   async findAll(): Promise<User[]> {
     return this.userRepo.find(); // find all
   }
@@ -40,7 +38,6 @@ export class UserService {
     return this.userRepo.findOne({ where: { id }, relations: ['courses'] });
   }
 
-  @UseGuards(AuthGuard) // should have token to pass
   async update(req: any, updateUserDto: UpdateUserDto): Promise<User> {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });

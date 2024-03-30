@@ -83,19 +83,27 @@ export class CourseService {
     throw new HttpException(`It's not enrolled`, HttpStatus.METHOD_NOT_ALLOWED);
   }
 
-  async allCourseReviews(slug: string): Promise<Review[]> {
+  async allCourseReviews(
+    slug: string,
+  ): Promise<{ AllReviews: Review[]; course: Course }> {
     const course = await this.courseRepo.findOne({
       where: { slug },
       relations: ['reviews'],
     });
-    return course.reviews;
+    const AllReviews = course.reviews;
+    return {
+      course,
+      AllReviews,
+    };
   }
 
   async findAll(): Promise<Course[]> {
     return await this.courseRepo.find();
   }
 
-  async findOne(courseId: number): Promise<object> {
+  async findOne(
+    courseId: number,
+  ): Promise<{ course: Course; ratingsPersentage: string }> {
     const course = await this.courseRepo.findOne({
       where: { id: courseId },
       relations: ['reviews', 'courseCreator'],
