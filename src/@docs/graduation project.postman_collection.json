@@ -17,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"rami\",\r\n    \"username\": \"rami\",\r\n    \"email\": \"rami@gmail.com\",\r\n    \"password\": \"rami\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"ahmed el-hoshy\",\r\n    \"username\": \"elhoshy\",\r\n    \"email\": \"el-hoshy@gmail.com\",\r\n    \"password\": \"el-hoshy\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -207,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"zezo\",\r\n    \"password\": \"zezo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -241,7 +241,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExNzY4NDM4LCJleHAiOjE3MTE3NzIwMzh9.DuURGr7EHFI-zaNxbCG1OH4AfSk5Kgmj88cg-Rgk8eU",
 									"type": "string"
 								}
 							]
@@ -265,7 +265,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/profile",
+							"raw": "localhost:3000/v1/auth/user/profile",
 							"host": [
 								"localhost"
 							],
@@ -273,6 +273,7 @@
 							"path": [
 								"v1",
 								"auth",
+								"user",
 								"profile"
 							]
 						}
@@ -292,7 +293,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAzNTc2LCJleHAiOjE3MTA5MDcxNzZ9.P60KcN4WfWgUPmdVNlOPeDReAWC3rADL8Aw8HVuyFaU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inplem8iLCJpYXQiOjE3MTE3Njc4MDgsImV4cCI6MTcxMTc3MTQwOH0.FFWfjpBmaDw37iKlTpCF4oBibqAb3eD9sElRJkReavU",
 									"type": "string"
 								}
 							]
@@ -301,7 +302,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"css in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
+							"raw": "{\r\n    \"title\": \"PG in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -658,7 +659,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTA0MzY5LCJleHAiOjE3MTA5MDc5Njl9.dPNpA-7szk0INW9xYwDJwazvmvFD_csD34yURRnLEFs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExNzcwMzAyLCJleHAiOjE3MTE3NzM5MDJ9.qhv95g2O6IA7O9zZlXpApS6AgoDiodD1xmws_deHVmc",
 									"type": "string"
 								}
 							]
@@ -675,7 +676,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/php-in-arabic",
+							"raw": "localhost:3000/v1/reviews/PG-in-arabic",
 							"host": [
 								"localhost"
 							],
@@ -683,7 +684,7 @@
 							"path": [
 								"v1",
 								"reviews",
-								"php-in-arabic"
+								"PG-in-arabic"
 							]
 						}
 					},
@@ -808,12 +809,12 @@
 			"name": "course/reviews",
 			"item": [
 				{
-					"name": "get all course review",
+					"name": "get all course reviews",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/python-in-arabic/reviews",
+							"raw": "localhost:3000/v1/courses/PG-in-arabic/reviews",
 							"host": [
 								"localhost"
 							],
@@ -821,7 +822,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"python-in-arabic",
+								"PG-in-arabic",
 								"reviews"
 							]
 						}
