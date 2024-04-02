@@ -23,7 +23,11 @@ export class User {
   fullName: string;
 
   @Column({ unique: true, length: 15 })
+<<<<<<< HEAD
   username: string;
+=======
+  username?: string;
+>>>>>>> 65018de (init)
 
   @Column({ unique: true, length: 30 })
   email: string;

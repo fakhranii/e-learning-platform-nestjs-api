@@ -8,23 +8,36 @@ import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
 import { calculatePercentage } from 'src/common/calculate-percentage';
+<<<<<<< HEAD
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+=======
+>>>>>>> 65018de (init)
 
 @Injectable()
 export class CourseService {
   constructor(
+<<<<<<< HEAD
     private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
+=======
+    @InjectRepository(User) private readonly userRepo: Repository<User>,
+    @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
+    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
+>>>>>>> 65018de (init)
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
   ) {}
 
+<<<<<<< HEAD
   async create(
     req: any,
     createCourseDto: CreateCourseDto,
     file: Express.Multer.File,
   ): Promise<Course> {
+=======
+  async create(req: any, createCourseDto: CreateCourseDto): Promise<Course> {
+>>>>>>> 65018de (init)
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) {
@@ -37,10 +50,13 @@ export class CourseService {
     instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
+<<<<<<< HEAD
     newCourse.thumbnails = (
       await this.cloudinarySrv.uploadFile(file)
     ).secure_url;
 
+=======
+>>>>>>> 65018de (init)
     await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);
   }
@@ -131,7 +147,10 @@ export class CourseService {
     req: any,
     courseId: number,
     updateCourseDto: UpdateCourseDto,
+<<<<<<< HEAD
     file: Express.Multer.File,
+=======
+>>>>>>> 65018de (init)
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
@@ -143,11 +162,14 @@ export class CourseService {
     }
     const course = await this.courseRepo.findOneBy({ id: courseId });
     Object.assign(course, updateCourseDto);
+<<<<<<< HEAD
     if (file) {
       course.thumbnails = (
         await this.cloudinarySrv.uploadFile(file)
       ).secure_url;
     }
+=======
+>>>>>>> 65018de (init)
     return await this.courseRepo.save(course);
   }
 
@@ -162,6 +184,7 @@ export class CourseService {
     }
     return this.courseRepo.delete(courseId);
   }
+<<<<<<< HEAD
 
   async removeThumbnail(req: any, courseId: number) {
     const { id } = req.user;
@@ -176,4 +199,6 @@ export class CourseService {
     course.thumbnails = null;
     return await this.courseRepo.save(course);
   }
+=======
+>>>>>>> 65018de (init)
 }
