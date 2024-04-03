@@ -33,7 +33,9 @@ export class UserService {
 
     const user = new User();
     Object.assign(user, createUserDto);
-    user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    if (file) {
+      user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    }
     await this.userRepo.save(user);
     delete user.password;
     return user;

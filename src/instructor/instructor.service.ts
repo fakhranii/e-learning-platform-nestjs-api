@@ -25,7 +25,11 @@ export class InstructorService {
     }
     const instructor = new Instructor();
     Object.assign(instructor, createInstructorDto);
-    instructor.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    if (file) {
+      instructor.avatar = (
+        await this.cloudinarySrv.uploadFile(file)
+      ).secure_url;
+    }
     await this.instructorRepo.save(instructor);
     delete instructor.password;
     return instructor;
