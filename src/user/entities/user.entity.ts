@@ -23,7 +23,7 @@ export class User {
   fullName: string;
 
   @Column({ unique: true, length: 15 })
-  username?: string;
+  username: string;
 
   @Column({ unique: true, length: 30 })
   email: string;

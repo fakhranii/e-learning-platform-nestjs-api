@@ -5,9 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Course, Instructor])], //* to use it as repo
+  imports: [
+    CloudinaryModule,
+    TypeOrmModule.forFeature([User, Course, Instructor]),
+  ], //* to use it as repo
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],

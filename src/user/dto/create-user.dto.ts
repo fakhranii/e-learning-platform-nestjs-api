@@ -15,4 +15,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   fullName: string;
+
+  // file: Express.Multer.File;
 }

@@ -4,17 +4,29 @@ import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { Instructor } from './entities/instructor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class InstructorService {
   constructor(
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
+    private readonly cloudinarySrv: CloudinaryService,
   ) {}
-  async create(createInstructorDto: CreateInstructorDto): Promise<Instructor> {
-    const newInstructor = new Instructor();
-    Object.assign(newInstructor, createInstructorDto);
-    const instructor = await this.instructorRepo.save(newInstructor);
+  async create(
+    createInstructorDto: CreateInstructorDto,
+    file: Express.Multer.File,
+  ): Promise<Instructor | string> {
+    const existingInstructor = await this.instructorRepo.findOne({
+      where: { email: createInstructorDto.email },
+    });
+    if (existingInstructor) {
+      return 'Instructor already exists';
+    }
+    const instructor = new Instructor();
+    Object.assign(instructor, createInstructorDto);
+    instructor.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    await this.instructorRepo.save(instructor);
     delete instructor.password;
     return instructor;
   }

@@ -11,20 +11,33 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryResponse } from 'src/cloudinary/cloudinary-response';
 
 @Injectable()
 export class UserService {
   constructor(
-    // oop - first thing run in the file
+    private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(
+    createUserDto: CreateUserDto,
+    file: Express.Multer.File,
+  ): Promise<User | string> {
+    const existingUser = await this.userRepo.findOne({
+      where: { email: createUserDto.email },
+    });
+
+    if (existingUser) {
+      return 'User already exists';
+    }
     const user = new User();
     Object.assign(user, createUserDto);
+    user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
     await this.userRepo.save(user);
     delete user.password;
     return user;

@@ -7,9 +7,13 @@ import { Course } from './entities/course.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
+import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Instructor, Course, Review])],
+  imports: [
+    CloudinaryModule,
+    TypeOrmModule.forFeature([User, Instructor, Course, Review]),
+  ],
   controllers: [CourseController],
   providers: [CourseService, UserService],
 })

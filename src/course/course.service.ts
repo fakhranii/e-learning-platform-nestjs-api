@@ -8,18 +8,23 @@ import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
 import { calculatePercentage } from 'src/common/calculate-percentage';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class CourseService {
   constructor(
+    private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
-    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
   ) {}
 
-  async create(req: any, createCourseDto: CreateCourseDto): Promise<Course> {
+  async create(
+    req: any,
+    createCourseDto: CreateCourseDto,
+    file: Express.Multer.File,
+  ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) {
@@ -32,6 +37,8 @@ export class CourseService {
     instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
+    newCourse.thumbnails = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+
     await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);
   }

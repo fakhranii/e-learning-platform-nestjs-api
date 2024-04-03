@@ -5,6 +5,7 @@ import { CourseModule } from './course/course.module';
 import { AuthModule } from './auth/auth.module';
 import { ReviewModule } from './review/review.module';
 import { InstructorModule } from './instructor/instructor.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   //? app module is the root module
@@ -17,6 +18,7 @@ import { InstructorModule } from './instructor/instructor.module';
     AuthModule,
     ReviewModule,
     InstructorModule,
+    CloudinaryModule,
   ],
 })
 export class AppModule {}
