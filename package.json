@@ -1,8 +1,8 @@
 {
-  "name": "graduation-project",
+  "name": "educational-platform-nestjs-api",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Ziad el-fakhrany",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

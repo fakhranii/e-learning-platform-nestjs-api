@@ -16,13 +16,34 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"ahmed el-hoshy\",\r\n    \"username\": \"elhoshy\",\r\n    \"email\": \"el-hoshy@gmail.com\",\r\n    \"password\": \"el-hoshy\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1eef1528-5260-4de0-a4f1-beee12d9938c"
+								},
+								{
+									"key": "fullName",
+									"value": "Mustafa ashraf",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "mustafa",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mustafa@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mustafa",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "localhost:3000/v1/users",
@@ -95,7 +116,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExMTkzMjI1LCJleHAiOjE3MTExOTY4MjV9.S-WYxrVjbs4DdL6t0TFmO49d-NIL5cfGyeqxw2NDAr0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExMDgyNCwiZXhwIjoxNzEyMTE0NDI0fQ.QaFMBaM2SJkbnyDUjUxquGW0wvB6UG0bfzJH2Eyq84g",
 									"type": "string"
 								}
 							]
@@ -104,7 +125,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"fullName\": \"Mustafa ali\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,6 +185,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete the user avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExNTgxOCwiZXhwIjoxNzEyMTE5NDE4fQ.WvKkWLkOdJm7jfQrJYl-tSU1MKMCGP-aTpaC5iolatc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/v1/users/avatar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"users",
+								"avatar"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -177,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"mustafa\",\r\n    \"password\": \"mustafa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -484,6 +544,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete the course thumbnail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\": \"ziad\",\r\n    \"courseDescription\": \"this course is talking dealing with git & github\",\r\n    \"courseType\": \"backend development\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/v1/courses/5/thumbnail",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"courses",
+								"5",
+								"thumbnail"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -641,6 +741,45 @@
 								"v1",
 								"instructors",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete the instructor avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzId1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJmYSIsImlhdCI6MTcxMDEyODIxNywiZXhwIjoxNzEwMTMxODE3fQ.rcEpWY9tkMt4OJCyM8ohLy0BTVK8jjutkJZ3O-wYXJo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/v1/instructors/avatar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"instructors",
+								"avatar"
 							]
 						}
 					},

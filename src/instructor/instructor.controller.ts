@@ -47,14 +47,25 @@ export class InstructorController {
   }
 
   @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
   @Patch()
-  update(@Request() req, @Body() updateInstructorDto: UpdateInstructorDto) {
-    return this.instructorService.update(req, updateInstructorDto);
+  update(
+    @Request() req,
+    @Body() updateInstructorDto: UpdateInstructorDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.instructorService.update(req, updateInstructorDto, file);
   }
 
   @UseGuards(AuthGuard)
   @Delete()
   remove(@Request() req) {
     return this.instructorService.remove(req);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('/avatar')
+  removeAvatar(@Request() req) {
+    return this.instructorService.removeAvatar(req);
   }
 }

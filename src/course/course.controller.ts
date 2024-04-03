@@ -19,9 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('v1/courses')
 export class CourseController {
-  constructor(
-    private readonly courseService: CourseService,
-  ) {}
+  constructor(private readonly courseService: CourseService) {}
 
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
@@ -62,18 +60,26 @@ export class CourseController {
   }
 
   @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
   @Patch(':id')
   update(
     @Request() req,
     @Param('id') id: string,
     @Body() updateCourseDto: UpdateCourseDto,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.courseService.update(req, +id, updateCourseDto);
+    return this.courseService.update(req, +id, updateCourseDto, file);
   }
 
   @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Request() req, @Param('id') id: string) {
     return this.courseService.remove(req, +id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete(':id/thumbnail')
+  removeThumbnail(@Request() req, @Param('id') id: string) {
+    return this.courseService.removeThumbnail(req, +id);
   }
 }

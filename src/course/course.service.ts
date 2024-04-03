@@ -37,7 +37,9 @@ export class CourseService {
     instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
-    newCourse.thumbnails = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    newCourse.thumbnails = (
+      await this.cloudinarySrv.uploadFile(file)
+    ).secure_url;
 
     await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);
@@ -129,6 +131,7 @@ export class CourseService {
     req: any,
     courseId: number,
     updateCourseDto: UpdateCourseDto,
+    file: Express.Multer.File,
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
@@ -140,6 +143,11 @@ export class CourseService {
     }
     const course = await this.courseRepo.findOneBy({ id: courseId });
     Object.assign(course, updateCourseDto);
+    if (file) {
+      course.thumbnails = (
+        await this.cloudinarySrv.uploadFile(file)
+      ).secure_url;
+    }
     return await this.courseRepo.save(course);
   }
 
@@ -153,5 +161,19 @@ export class CourseService {
       );
     }
     return this.courseRepo.delete(courseId);
+  }
+
+  async removeThumbnail(req: any, courseId: number) {
+    const { id } = req.user;
+    const instructor = await this.instructorRepo.findOneBy({ id });
+    if (!instructor.isInstructor) {
+      throw new HttpException(
+        'you are not allowed',
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
+    }
+    const course = await this.courseRepo.findOneBy({ id: courseId });
+    course.thumbnails = null;
+    return await this.courseRepo.save(course);
   }
 }

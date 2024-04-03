@@ -16,12 +16,12 @@ export class InstructorService {
   async create(
     createInstructorDto: CreateInstructorDto,
     file: Express.Multer.File,
-  ): Promise<Instructor | string> {
+  ): Promise<Instructor> {
     const existingInstructor = await this.instructorRepo.findOne({
       where: { email: createInstructorDto.email },
     });
     if (existingInstructor) {
-      return 'Instructor already exists';
+      throw new Error('Instructor already exists');
     }
     const instructor = new Instructor();
     Object.assign(instructor, createInstructorDto);
@@ -53,6 +53,7 @@ export class InstructorService {
   async update(
     req: any,
     updateInstructorDto: UpdateInstructorDto,
+    file: Express.Multer.File,
   ): Promise<Instructor> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
@@ -60,6 +61,11 @@ export class InstructorService {
       throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
     }
     Object.assign(instructor, updateInstructorDto);
+    if (file) {
+      instructor.avatar = (
+        await this.cloudinarySrv.uploadFile(file)
+      ).secure_url;
+    }
     return await this.instructorRepo.save(instructor);
   }
 
@@ -70,5 +76,15 @@ export class InstructorService {
       throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
     }
     return await this.instructorRepo.delete(id);
+  }
+
+  async removeAvatar(req: any) {
+    const { id } = req.user;
+    const instructor = await this.instructorRepo.findOneBy({ id });
+    if (!instructor.isInstructor) {
+      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+    }
+    instructor.avatar = null;
+    return await this.instructorRepo.save(instructor);
   }
 }

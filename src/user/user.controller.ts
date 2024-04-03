@@ -21,15 +21,9 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 @Controller('v1/users') //? our request url
 export class UserController {
   constructor(
-    private readonly userService: UserService,
+    private readonly userSrv: UserService,
     private readonly cloudinarySrv: CloudinaryService,
   ) {}
-
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  upload(@UploadedFile() file: Express.Multer.File) {
-    return this.cloudinarySrv.uploadFile(file);
-  }
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
@@ -37,28 +31,39 @@ export class UserController {
     @UploadedFile() file: Express.Multer.File,
     @Body() createUserDto: CreateUserDto,
   ) {
-    return this.userService.create(createUserDto, file);
+    return this.userSrv.create(createUserDto, file);
   }
 
   @Get()
   findAll() {
-    return this.userService.findAll();
+    return this.userSrv.findAll();
   }
   // @UseGuards(AuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userSrv.findOne(+id);
   }
 
   @UseGuards(AuthGuard)
+  @UseInterceptors(FileInterceptor('file'))
   @Patch()
-  update(@Request() req, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(req, updateUserDto);
+  update(
+    @Request() req,
+    @Body() updateUserDto: UpdateUserDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.userSrv.update(req, updateUserDto, file);
   }
 
   @UseGuards(AuthGuard)
   @Delete()
   remove(@Request() req) {
-    return this.userService.remove(req);
+    return this.userSrv.remove(req);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('/avatar')
+  removeAvatar(@Request() req) {
+    return this.userSrv.removeAvatar(req);
   }
 }
