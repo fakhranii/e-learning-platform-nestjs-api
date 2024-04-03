@@ -5,10 +5,7 @@ import { CourseModule } from './course/course.module';
 import { AuthModule } from './auth/auth.module';
 import { ReviewModule } from './review/review.module';
 import { InstructorModule } from './instructor/instructor.module';
-<<<<<<< HEAD
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
-=======
->>>>>>> 65018de (init)
 
 @Module({
   //? app module is the root module
@@ -21,10 +18,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     AuthModule,
     ReviewModule,
     InstructorModule,
-<<<<<<< HEAD
     CloudinaryModule,
-=======
->>>>>>> 65018de (init)
   ],
 })
 export class AppModule {}
