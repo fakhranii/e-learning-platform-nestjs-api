@@ -37,7 +37,11 @@ export class AuthService {
     const matched = comparePasswords(password, user.password);
     delete user.password;
     if (matched) {
-      const payload = { id: user.id, username: user.username }; // key : value
+      const payload = {
+        id: user.id,
+        username: user.username,
+        isAdmin: user.isAdmin,
+      }; // key : value
       return {
         user,
         token: await this.jwtService.signAsync(payload),
@@ -67,11 +71,31 @@ export class AuthService {
     const matched = comparePasswords(password, instructor.password);
     delete instructor.password;
     if (matched) {
-      const payload = { id: instructor.id, username: instructor.username };
+      const payload = {
+        id: instructor.id,
+        username: instructor.username,
+        isInstructor: instructor.isInstructor,
+      };
       return {
         instructor,
         token: await this.jwtService.signAsync(payload),
       };
+    }
+  }
+
+  async currentUser(req: any) {
+    const { id, isInstructor, isAdmin } = req.user;
+    if (isInstructor) {
+      const instructor = await this.instructorRepo.findOneBy({ id });
+      return {
+        instructor: instructor,
+      };
+    } else if (isAdmin === false) {
+      const user = await this.userRepo.findOneBy({ id });
+      return { user: user };
+    } else if (isAdmin === true) {
+      const user = await this.userRepo.findOneBy({ id });
+      return { admin: user };
     }
   }
 }

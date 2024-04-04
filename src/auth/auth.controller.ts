@@ -37,14 +37,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('user/profile')
   getUserProfile(@Request() req) {
-    return req.user;
+    return this.authService.currentUser(req);
   }
 
-  @UseGuards(AuthGuard)
-  @Get('instructor/profile')
-  getInstructor(@Request() req) {
-    // console.log(req);]
-    const ttes = req.instructor;
-    return ttes;
-  }
 }
