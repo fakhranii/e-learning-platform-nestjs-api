@@ -16,8 +16,6 @@ export class UserService {
     private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
-    @InjectRepository(Instructor)
-    private readonly instructorRepo: Repository<Instructor>,
   ) {}
 
   async create(
