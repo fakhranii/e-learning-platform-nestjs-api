@@ -10,7 +10,6 @@ import { Instructor } from 'src/instructor/entities/instructor.entity';
 @Injectable()
 export class AuthService {
   constructor(
-    private userSrv: UserService,
     private jwtService: JwtService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Instructor)
@@ -39,12 +38,11 @@ export class AuthService {
     if (matched) {
       const payload = {
         id: user.id,
-        username: user.username,
         isAdmin: user.isAdmin,
       }; // key : value
       return {
         user,
-        token: await this.jwtService.signAsync(payload),
+        token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }),
       };
     }
   }
@@ -72,9 +70,8 @@ export class AuthService {
     delete instructor.password;
     if (matched) {
       const payload = {
-        id: instructor.id,
-        username: instructor.username,
         isInstructor: instructor.isInstructor,
+        id: instructor.id,
       };
       return {
         instructor,
@@ -88,14 +85,14 @@ export class AuthService {
     if (isInstructor) {
       const instructor = await this.instructorRepo.findOneBy({ id });
       return {
-        instructor: instructor,
+        user: instructor,
       };
     } else if (isAdmin === false) {
       const user = await this.userRepo.findOneBy({ id });
       return { user: user };
     } else if (isAdmin === true) {
       const user = await this.userRepo.findOneBy({ id });
-      return { admin: user };
+      return { user: user };
     }
   }
 }
