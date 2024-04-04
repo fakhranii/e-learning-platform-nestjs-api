@@ -15,4 +15,7 @@ export class CreateInstructorDto {
   @IsNotEmpty()
   @IsString()
   password: string;
+
+  @IsString()
+  avatar: string;
 }

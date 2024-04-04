@@ -37,9 +37,12 @@ export class CourseService {
     instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
-    newCourse.thumbnails = (
-      await this.cloudinarySrv.uploadFile(file)
-    ).secure_url;
+
+    if (file) {
+      newCourse.thumbnails = (
+        await this.cloudinarySrv.uploadFile(file)
+      ).secure_url;
+    }
 
     await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);

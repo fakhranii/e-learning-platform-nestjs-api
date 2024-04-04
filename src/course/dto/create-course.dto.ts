@@ -18,4 +18,7 @@ export class CreateCourseDto {
   @IsNotEmpty()
   @IsString()
   courseType: string;
+
+  @IsString()
+  thumbnails: string;
 }

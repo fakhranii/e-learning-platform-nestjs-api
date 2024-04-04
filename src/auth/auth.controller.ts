@@ -40,13 +40,4 @@ export class AuthController {
   getUserProfile(@Request() req) {
     return this.authService.currentUser(req);
   }
-
-  @Delete('user/signout')
-  async logout(@Request() req) {
-    const token = req.headers.authorization.replaceAll(
-      req.headers.authorization,
-      'it became a invalid token',
-    );
-    return { message: 'Signout successful', token };
-  }
 }
