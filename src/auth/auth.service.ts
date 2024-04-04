@@ -80,7 +80,7 @@ export class AuthService {
     }
   }
 
-  async currentUser(req: any) {
+  async currentUser(req: any): Promise<{ user: User | Instructor }> {
     const { id, isInstructor, isAdmin } = req.user;
     if (isInstructor) {
       const instructor = await this.instructorRepo.findOneBy({ id });
