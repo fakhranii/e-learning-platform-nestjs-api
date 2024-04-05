@@ -5,10 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
-import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import * as request from 'supertest';
-import { Request } from 'express';
 
 @Injectable()
 export class UserService {

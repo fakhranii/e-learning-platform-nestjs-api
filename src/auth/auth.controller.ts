@@ -16,7 +16,6 @@ import { SignInDto } from './dto/signin.dto';
 @Controller('v1/auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-
   @HttpCode(HttpStatus.OK)
   @Post('user/signin')
   userSignIn(@Body() signInDto: SignInDto) {

@@ -32,24 +32,21 @@ export class AuthService {
         'createdAt',
       ],
     });
-    if (user) {
-      const matched = comparePasswords(signInDto.password, user?.password);
-      delete user.password;
-      if (matched) {
-        const payload = {
-          id: user.id,
-          isAdmin: user.isAdmin,
-        }; // key : valu
-        return {
-          user,
-          token: await this.jwtService.signAsync(payload, { expiresIn: '1h' }),
-        };
-      }
+
+    if (!user) throw this.unauthorizedException;
+    const matched = comparePasswords(signInDto.password, user?.password);
+    if (!matched) throw this.unauthorizedException;
+    delete user.password;
+    if (matched) {
+      const payload = {
+        id: user.id,
+        isAdmin: user.isAdmin,
+      }; // key : valu
+      return {
+        user,
+        token: await this.jwtService.signAsync(payload, { expiresIn: '1h' }),
+      };
     }
-    throw new HttpException(
-      'Invalid username or password',
-      HttpStatus.UNAUTHORIZED,
-    );
   }
 
   async instructorSignIn(
@@ -70,24 +67,21 @@ export class AuthService {
         'createdAt',
       ],
     });
-    if (instructor) {
-      const matched = comparePasswords(signInDto.password, instructor.password);
-      delete instructor.password;
-      if (matched) {
-        const payload = {
-          isInstructor: instructor.isInstructor,
-          id: instructor.id,
-        };
-        return {
-          user: instructor,
-          token: await this.jwtService.signAsync(payload),
-        };
-      }
+
+    if (!instructor) throw this.unauthorizedException;
+    const matched = comparePasswords(signInDto.password, instructor.password);
+    if (!matched) throw this.unauthorizedException;
+    delete instructor.password;
+    if (matched) {
+      const payload = {
+        isInstructor: instructor.isInstructor,
+        id: instructor.id,
+      };
+      return {
+        user: instructor,
+        token: await this.jwtService.signAsync(payload),
+      };
     }
-    throw new HttpException(
-      'Invalid username or password',
-      HttpStatus.UNAUTHORIZED,
-    );
   }
 
   async currentUser(req: any): Promise<{ user: User | Instructor }> {
@@ -105,4 +99,9 @@ export class AuthService {
       return { user: user };
     }
   }
+
+  unauthorizedException = new HttpException(
+    'username or password is wrong',
+    HttpStatus.METHOD_NOT_ALLOWED,
+  );
 }
