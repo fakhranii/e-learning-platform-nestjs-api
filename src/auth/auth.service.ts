@@ -1,11 +1,11 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { comparePasswords } from './bcrypt/bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { SignInDto } from './dto/signin.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,11 +17,10 @@ export class AuthService {
   ) {}
 
   async userSignIn(
-    username: string,
-    password: string,
+    signInDto: SignInDto,
   ): Promise<{ user: User; token: string }> {
     const user = await this.userRepo.findOne({
-      where: { username },
+      where: { username: signInDto.username },
       select: [
         'password',
         'username',
@@ -33,26 +32,31 @@ export class AuthService {
         'createdAt',
       ],
     });
-    const matched = comparePasswords(password, user.password);
-    delete user.password;
-    if (matched) {
-      const payload = {
-        id: user.id,
-        isAdmin: user.isAdmin,
-      }; // key : value
-      return {
-        user,
-        token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }),
-      };
+    if (user) {
+      const matched = comparePasswords(signInDto.password, user?.password);
+      delete user.password;
+      if (matched) {
+        const payload = {
+          id: user.id,
+          isAdmin: user.isAdmin,
+        }; // key : valu
+        return {
+          user,
+          token: await this.jwtService.signAsync(payload, { expiresIn: '1h' }),
+        };
+      }
     }
+    throw new HttpException(
+      'Invalid username or password',
+      HttpStatus.UNAUTHORIZED,
+    );
   }
 
   async instructorSignIn(
-    username: string,
-    password: string,
-  ): Promise<{ instructor: Instructor; token: string }> {
+    signInDto: SignInDto,
+  ): Promise<{ user: Instructor; token: string }> {
     const instructor = await this.instructorRepo.findOne({
-      where: { username },
+      where: { username: signInDto.username },
       select: [
         'username',
         'password',
@@ -66,18 +70,24 @@ export class AuthService {
         'createdAt',
       ],
     });
-    const matched = comparePasswords(password, instructor.password);
-    delete instructor.password;
-    if (matched) {
-      const payload = {
-        isInstructor: instructor.isInstructor,
-        id: instructor.id,
-      };
-      return {
-        instructor,
-        token: await this.jwtService.signAsync(payload),
-      };
+    if (instructor) {
+      const matched = comparePasswords(signInDto.password, instructor.password);
+      delete instructor.password;
+      if (matched) {
+        const payload = {
+          isInstructor: instructor.isInstructor,
+          id: instructor.id,
+        };
+        return {
+          user: instructor,
+          token: await this.jwtService.signAsync(payload),
+        };
+      }
     }
+    throw new HttpException(
+      'Invalid username or password',
+      HttpStatus.UNAUTHORIZED,
+    );
   }
 
   async currentUser(req: any): Promise<{ user: User | Instructor }> {
