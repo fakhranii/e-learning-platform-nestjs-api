@@ -9,7 +9,7 @@ import { Instructor } from 'src/instructor/entities/instructor.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Instructor]),
+    TypeOrmModule.forFeature([User, Instructor]), // db repos
     UserModule,
     JwtModule.register({
       global: true,

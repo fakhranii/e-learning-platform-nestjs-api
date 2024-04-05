@@ -1,11 +1,11 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { comparePasswords } from './bcrypt/bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { SignInDto } from './dto/signin.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,11 +17,10 @@ export class AuthService {
   ) {}
 
   async userSignIn(
-    username: string,
-    password: string,
+    signInDto: SignInDto,
   ): Promise<{ user: User; token: string }> {
     const user = await this.userRepo.findOne({
-      where: { username },
+      where: { username: signInDto.username },
       select: [
         'password',
         'username',
@@ -33,26 +32,28 @@ export class AuthService {
         'createdAt',
       ],
     });
-    const matched = comparePasswords(password, user.password);
+
+    if (!user) throw this.unauthorizedException;
+    const matched = comparePasswords(signInDto.password, user?.password);
+    if (!matched) throw this.unauthorizedException;
     delete user.password;
     if (matched) {
       const payload = {
         id: user.id,
         isAdmin: user.isAdmin,
-      }; // key : value
+      }; // key : valu
       return {
         user,
-        token: await this.jwtService.signAsync(payload, { expiresIn: '7d' }),
+        token: await this.jwtService.signAsync(payload, { expiresIn: '1h' }),
       };
     }
   }
 
   async instructorSignIn(
-    username: string,
-    password: string,
-  ): Promise<{ instructor: Instructor; token: string }> {
+    signInDto: SignInDto,
+  ): Promise<{ user: Instructor; token: string }> {
     const instructor = await this.instructorRepo.findOne({
-      where: { username },
+      where: { username: signInDto.username },
       select: [
         'username',
         'password',
@@ -66,7 +67,10 @@ export class AuthService {
         'createdAt',
       ],
     });
-    const matched = comparePasswords(password, instructor.password);
+
+    if (!instructor) throw this.unauthorizedException;
+    const matched = comparePasswords(signInDto.password, instructor.password);
+    if (!matched) throw this.unauthorizedException;
     delete instructor.password;
     if (matched) {
       const payload = {
@@ -74,7 +78,7 @@ export class AuthService {
         id: instructor.id,
       };
       return {
-        instructor,
+        user: instructor,
         token: await this.jwtService.signAsync(payload),
       };
     }
@@ -95,4 +99,9 @@ export class AuthService {
       return { user: user };
     }
   }
+
+  unauthorizedException = new HttpException(
+    'username or password is wrong',
+    HttpStatus.METHOD_NOT_ALLOWED,
+  );
 }
