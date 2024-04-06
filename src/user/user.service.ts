@@ -4,15 +4,15 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { Course } from 'src/course/entities/course.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Exceptions } from 'src/common/Exceptions';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly cloudinarySrv: CloudinaryService,
+    private readonly exceptions: Exceptions,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
-    @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
   ) {}
 
   async create(
@@ -44,7 +44,7 @@ export class UserService {
       where: { id },
       relations: ['courses'],
     });
-    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    if (!user) throw this.exceptions.userNotFound;
     return user;
   }
 
@@ -55,8 +55,7 @@ export class UserService {
   ): Promise<User> {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-
+    if (!user) throw this.exceptions.userNotFound;
     Object.assign(user, updateUserDto); //  target , source
     if (file) {
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
@@ -74,7 +73,7 @@ export class UserService {
   async removeAvatar(req: any) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    if (!user) throw this.exceptions.userNotFound
     user.avatar = null;
     return await this.userRepo.save(user);
   }

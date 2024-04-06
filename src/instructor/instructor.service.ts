@@ -5,6 +5,7 @@ import { Instructor } from './entities/instructor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Exceptions } from '../common/Exceptions';
 
 @Injectable()
 export class InstructorService {
@@ -12,6 +13,7 @@ export class InstructorService {
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
     private readonly cloudinarySrv: CloudinaryService,
+    private readonly exceptions: Exceptions,
   ) {}
   async create(
     createInstructorDto: CreateInstructorDto,
@@ -45,9 +47,8 @@ export class InstructorService {
       where: { username },
       relations: ['courses'],
     });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     return instructor;
   }
 
@@ -58,9 +59,8 @@ export class InstructorService {
   ): Promise<Instructor> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     Object.assign(instructor, updateInstructorDto);
     if (file) {
       instructor.avatar = (
@@ -73,18 +73,16 @@ export class InstructorService {
   async remove(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     return await this.instructorRepo.delete(id);
   }
 
   async removeAvatar(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     instructor.avatar = null;
     return await this.instructorRepo.save(instructor);
   }

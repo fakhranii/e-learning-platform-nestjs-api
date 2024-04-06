@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { Exceptions } from 'src/common/Exceptions';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
     TypeOrmModule.forFeature([User, Course, Instructor]),
   ], //* to use it as repo
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, Exceptions],
   exports: [UserService],
 })
 export class UserModule {}
