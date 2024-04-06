@@ -8,6 +8,7 @@ import { User } from 'src/user/entities/user.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { Exceptions } from 'src/common/Exceptions';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
     TypeOrmModule.forFeature([User, Instructor, Course, Review]),
   ],
   controllers: [CourseController],
-  providers: [CourseService, UserService],
+  providers: [CourseService, UserService, Exceptions],
 })
 export class CourseModule {}

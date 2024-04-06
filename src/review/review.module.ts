@@ -6,10 +6,11 @@ import { User } from 'src/user/entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Review } from './entities/review.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { Exceptions } from 'src/common/Exceptions';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Course, Review, Instructor])],
   controllers: [ReviewController],
-  providers: [ReviewService],
+  providers: [ReviewService, Exceptions],
 })
 export class ReviewModule {}

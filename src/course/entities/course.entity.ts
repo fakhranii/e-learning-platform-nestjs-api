@@ -27,23 +27,23 @@ export class Course {
   @Column()
   courseLink: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 0 })
   numberOfStudents: number;
 
   @Column({ default: 0 })
   numberOfRatings: number;
 
-  @Column({ type: 'enum', enum: [false, true], default: false })
+  @Column({ default: false })
   isBestSelling: boolean;
 
-  @Column({ length: 50 })
-  whatYouWillLearn: string;
+  @Column({ type: 'varchar', array: true, nullable: true })
+  whatYouWillLearn: string[];
 
   @Column({ default: '85%', length: 6 })
   passPercentage: string;
 
-  @Column({ type: 'simple-array' })
-  prerequisites: string; // before start learn nodejs you should know about js
+  @Column({ type: 'varchar', array: true, nullable: true })
+  prerequisites: string[]; // before start learn nodejs you should know about js
 
   @Column({ type: 'enum', enum: ['Arabic', 'English'], default: 'English' })
   language: string;
@@ -60,11 +60,7 @@ export class Course {
   })
   category: string;
 
-  @Column({
-    type: 'enum',
-    enum: [true, false],
-    default: false,
-  })
+  @Column({ default: false })
   isCertified: boolean;
 
   @Column({

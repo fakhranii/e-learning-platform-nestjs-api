@@ -55,6 +55,7 @@ export class AuthService {
     const instructor = await this.instructorRepo.findOne({
       where: { username: signInDto.username },
       select: [
+        'id',
         'username',
         'password',
         'isInstructor',
@@ -74,8 +75,8 @@ export class AuthService {
     delete instructor.password;
     if (matched) {
       const payload = {
-        isInstructor: instructor.isInstructor,
         id: instructor.id,
+        isInstructor: instructor.isInstructor,
       };
       return {
         user: instructor,

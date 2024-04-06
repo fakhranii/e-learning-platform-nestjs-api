@@ -35,15 +35,9 @@ export class InstructorController {
     return this.instructorService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.instructorService.findOne(+id);
-  }
-
-  @UseGuards(AuthGuard)
-  @Get('courses')
-  findAllUserCourses(@Request() req) {
-    return this.instructorService.findAllInstructorCourses(req);
+  @Get(':username')
+  findOne(@Param('username') username: string) {
+    return this.instructorService.findOne(username);
   }
 
   @UseGuards(AuthGuard)

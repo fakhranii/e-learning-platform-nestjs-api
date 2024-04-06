@@ -5,6 +5,7 @@ import { Instructor } from './entities/instructor.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Exceptions } from '../common/Exceptions';
 
 @Injectable()
 export class InstructorService {
@@ -12,6 +13,7 @@ export class InstructorService {
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
     private readonly cloudinarySrv: CloudinaryService,
+    private readonly exceptions: Exceptions,
   ) {}
   async create(
     createInstructorDto: CreateInstructorDto,
@@ -20,7 +22,7 @@ export class InstructorService {
     const existingInstructor = await this.instructorRepo.findOne({
       where: { email: createInstructorDto.email },
     });
-    if (existingInstructor) {
+    if (existingInstructor.isInstructor) {
       throw new Error('Instructor already exists');
     }
     const instructor = new Instructor();
@@ -35,23 +37,19 @@ export class InstructorService {
     return instructor;
   }
 
-  async findAllInstructorCourses(req: any): Promise<Instructor> {
-    const { id } = req.user;
-    return await this.instructorRepo.findOne({
-      where: { id },
-      relations: ['courses'],
-    });
-  }
-
   async findAll(): Promise<Instructor[]> {
     return await this.instructorRepo.find();
   }
 
-  async findOne(id: number): Promise<Instructor> {
-    return await this.instructorRepo.findOne({
-      where: { id },
+  async findOne(username: string): Promise<Instructor> {
+    console.log(username);
+    const instructor = await this.instructorRepo.findOne({
+      where: { username },
       relations: ['courses'],
     });
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
+    return instructor;
   }
 
   async update(
@@ -61,9 +59,8 @@ export class InstructorService {
   ): Promise<Instructor> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     Object.assign(instructor, updateInstructorDto);
     if (file) {
       instructor.avatar = (
@@ -76,18 +73,16 @@ export class InstructorService {
   async remove(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     return await this.instructorRepo.delete(id);
   }
 
   async removeAvatar(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!instructor.isInstructor)
+      throw this.exceptions.instructorNotFound;
     instructor.avatar = null;
     return await this.instructorRepo.save(instructor);
   }

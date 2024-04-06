@@ -9,10 +9,12 @@ import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
 import { calculatePercentage } from 'src/common/calculate-percentage';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Exceptions } from '../common/Exceptions';
 
 @Injectable()
 export class CourseService {
   constructor(
+    private readonly exceptions: Exceptions,
     private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
@@ -27,16 +29,12 @@ export class CourseService {
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException(
-        'you are not allowed',
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
-    }
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     const newCourse = new Course();
-    instructor.coursesCount++;
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
+    instructor.coursesCount++;
+    await this.instructorRepo.save(instructor);
 
     if (file) {
       newCourse.thumbnails = (
@@ -44,16 +42,18 @@ export class CourseService {
       ).secure_url;
     }
 
-    await this.instructorRepo.save(instructor);
     return await this.courseRepo.save(newCourse);
   }
+
   async enrollCourse(req: any, slug: string) {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
       relations: ['courses'],
     });
+    if (!user) throw this.exceptions.userNotFound;
     const course = await this.courseRepo.findOneBy({ slug });
+    if (!course) throw this.exceptions.courseNotFound;
     const isCourseEnrolled = course.numberOfStudents;
     const courseCreator = course.courseCreator.id;
     const instructor = await this.instructorRepo.findOneBy({
@@ -82,7 +82,9 @@ export class CourseService {
       where: { id },
       relations: ['courses'],
     });
+    if (!user) throw this.exceptions.userNotFound;
     const course = await this.courseRepo.findOneBy({ slug });
+    if (!course) throw this.exceptions.courseNotFound;
     const isCourseEnrolled = course.numberOfStudents;
 
     if (isCourseEnrolled > 0 && isCourseEnrolled !== 0) {
@@ -95,6 +97,16 @@ export class CourseService {
     throw new HttpException(`It's not enrolled`, HttpStatus.METHOD_NOT_ALLOWED);
   }
 
+  async findInstructorCourses(req: any): Promise<Instructor> {
+    const { id } = req.user;
+    const instructor = await this.instructorRepo.findOne({
+      where: { id },
+      relations: ['courses'],
+    });
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    return instructor;
+  }
+
   async allCourseReviews(
     slug: string,
   ): Promise<{ AllReviews: Review[]; course: Course }> {
@@ -102,6 +114,7 @@ export class CourseService {
       where: { slug },
       relations: ['reviews'],
     });
+    if (!course) throw this.exceptions.courseNotFound;
     const AllReviews = course.reviews;
     return {
       course,
@@ -114,19 +127,15 @@ export class CourseService {
   }
 
   async findOne(
-    courseId: number,
+    slug: string,
   ): Promise<{ course: Course; ratingsPersentage: string }> {
     const course = await this.courseRepo.findOne({
-      where: { id: courseId },
+      where: { slug },
       relations: ['reviews', 'courseCreator'],
     });
+    if (!course) throw this.exceptions.courseNotFound;
     const ratingReviews = course.reviews;
-    const ratingsPersentage = calculatePercentage(ratingReviews);
-
-    if (!course) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    }
-
+    const ratingsPersentage = calculatePercentage(ratingReviews) || '0%';
     return { ratingsPersentage, course };
   }
 
@@ -138,13 +147,9 @@ export class CourseService {
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException(
-        'you are not allowed',
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
-    }
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     const course = await this.courseRepo.findOneBy({ id: courseId });
+    if (!course) throw this.exceptions.courseNotFound;
     Object.assign(course, updateCourseDto);
     if (file) {
       course.thumbnails = (
@@ -157,25 +162,16 @@ export class CourseService {
   async remove(req: any, courseId: number) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException(
-        'you are not allowed',
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
-    }
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     return this.courseRepo.delete(courseId);
   }
 
   async removeThumbnail(req: any, courseId: number) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) {
-      throw new HttpException(
-        'you are not allowed',
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
-    }
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     const course = await this.courseRepo.findOneBy({ id: courseId });
+    if (!course) throw this.exceptions.courseNotFound;
     course.thumbnails = null;
     return await this.courseRepo.save(course);
   }
