@@ -27,13 +27,13 @@ export class Course {
   @Column()
   courseLink: string;
 
-  @Column({ nullable: true })
+  @Column({ default:0 })
   numberOfStudents: number;
 
   @Column({ default: 0 })
   numberOfRatings: number;
 
-  @Column({ type: 'enum', enum: [false, true], default: false })
+  @Column({ default: false })
   isBestSelling: boolean;
 
   @Column({ length: 50 })

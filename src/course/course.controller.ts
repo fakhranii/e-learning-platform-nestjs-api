@@ -32,20 +32,27 @@ export class CourseController {
     return this.courseService.create(req, createCourseDto, file);
   }
 
+  @UseGuards(AuthGuard)
+  @Get('instructor')
+  findInstructorCourses(@Request() req) {
+    return this.courseService.findInstructorCourses(req);
+  }
+
   @Get()
   findAll() {
     return this.courseService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courseService.findOne(+id);
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.courseService.findOne(slug);
   }
 
   @Get('/:slug/reviews')
   allCourseReviews(@Param('slug') slug: string) {
     return this.courseService.allCourseReviews(slug);
   }
+
 
   @UseGuards(AuthGuard)
   @Post('/:slug/enroll')

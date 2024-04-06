@@ -22,9 +22,7 @@ export class UserService {
     const existingUser = await this.userRepo.findOne({
       where: { email: createUserDto.email },
     });
-    if (existingUser) {
-      throw new Error('User already exists');
-    }
+    if (existingUser) throw new Error('User already exists');
 
     const user = new User();
     Object.assign(user, createUserDto);
@@ -40,8 +38,14 @@ export class UserService {
     return this.userRepo.find(); // find all
   }
 
-  async findOne(id: number): Promise<User> {
-    return this.userRepo.findOne({ where: { id }, relations: ['courses'] });
+  async findOne(req: any): Promise<User> {
+    const { id } = req.user;
+    const user = this.userRepo.findOne({
+      where: { id },
+      relations: ['courses'],
+    });
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;
   }
 
   async update(
@@ -51,9 +55,8 @@ export class UserService {
   ): Promise<User> {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
     Object.assign(user, updateUserDto); //  target , source
     if (file) {
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
@@ -64,18 +67,14 @@ export class UserService {
   async remove(req: any) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return this.userRepo.delete(id);
   }
 
   async removeAvatar(req: any) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
-    }
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     user.avatar = null;
     return await this.userRepo.save(user);
   }

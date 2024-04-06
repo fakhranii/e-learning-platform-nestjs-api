@@ -20,7 +20,7 @@ export class InstructorService {
     const existingInstructor = await this.instructorRepo.findOne({
       where: { email: createInstructorDto.email },
     });
-    if (existingInstructor) {
+    if (existingInstructor.isInstructor) {
       throw new Error('Instructor already exists');
     }
     const instructor = new Instructor();
@@ -35,23 +35,20 @@ export class InstructorService {
     return instructor;
   }
 
-  async findAllInstructorCourses(req: any): Promise<Instructor> {
-    const { id } = req.user;
-    return await this.instructorRepo.findOne({
-      where: { id },
-      relations: ['courses'],
-    });
-  }
-
   async findAll(): Promise<Instructor[]> {
     return await this.instructorRepo.find();
   }
 
-  async findOne(id: number): Promise<Instructor> {
-    return await this.instructorRepo.findOne({
-      where: { id },
+  async findOne(username: string): Promise<Instructor> {
+    console.log(username);
+    const instructor = await this.instructorRepo.findOne({
+      where: { username },
       relations: ['courses'],
     });
+    if (!instructor.isInstructor) {
+      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
+    }
+    return instructor;
   }
 
   async update(
@@ -62,7 +59,7 @@ export class InstructorService {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
     }
     Object.assign(instructor, updateInstructorDto);
     if (file) {
@@ -77,7 +74,7 @@ export class InstructorService {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
     }
     return await this.instructorRepo.delete(id);
   }
@@ -86,7 +83,7 @@ export class InstructorService {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) {
-      throw new HttpException('Not allowed', HttpStatus.METHOD_NOT_ALLOWED);
+      throw new HttpException('Instructor not found', HttpStatus.NOT_FOUND);
     }
     instructor.avatar = null;
     return await this.instructorRepo.save(instructor);

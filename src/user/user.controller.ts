@@ -18,7 +18,7 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
-@Controller('v1/users') //? our request url
+@Controller('v1/users/') //? our request url
 export class UserController {
   constructor(
     private readonly userSrv: UserService,
@@ -38,10 +38,11 @@ export class UserController {
   findAll() {
     return this.userSrv.findAll();
   }
-  // @UseGuards(AuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userSrv.findOne(+id);
+
+  @UseGuards(AuthGuard)
+  @Get('courses')
+    findOne(@Request() req) {
+    return this.userSrv.findOne(req);
   }
 
   @UseGuards(AuthGuard)

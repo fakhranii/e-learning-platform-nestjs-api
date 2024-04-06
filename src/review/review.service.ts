@@ -24,15 +24,17 @@ export class ReviewService {
   ): Promise<Review> {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
     const course = await this.courseRepo.findOneBy({ slug });
+    if (!course) {
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
+    }
     const courseCreator = course.courseCreator.id;
     const instructor = await this.instructorRepo.findOneBy({
       id: courseCreator,
     });
-
-    if (!user) {
-      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
-    }
     const reviews = new Review();
     reviews.reviewCreator = user;
     reviews.course = course;
@@ -47,7 +49,13 @@ export class ReviewService {
   async update(req: any, reviewId: number, updateReviewDto: UpdateReviewDto) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
     const review = await this.reviewRepo.findOneBy({ id: reviewId });
+    if (!review) {
+      throw new HttpException('No reviews found', HttpStatus.NOT_FOUND);
+    }
     console.log(user);
     if (user.id !== review.reviewCreator.id) {
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
@@ -62,9 +70,14 @@ export class ReviewService {
       where: { id },
       relations: ['reviews'],
     });
-    // const deletedReviews = user.reviews.splice(-);
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
     const deletedReviews = user.reviews.splice(-1);
     const course = await this.courseRepo.findOneBy({ slug });
+    if (!course) {
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
+    }
     if (course && user) {
       course.numberOfRatings--;
       await this.courseRepo.save(course);
