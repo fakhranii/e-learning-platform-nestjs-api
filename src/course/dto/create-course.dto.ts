@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateCourseDto {
   @IsNotEmpty()
   @IsString()
-  courseName: string;
+  title: string;
 
   @IsString()
   @IsNotEmpty()
@@ -17,8 +17,23 @@ export class CreateCourseDto {
 
   @IsNotEmpty()
   @IsString()
-  courseType: string;
+  category: string;
 
   @IsString()
-  thumbnails: string;
+  skillLevel: string;
+
+  @IsString()
+  numberOfStudents: number;
+
+  @IsString()
+  numberOfRatings: number;
+
+  @IsString()
+  whatYouWillLearn: string;
+
+  @IsString()
+  language: string;
+
+  @IsString()
+  isCertified: string;
 }

@@ -33,15 +33,14 @@ export class CourseService {
     const newCourse = new Course();
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
+    newCourse.isCertified = createCourseDto.isCertified === 'true';
     instructor.coursesCount++;
     await this.instructorRepo.save(instructor);
-
     if (file) {
       newCourse.thumbnails = (
         await this.cloudinarySrv.uploadFile(file)
       ).secure_url;
     }
-
     return await this.courseRepo.save(newCourse);
   }
 
