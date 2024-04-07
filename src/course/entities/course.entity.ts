@@ -36,14 +36,14 @@ export class Course {
   @Column({ default: false })
   isBestSelling: boolean;
 
-  @Column({ type: 'varchar', array: true, nullable: true })
-  whatYouWillLearn: string[];
+  @Column({ nullable: true })
+  whatYouWillLearn: string;
 
   @Column({ default: '85%', length: 6 })
   passPercentage: string;
 
-  @Column({ type: 'varchar', array: true, nullable: true })
-  prerequisites: string[]; // before start learn nodejs you should know about js
+  @Column({ nullable: true })
+  prerequisites: string; // before start learn nodejs you should know about js
 
   @Column({ type: 'enum', enum: ['Arabic', 'English'], default: 'English' })
   language: string;
