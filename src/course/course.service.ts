@@ -54,24 +54,26 @@ export class CourseService {
     if (!user) throw this.exceptions.userNotFound;
     const course = await this.courseRepo.findOneBy({ slug });
     if (!course) throw this.exceptions.courseNotFound;
-    const isCourseEnrolled = course.numberOfStudents;
     const courseCreator = course.courseCreator.id;
     const instructor = await this.instructorRepo.findOneBy({
       id: courseCreator,
     });
-
-    if (isCourseEnrolled > 0) {
+    if (!instructor) throw this.exceptions.instructorNotFound;
+    const isCourseEnrolled = user.courses.some(
+      (enrolledCourse) => enrolledCourse.id === course.id,
+    );
+    if (isCourseEnrolled) {
       throw new HttpException(
         `You're already enrolled`,
         HttpStatus.METHOD_NOT_ALLOWED,
       );
     }
+    user.courses.push(course);
     instructor.studentsCount++;
     course.courseCreator.studentsCount++;
     course.numberOfStudents++;
-    user.courses.push(course);
-    await this.instructorRepo.save(instructor);
     await this.userRepo.save(user);
+    await this.instructorRepo.save(instructor);
     await this.courseRepo.save(course);
     return course;
   }
@@ -85,16 +87,28 @@ export class CourseService {
     if (!user) throw this.exceptions.userNotFound;
     const course = await this.courseRepo.findOneBy({ slug });
     if (!course) throw this.exceptions.courseNotFound;
-    const isCourseEnrolled = course.numberOfStudents;
-
-    if (isCourseEnrolled > 0 && isCourseEnrolled !== 0) {
-      user.courses.splice(isCourseEnrolled[1], 1);
-      course.numberOfStudents--;
-      await this.courseRepo.save(course);
-      await this.userRepo.save(user);
-      return course;
+    const courseCreator = course.courseCreator.id;
+    const instructor = await this.instructorRepo.findOneBy({
+      id: courseCreator,
+    });
+    if (!instructor) throw this.exceptions.instructorNotFound;
+    const isCourseEnrolled = user.courses.some(
+      (enrolledCourse) => enrolledCourse.id === course.id,
+    );
+    if (!isCourseEnrolled) {
+      throw new HttpException(
+        `You're not enrolled`,
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
     }
-    throw new HttpException(`It's not enrolled`, HttpStatus.METHOD_NOT_ALLOWED);
+    user.courses.splice(isCourseEnrolled[1], 1);
+    instructor.studentsCount--;
+    course.courseCreator.studentsCount--;
+    course.numberOfStudents--;
+    await this.courseRepo.save(course);
+    await this.instructorRepo.save(instructor);
+    await this.userRepo.save(user);
+    return course;
   }
 
   async findInstructorCourses(req: any): Promise<Instructor> {
