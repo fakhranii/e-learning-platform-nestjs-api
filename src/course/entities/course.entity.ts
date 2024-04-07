@@ -45,7 +45,7 @@ export class Course {
   @Column({ nullable: true })
   prerequisites: string; // before start learn nodejs you should know about js
 
-  @Column({ type: 'enum', enum: ['Arabic', 'English'], default: 'English' })
+  @Column({ type: 'enum', enum: ['arabic', 'english'], default: 'english' })
   language: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
@@ -56,7 +56,7 @@ export class Course {
 
   @Column({
     type: 'enum',
-    enum: ['frontend', 'backend', 'mobile applications'],
+    enum: ['frontend', 'backend', 'fullStack'],
   })
   category: string;
 

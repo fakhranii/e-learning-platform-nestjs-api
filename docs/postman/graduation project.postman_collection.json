@@ -13,37 +13,26 @@
 				{
 					"name": "create user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExNTgxOCwiZXhwIjoxNzEyMTE5NDE4fQ.WvKkWLkOdJm7jfQrJYl-tSU1MKMCGP-aTpaC5iolatc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1eef1528-5260-4de0-a4f1-beee12d9938c"
-								},
-								{
-									"key": "fullName",
-									"value": "Mustafa ashraf",
-									"type": "text"
-								},
-								{
-									"key": "username",
-									"value": "mustafa",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "mustafa@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "mustafa",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "javascript"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "localhost:3000/v1/users",
@@ -91,10 +80,20 @@
 				{
 					"name": "get one user by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjM2NTk4OCwiZXhwIjoxNzEyMzY5NTg4fQ.xoBTpVRzJOfuWg_yPNovSerbGuI73J87diUD7JcLVlk",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/users/1",
+							"raw": "localhost:3000/v1/users/courses",
 							"host": [
 								"localhost"
 							],
@@ -102,7 +101,7 @@
 							"path": [
 								"v1",
 								"users",
-								"1"
+								"courses"
 							]
 						}
 					},
@@ -234,10 +233,17 @@
 					"name": "user signIn",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "reb",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"mustafa\",\r\n    \"password\": \"mustafa\"\r\n}",
+							"raw": "{\r\n    \"username\": \"elhoshy\",\r\n    \"password\": \"el-hoshy\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -263,6 +269,16 @@
 				{
 					"name": "instructor signIn",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -301,7 +317,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExNzY4NDM4LCJleHAiOjE3MTE3NzIwMzh9.DuURGr7EHFI-zaNxbCG1OH4AfSk5Kgmj88cg-Rgk8eU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3MzY3OSwiZXhwIjoxNzEyMjc3Mjc5fQ.CRvTPrECzj-R4VRJJSrqJIxrvt0xZjyAJyF86WmKv3k",
 									"type": "string"
 								}
 							]
@@ -310,7 +326,12 @@
 						"header": [
 							{
 								"key": "token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjE1LCJ1c2VybmFtZSI6InppYWQiLCJpYXQiOjE3MDg3NTc5NTIsImV4cCI6MTcwODc2MTU1Mn0.NCcz8Vggq7_mEPDBAjbPeyvadBYzSsEEQGKCfB3V3cI",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3MzQ0MCwiZXhwIjoxNzEyMjczNDYwfQ.vYG4F6uA3TzCZn-8Sk9Aj7_0-GXL7xMFBt1Iae3dpV0",
+								"type": "text"
+							},
+							{
+								"key": "reb",
+								"value": "1",
 								"type": "text",
 								"disabled": true
 							}
@@ -339,6 +360,53 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user signout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3NDM5MSwiZXhwIjoxNzEyMjc3OTkxfQ.G_XoW-QU8_6oCKYioeQkUerGWeZFWvXcBCkwW2jVl-k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3NDM5MSwiZXhwIjoxNzEyMjc3OTkxfQ.G_XoW-QU8_6oCKYioeQkUerGWeZFWvXcBCkwW2jVl-k",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/v1/auth/user/signout",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"auth",
+								"user",
+								"signout"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -353,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Inplem8iLCJpYXQiOjE3MTE3Njc4MDgsImV4cCI6MTcxMTc3MTQwOH0.FFWfjpBmaDw37iKlTpCF4oBibqAb3eD9sElRJkReavU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0luc3RydWN0b3IiOnRydWUsImlhdCI6MTcxMjMyMDY0OCwiZXhwIjoxNzEyMzI0MjQ4fQ.Pj2ydmdXp6c2ftgEo8HkSxgLltySrSIfuKswd_ED4y8",
 									"type": "string"
 								}
 							]
@@ -362,7 +430,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"PG in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
+							"raw": "{\r\n    \"title\": \"tests11ffd1ddfdfd1dff21d1ddddfa2d1 in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -426,7 +494,7 @@
 					"response": []
 				},
 				{
-					"name": "find course by id",
+					"name": "find course by slug",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -436,7 +504,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwODI0OTEyLCJleHAiOjE3MTA4Mjg1MTJ9.gYgS-krLMLmGrbFXBiLzW8bCpWU4KynDZqTlMBURtWQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
 									"type": "string"
 								}
 							]
@@ -453,7 +521,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/18",
+							"raw": "localhost:3000/v1/courses/test-in-arabic",
 							"host": [
 								"localhost"
 							],
@@ -461,7 +529,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"18"
+								"test-in-arabic"
 							]
 						}
 					},
@@ -598,7 +666,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMDYyMjIyLCJleHAiOjE3MTAwNjU4MjJ9.tHo7YlRtNXaHkEb2dPCLebny_WQacOUqE7xDLW4Fmqs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0luc3RydWN0b3IiOnRydWUsImlhdCI6MTcxMjMxODU3NywiZXhwIjoxNzEyMzIyMTc3fQ.yy_hqCg-bFItJIsfrzd2W7-MSe1yQqGJOxfNXjv__Y8",
 									"type": "string"
 								}
 							]
@@ -607,7 +675,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instructorDescription\": \"the course in talking about programming\",\r\n    \"username\": \"fo\",\r\n    \"email\": \"fo@email.com\",\r\n    \"password\": \"fo\"\r\n}",
+							"raw": "{\r\n    \"title\": \"test1\",\r\n    \"instructorDescription\": \"the course in talking about programming\",\r\n    \"username\": \"fo\",\r\n    \"email\": \"fo@email.com\",\r\n    \"password\": \"fo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -651,10 +719,20 @@
 				{
 					"name": "get an instructor",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructors/1",
+							"raw": "localhost:3000/v1/instructors/zezo",
 							"host": [
 								"localhost"
 							],
@@ -662,7 +740,7 @@
 							"path": [
 								"v1",
 								"instructors",
-								"1"
+								"zezo"
 							]
 						}
 					},
@@ -920,7 +998,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwMTIwNzYwLCJleHAiOjE3MTAxMjQzNjB9.srhXgwZrRdPVWyVCcR8XoR8-a8LvPKgjQZ37sEEWOQQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTIzNjIyNTYsImV4cCI6MTcxMjM2NTg1Nn0.WMTWHSB660uRA2jsmUhLgecstOqdQilqfqX5K4Ow9Jw",
 									"type": "string"
 								}
 							]
@@ -928,15 +1006,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructors/courses",
+							"raw": "localhost:3000/v1/courses/instructor",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"instructors",
-								"courses"
+								"courses",
+								"instructor"
 							]
 						}
 					},
@@ -981,7 +1059,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjQ2MTQxMCwiZXhwIjoxNzEyNDY1MDEwfQ.XpB_rYm9gz1AycVUxPKF0gJ9WSV_OhcsmqEOJ_g9lfs",
 									"type": "string"
 								}
 							]
@@ -989,7 +1067,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/php-in-arabic/enroll",
+							"raw": "localhost:3000/v1/courses/test-in-arabic/enroll",
 							"host": [
 								"localhost"
 							],
@@ -997,7 +1075,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"php-in-arabic",
+								"test-in-arabic",
 								"enroll"
 							]
 						}
@@ -1012,7 +1090,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwOTAyNDk1LCJleHAiOjE3MTA5MDYwOTV9.cyy8sXlm_MFHYnz7GTEQvNUkBINg3pohBTpPddeGH_c",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjQ2MTQxMCwiZXhwIjoxNzEyNDY1MDEwfQ.XpB_rYm9gz1AycVUxPKF0gJ9WSV_OhcsmqEOJ_g9lfs",
 									"type": "string"
 								}
 							]
@@ -1020,7 +1098,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/php-in-arabic/unenroll",
+							"raw": "localhost:3000/v1/courses/test-in-arabic/unenroll",
 							"host": [
 								"localhost"
 							],
@@ -1028,8 +1106,43 @@
 							"path": [
 								"v1",
 								"courses",
-								"php-in-arabic",
+								"test-in-arabic",
 								"unenroll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user/courses",
+			"item": [
+				{
+					"name": "all user Courses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjM2MzEzOCwiZXhwIjoxNzEyMzY2NzM4fQ.cCYT15mOKQSyCqGZkDKxlkf7ctYjp0M8x6TJWo9Weos",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/users/courses",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"users",
+								"courses"
 							]
 						}
 					},
