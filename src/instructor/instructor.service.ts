@@ -22,8 +22,8 @@ export class InstructorService {
     const existingInstructor = await this.instructorRepo.findOne({
       where: { email: createInstructorDto.email },
     });
-    if (existingInstructor.isInstructor) {
-      throw new Error('Instructor already exists');
+    if (existingInstructor) {
+      throw new Error('Instructor already exist');
     }
     const instructor = new Instructor();
     Object.assign(instructor, createInstructorDto);
@@ -47,8 +47,7 @@ export class InstructorService {
       where: { username },
       relations: ['courses'],
     });
-    if (!instructor.isInstructor)
-      throw this.exceptions.instructorNotFound;
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     return instructor;
   }
 
@@ -59,8 +58,7 @@ export class InstructorService {
   ): Promise<Instructor> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor)
-      throw this.exceptions.instructorNotFound;
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     Object.assign(instructor, updateInstructorDto);
     if (file) {
       instructor.avatar = (
@@ -73,16 +71,14 @@ export class InstructorService {
   async remove(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor)
-      throw this.exceptions.instructorNotFound;
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     return await this.instructorRepo.delete(id);
   }
 
   async removeAvatar(req: any) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor)
-      throw this.exceptions.instructorNotFound;
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     instructor.avatar = null;
     return await this.instructorRepo.save(instructor);
   }
