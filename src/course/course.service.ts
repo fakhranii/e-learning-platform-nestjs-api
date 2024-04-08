@@ -30,7 +30,17 @@ export class CourseService {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    const existingCourse = await this.courseRepo.findOneBy({
+      title: createCourseDto.title,
+    });
+    if (existingCourse)
+      throw new HttpException(
+        'There is one course with the same title',
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
+
     const newCourse = new Course();
+
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
     newCourse.isCertified = createCourseDto.isCertified === 'true';
@@ -148,7 +158,9 @@ export class CourseService {
     });
     if (!course) throw this.exceptions.courseNotFound;
     const ratingReviews = course.reviews;
-    const ratingsPersentage = calculatePercentage(ratingReviews) || '0%';
+    const ratings = calculatePercentage(ratingReviews) || 0;
+    const ratingsPersentage = ratings.toString() + '%';
+
     return { ratingsPersentage, course };
   }
 
