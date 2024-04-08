@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -18,13 +19,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @HttpCode(HttpStatus.OK)
   @Post('user/signin')
-  userSignIn(@Body() signInDto: SignInDto) {
-    return this.authService.userSignIn(signInDto);
+  userSignIn(@Body() signInDto: SignInDto, @Query('rememberMe') rememberMe: string) {
+    return this.authService.userSignIn(signInDto, rememberMe);
   }
 
   @Post('instructor/signin')
-  instructorSignIn(@Body() signInDto: SignInDto) {
-    return this.authService.instructorSignIn(signInDto);
+  instructorSignIn(@Body() signInDto: SignInDto, @Query('rememberMe') rememberMe: string) {
+    return this.authService.instructorSignIn(signInDto, rememberMe);
   }
 
   @UseGuards(AuthGuard)

@@ -42,7 +42,7 @@ export class UserService {
     const { id } = req.user;
     const user = this.userRepo.findOne({
       where: { id },
-      relations: ['courses'],
+      relations: ['courses', 'reviews'],
     });
     if (!user) throw this.exceptions.userNotFound;
     return user;
@@ -73,7 +73,7 @@ export class UserService {
   async removeAvatar(req: any) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) throw this.exceptions.userNotFound
+    if (!user) throw this.exceptions.userNotFound;
     user.avatar = null;
     return await this.userRepo.save(user);
   }

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { Instructor } from './entities/instructor.entity';
@@ -42,10 +42,8 @@ export class InstructorService {
   }
 
   async findOne(username: string): Promise<Instructor> {
-    console.log(username);
     const instructor = await this.instructorRepo.findOne({
       where: { username },
-      relations: ['courses'],
     });
     if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
     return instructor;

@@ -10,6 +10,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -38,9 +39,10 @@ export class CourseController {
     return this.courseService.findInstructorCourses(req);
   }
 
+ 
   @Get()
-  findAll() {
-    return this.courseService.findAll();
+  findAll(@Query('type') type: string) {
+    return this.courseService.findAll(type);
   }
 
   @Get(':slug')
@@ -52,7 +54,6 @@ export class CourseController {
   allCourseReviews(@Param('slug') slug: string) {
     return this.courseService.allCourseReviews(slug);
   }
-
 
   @UseGuards(AuthGuard)
   @Post('/:slug/enroll')

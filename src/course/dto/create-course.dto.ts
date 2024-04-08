@@ -19,14 +19,9 @@ export class CreateCourseDto {
   @IsString()
   category: string;
 
+  @IsNotEmpty()
   @IsString()
   skillLevel: string;
-
-  @IsString()
-  numberOfStudents: number;
-
-  @IsString()
-  numberOfRatings: number;
 
   @IsString()
   whatYouWillLearn: string;

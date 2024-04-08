@@ -18,11 +18,13 @@ export class AuthService {
 
   async userSignIn(
     signInDto: SignInDto,
+    rememberMe: string,
   ): Promise<{ user: User; token: string }> {
     const user = await this.userRepo.findOne({
       where: { username: signInDto.username },
       select: [
         'password',
+        'email',
         'username',
         'email',
         'isAdmin',
@@ -42,20 +44,36 @@ export class AuthService {
         id: user.id,
         isAdmin: user.isAdmin,
       }; // key : valu
-      return {
-        user,
-        token: await this.jwtService.signAsync(payload, { expiresIn: '1h' }),
-      };
+
+      if (rememberMe === 'true') {
+        return {
+          user,
+          token: await this.jwtService.signAsync(payload, {
+            expiresIn: '7d',
+          }),
+        };
+      } else if (rememberMe === 'false' || rememberMe === null) {
+        return {
+          user,
+          token: await this.jwtService.signAsync(payload, {
+            expiresIn: '3d',
+          }),
+        };
+      } else {
+        throw new HttpException('Invalid query', HttpStatus.NOT_ACCEPTABLE);
+      }
     }
   }
 
   async instructorSignIn(
     signInDto: SignInDto,
+    rememberMe: string,
   ): Promise<{ user: Instructor; token: string }> {
     const instructor = await this.instructorRepo.findOne({
       where: { username: signInDto.username },
       select: [
         'id',
+        'email',
         'username',
         'password',
         'isInstructor',
@@ -78,10 +96,23 @@ export class AuthService {
         id: instructor.id,
         isInstructor: instructor.isInstructor,
       };
-      return {
-        user: instructor,
-        token: await this.jwtService.signAsync(payload),
-      };
+      if (rememberMe === 'true') {
+        return {
+          user: instructor,
+          token: await this.jwtService.signAsync(payload, {
+            expiresIn: '7d',
+          }),
+        };
+      } else if (rememberMe === 'false') {
+        return {
+          user: instructor,
+          token: await this.jwtService.signAsync(payload, {
+            expiresIn: '3d',
+          }),
+        };
+      } else {
+        throw new HttpException('Invalid query', HttpStatus.NOT_ACCEPTABLE);
+      }
     }
   }
 

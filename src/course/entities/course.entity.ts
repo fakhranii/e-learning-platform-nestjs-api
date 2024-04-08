@@ -48,12 +48,6 @@ export class Course {
   @Column({ type: 'enum', enum: ['arabic', 'english'], default: 'english' })
   language: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
-
   @Column({
     type: 'enum',
     enum: ['frontend', 'backend', 'fullStack'],
@@ -72,9 +66,13 @@ export class Course {
   @Column({ nullable: true })
   thumbnails: string;
 
-  @ManyToOne(() => Instructor, (Instructor) => Instructor.courses, {
-    eager: true,
-  })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
+  @ManyToOne(() => Instructor, (Instructor) => Instructor.courses)
   courseCreator: Instructor;
 
   @OneToMany(() => Review, (review) => review.course)
