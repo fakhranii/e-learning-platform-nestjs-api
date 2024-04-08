@@ -283,7 +283,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"zezo\",\r\n    \"password\": \"zezo\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0luc3RydWN0b3IiOnRydWUsImlhdCI6MTcxMjMyMDY0OCwiZXhwIjoxNzEyMzI0MjQ4fQ.Pj2ydmdXp6c2ftgEo8HkSxgLltySrSIfuKswd_ED4y8",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1MzA2NjYsImV4cCI6MTcxMjUzNDI2Nn0.1BiDoklzEzzAWhqVkDpsNiQc3miD6-zeY0L9_0-Sb00",
 									"type": "string"
 								}
 							]
@@ -429,13 +429,50 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"tests11ffd1ddfdfd1dff21d1ddddfa2d1 in arabic\",\r\n    \"courseDescription\": \"this course is talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=GM6dQBmc-Xg&list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv\",\r\n    \"category\": \"backend\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"],\r\n    \"skillLevel\": \"intermediate\",\r\n    \"whatYouWillLearn\": \"you will learn about css\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1eef4d74-b7dd-4db0-b087-4f32a9422556"
+								},
+								{
+									"key": "title",
+									"value": "testOneeecefff",
+									"type": "text"
+								},
+								{
+									"key": "courseDescription",
+									"value": "this is a course talking about jse",
+									"type": "text"
+								},
+								{
+									"key": "courseLink",
+									"value": "https://www.youtube.com/watch?v=tacPbnrZm_U&pp=ygUOZnJlZSBwYWxlc3RpbmU%3D\n",
+									"type": "text"
+								},
+								{
+									"key": "prerequisites",
+									"value": "js ts ",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "frontend",
+									"type": "text"
+								},
+								{
+									"key": "skillLevel",
+									"value": "intermediate",
+									"type": "text"
+								},
+								{
+									"key": "isCertified",
+									"value": "true",
+									"contentType": "application/json",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "localhost:3000/v1/courses",
@@ -521,7 +558,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/test-in-arabic",
+							"raw": "localhost:3000/v1/courses/testOneeecefff",
 							"host": [
 								"localhost"
 							],
@@ -529,7 +566,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"test-in-arabic"
+								"testOneeecefff"
 							]
 						}
 					},
@@ -675,7 +712,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test1\",\r\n    \"instructorDescription\": \"the course in talking about programming\",\r\n    \"username\": \"fo\",\r\n    \"email\": \"fo@email.com\",\r\n    \"password\": \"fo\"\r\n}",
+							"raw": "{\r\n    \"instructorDescription\": \"the course in talking about programming\",\r\n    \"username\": \"ziad\",\r\n    \"email\": \"ziad@email.com\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

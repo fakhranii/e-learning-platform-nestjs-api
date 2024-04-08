@@ -7,7 +7,9 @@ export function calculatePercentage(reviews) {
     (previous, current) => previous + current,
     0,
   );
-  const ratingsPersentage =
-    ((sumOfRatings / (reviewsArr.length * 5)) * 100).toFixed(0) + '%';
+  const ratingsPersentage = +(
+    (sumOfRatings / (reviewsArr.length * 5)) *
+    100
+  ).toFixed(0);
   return ratingsPersentage;
 }
