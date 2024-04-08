@@ -43,4 +43,9 @@ export class ReviewController {
   remove(@Request() req, @Param(':slug') slug: string) {
     return this.reviewService.remove(req, slug);
   }
+
+  @Get('instructor/:username/')
+  findInstructorCoursesReviews(@Param('username') username: string) {
+    return this.reviewService.findInstructorCoursesReviews(username);
+  }
 }

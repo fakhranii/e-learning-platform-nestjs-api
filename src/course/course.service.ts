@@ -30,6 +30,15 @@ export class CourseService {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+
+    const title = ['title'];
+    const missingTitle = title.filter((field) => !(field in createCourseDto));
+    if (missingTitle.length > 0) {
+      throw new HttpException(
+        `Missing required fields: ${missingTitle.join(', ')}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const existingCourse = await this.courseRepo.findOneBy({
       title: createCourseDto.title,
     });
@@ -38,8 +47,25 @@ export class CourseService {
         'There is one course with the same title',
         HttpStatus.METHOD_NOT_ALLOWED,
       );
-
     const newCourse = new Course();
+    const requiredFields = [
+      'title',
+      'courseDescription',
+      'courseLink',
+      'prerequisites',
+      'category',
+      'skillLevel',
+    ];
+
+    const missingFields = requiredFields.filter(
+      (field) => !(field in createCourseDto),
+    );
+    if (missingFields.length > 0) {
+      throw new HttpException(
+        `Missing required fields: ${missingFields.join(', ')}`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     newCourse.courseCreator = instructor;
     Object.assign(newCourse, createCourseDto);
@@ -145,8 +171,13 @@ export class CourseService {
     };
   }
 
-  async findAll(): Promise<Course[]> {
-    return await this.courseRepo.find();
+  async findAll(type: string): Promise<Course[]> {
+    if (type == 'frontend' || type == 'backend' || type == 'fullStack') {
+      return await this.courseRepo.find({ where: { category: type } });
+    } else if (!type) {
+      return await this.courseRepo.find();
+    }
+    throw new HttpException('Invalid category type', HttpStatus.NOT_FOUND);
   }
 
   async findOne(

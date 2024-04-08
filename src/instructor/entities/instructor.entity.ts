@@ -41,11 +41,11 @@ export class Instructor {
   @Column({ default: true })
   isInstructor: boolean;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
-
   @Column({ select: false })
   password: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
   @OneToMany(() => Course, (course) => course.courseCreator)
   courses: Course[];

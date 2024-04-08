@@ -16,11 +16,9 @@ export class Review {
   @Column({ length: 50 })
   reviewBody: string;
 
-  @ManyToOne(() => User, (user) => user.reviews, { eager: true })
+  @ManyToOne(() => User, (user) => user.reviews)
   reviewCreator: User;
 
-  @ManyToOne(() => Course, (course) => course.reviews, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => Course, (course) => course.reviews)
   course: Course;
 }

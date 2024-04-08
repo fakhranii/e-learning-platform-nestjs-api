@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,11 +25,15 @@ export class ReviewService {
     createReviewDto: CreateReviewDto,
   ): Promise<Review> {
     const { id } = req.user;
-    const user = await this.userRepo.findOneBy({ id });
+    const user = await this.userRepo.findOneBy({ id: id });
     if (!user) throw this.exceptions.userNotFound;
-    const course = await this.courseRepo.findOneBy({ slug });
+    const course = await this.courseRepo.findOne({
+      where: { slug },
+      relations: ['courseCreator'],
+    });
     if (!course) throw this.exceptions.courseNotFound;
     const courseCreator = course.courseCreator.id;
+    console.log(courseCreator);
     const instructor = await this.instructorRepo.findOneBy({
       id: courseCreator,
     });
@@ -72,5 +76,14 @@ export class ReviewService {
       return await this.reviewRepo.remove(deletedReviews);
     }
     throw this.exceptions.courseNotFound;
+  }
+
+  async findInstructorCoursesReviews(username: string): Promise<any> {
+    const instructor = await this.instructorRepo.findOne({
+      where: { username },
+      relations: ['courses', 'courses.reviews.reviewCreator'],
+    });
+    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    return instructor;
   }
 }
