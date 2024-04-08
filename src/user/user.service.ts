@@ -38,14 +38,29 @@ export class UserService {
     return this.userRepo.find(); // find all
   }
 
-  async findOne(req: any): Promise<User> {
+  async findUserCorses(req: any): Promise<any> {
     const { id } = req.user;
-    const user = this.userRepo.findOne({
+    const user = await this.userRepo.findOne({
       where: { id },
-      relations: ['courses', 'reviews'],
+      relations: ['courses.reviews.reviewCreator'],
     });
     if (!user) throw this.exceptions.userNotFound;
-    return user;
+    const coursesWithReviews = user.courses.map((course) => {
+      let hasReviewed = false;
+      for (const review of course.reviews) {
+        const reviewCreatorId = review.reviewCreator.id;
+        if (user.id === reviewCreatorId) {
+          hasReviewed = true;
+          break;
+        }
+      }
+      return {
+        ...course,
+        hasReviewed,
+      };
+    });
+
+    return coursesWithReviews;
   }
 
   async update(

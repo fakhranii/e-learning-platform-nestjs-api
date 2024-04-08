@@ -82,16 +82,20 @@ export class CourseService {
 
   async enrollCourse(req: any, slug: string) {
     const { id } = req.user;
+    console.log(id);
     const user = await this.userRepo.findOne({
       where: { id },
       relations: ['courses'],
     });
     if (!user) throw this.exceptions.userNotFound;
-    const course = await this.courseRepo.findOneBy({ slug });
+    const course = await this.courseRepo.findOne({
+      where: { slug },
+      relations: ['courseCreator'],
+    });
     if (!course) throw this.exceptions.courseNotFound;
-    const courseCreator = course.courseCreator.id;
+    const courseCreator = course.courseCreator;
     const instructor = await this.instructorRepo.findOneBy({
-      id: courseCreator,
+      id: courseCreator.id,
     });
     if (!instructor) throw this.exceptions.instructorNotFound;
     const isCourseEnrolled = user.courses.some(
