@@ -41,8 +41,8 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Get('courses')
-    findOne(@Request() req) {
-    return this.userSrv.findOne(req);
+  findOne(@Request() req) {
+    return this.userSrv.findUserCorses(req);
   }
 
   @UseGuards(AuthGuard)

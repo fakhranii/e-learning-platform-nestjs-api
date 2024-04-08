@@ -27,10 +27,10 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"fullName\": \"ziad z. elfakhrany\",\r\n    \"email\": \"ziad@gmail.com\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
-									"language": "javascript"
+									"language": "json"
 								}
 							}
 						},
@@ -243,7 +243,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"elhoshy\",\r\n    \"password\": \"el-hoshy\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,7 +421,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1MzA2NjYsImV4cCI6MTcxMjUzNDI2Nn0.1BiDoklzEzzAWhqVkDpsNiQc3miD6-zeY0L9_0-Sb00",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1MzU5NTcsImV4cCI6MTcxMjUzOTU1N30.hcmooIkBkmYjADG6MATmfSMG3hirT4jKMwCl5lkTsrs",
 									"type": "string"
 								}
 							]
@@ -429,50 +429,13 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "postman-cloud:///1eef4d74-b7dd-4db0-b087-4f32a9422556"
-								},
-								{
-									"key": "title",
-									"value": "testOneeecefff",
-									"type": "text"
-								},
-								{
-									"key": "courseDescription",
-									"value": "this is a course talking about jse",
-									"type": "text"
-								},
-								{
-									"key": "courseLink",
-									"value": "https://www.youtube.com/watch?v=tacPbnrZm_U&pp=ygUOZnJlZSBwYWxlc3RpbmU%3D\n",
-									"type": "text"
-								},
-								{
-									"key": "prerequisites",
-									"value": "js ts ",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "frontend",
-									"type": "text"
-								},
-								{
-									"key": "skillLevel",
-									"value": "intermediate",
-									"type": "text"
-								},
-								{
-									"key": "isCertified",
-									"value": "true",
-									"contentType": "application/json",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\r\n    // \"title\": \"test2024 aarabic\",\r\n    \"courseDescription\": \"this is a test to new adding\",\r\n    \"courseLink\": \"jhecjhajawbhshbj\",\r\n    \"prerequisites\": \"js ts rs\",\r\n    \"category\": \"backend\",\r\n    \"skillLevel\": \"intermediate\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "localhost:3000/v1/courses",
@@ -508,7 +471,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"courseName\": \"ziad\",\r\n    \"courseDescription\": \"this course is talking dealing with git & github\",\r\n    \"courseType\": \"backend development\",\r\n    \"prerequisites\": [\"knowing how to deal with computer\",\"know about cmd\"]\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -516,15 +479,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/",
+							"raw": "localhost:3000/v1/courses?type=fullStack",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"v1",
-								"courses",
-								""
+								"courses"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "fullStack"
+								}
 							]
 						}
 					},
@@ -769,7 +737,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructors/zezo",
+							"raw": "localhost:3000/v1/instructors/ziad",
 							"host": [
 								"localhost"
 							],
@@ -777,7 +745,7 @@
 							"path": [
 								"v1",
 								"instructors",
-								"zezo"
+								"ziad"
 							]
 						}
 					},
@@ -913,7 +881,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzExNzcwMzAyLCJleHAiOjE3MTE3NzM5MDJ9.qhv95g2O6IA7O9zZlXpApS6AgoDiodD1xmws_deHVmc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjU0MTkwOSwiZXhwIjoxNzEyNTQ1NTA5fQ.q5tOt_OxoxZFiRgqS3FTFzCu_JzWhGvO2HVBIY1wYAU",
 									"type": "string"
 								}
 							]
@@ -930,7 +898,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/PG-in-arabic",
+							"raw": "localhost:3000/v1/reviews/test2024-arabic",
 							"host": [
 								"localhost"
 							],
@@ -938,7 +906,7 @@
 							"path": [
 								"v1",
 								"reviews",
-								"PG-in-arabic"
+								"test2024-arabic"
 							]
 						}
 					},
@@ -1025,7 +993,7 @@
 			]
 		},
 		{
-			"name": "instructor/courses",
+			"name": "instructor/ only courses",
 			"item": [
 				{
 					"name": "all instrucor courses",
@@ -1035,7 +1003,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTIzNjIyNTYsImV4cCI6MTcxMjM2NTg1Nn0.WMTWHSB660uRA2jsmUhLgecstOqdQilqfqX5K4Ow9Jw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1NDc2NTUsImV4cCI6MTcxMjU1MTI1NX0.tqX_N1d39kB85WkWCtN-XTwlEyMRmbvd8CwyD09AkL0",
 									"type": "string"
 								}
 							]
@@ -1060,7 +1028,43 @@
 			]
 		},
 		{
-			"name": "course/reviews",
+			"name": "instructor/courses & reviews & creators",
+			"item": [
+				{
+					"name": "instructor/courses/reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1NDQ5NTcsImV4cCI6MTcxMjU0ODU1N30.Ssopem6KHUduv43sK2H1nV9U0z_LopmUPyBYlQONW20",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/v1/reviews/instructor/ziad",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"reviews",
+								"instructor",
+								"ziad"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "course/only reviews",
 			"item": [
 				{
 					"name": "get all course reviews",
@@ -1068,7 +1072,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/PG-in-arabic/reviews",
+							"raw": "localhost:3000/v1/courses/test2024-arabic/reviews",
 							"host": [
 								"localhost"
 							],
@@ -1076,7 +1080,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"PG-in-arabic",
+								"test2024-arabic",
 								"reviews"
 							]
 						}
