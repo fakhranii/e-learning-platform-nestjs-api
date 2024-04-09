@@ -22,7 +22,11 @@ export class UserService {
     const existingUser = await this.userRepo.findOne({
       where: { email: createUserDto.email },
     });
-    if (existingUser) throw new Error('User already exists');
+    if (existingUser)
+      throw new HttpException(
+        'User already exists',
+        HttpStatus.METHOD_NOT_ALLOWED,
+      );
 
     const user = new User();
     Object.assign(user, createUserDto);
