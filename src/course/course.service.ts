@@ -162,19 +162,14 @@ export class CourseService {
     return instructor.courses;
   }
 
-  async allCourseReviews(
-    slug: string,
-  ): Promise<{ AllReviews: Review[]; course: Course }> {
+  async allCourseReviews(slug: string): Promise<Review[]> {
     const course = await this.courseRepo.findOne({
       where: { slug },
-      relations: ['reviews'],
+      relations: ['reviews.reviewCreator'],
     });
     if (!course) throw this.exceptions.courseNotFound;
-    const AllReviews = course.reviews;
-    return {
-      course,
-      AllReviews,
-    };
+
+    return course.reviews;
   }
 
   async findAll(type: string): Promise<Course[]> {
