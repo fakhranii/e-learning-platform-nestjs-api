@@ -48,7 +48,7 @@ export class InstructorService {
       where: { username },
       relations: ['courses.reviews.reviewCreator'],
     });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     return instructor;
   }
 
@@ -59,7 +59,7 @@ export class InstructorService {
   ): Promise<Instructor> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     Object.assign(instructor, updateInstructorDto);
     if (file) {
       instructor.avatar = (

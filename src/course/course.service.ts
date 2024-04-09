@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
-import { calculatePercentage } from 'src/common/calculate-percentage';
+// import { calculatePercentage } from 'src/common/calculate-percentage';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from '../common/Exceptions';
 
@@ -158,7 +158,7 @@ export class CourseService {
       where: { id },
       relations: ['courses.reviews.reviewCreator'],
     });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     return instructor.courses;
   }
 
@@ -186,19 +186,16 @@ export class CourseService {
     throw new HttpException('Invalid category type', HttpStatus.NOT_FOUND);
   }
 
-  async findOne(
-    slug: string,
-  ): Promise<{ course: Course; ratingsPersentage: string }> {
+  async findOne(slug: string): Promise<Course> {
     const course = await this.courseRepo.findOne({
       where: { slug },
       relations: ['reviews', 'courseCreator'],
     });
     if (!course) throw this.exceptions.courseNotFound;
     const ratingReviews = course.reviews;
-    const ratings = calculatePercentage(ratingReviews) || 0;
-    const ratingsPersentage = ratings.toString() + '%';
-
-    return { ratingsPersentage, course };
+    // const ratings = calculatePercentage(ratingReviews) || 0;
+    // const ratingsPersentage = ratings.toString() + '%';
+    return course;
   }
 
   async update(
@@ -209,7 +206,7 @@ export class CourseService {
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     const course = await this.courseRepo.findOneBy({ id: courseId });
     if (!course) throw this.exceptions.courseNotFound;
     Object.assign(course, updateCourseDto);
@@ -224,14 +221,14 @@ export class CourseService {
   async remove(req: any, courseId: number) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     return this.courseRepo.delete(courseId);
   }
 
   async removeThumbnail(req: any, courseId: number) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
-    if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
+    if (!instructor) throw this.exceptions.instructorNotFound;
     const course = await this.courseRepo.findOneBy({ id: courseId });
     if (!course) throw this.exceptions.courseNotFound;
     course.thumbnails = null;
