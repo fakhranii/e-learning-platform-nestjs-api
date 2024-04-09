@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 dotenv.config();
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -14,9 +15,13 @@ dotenv.config();
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: true, //* true only on dev env
-      ssl: true, // Enable SSL/TLS
+      synchronize: false, //* true only on dev env
+      ssl: {
+        ca: null, // Not using CA certificate
+        rejectUnauthorized: false, // Reject unauthorized connections in production
+      },
     }),
+    // }),
   ],
 })
 export class DatabaseModule {}
