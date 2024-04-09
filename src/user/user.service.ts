@@ -24,7 +24,7 @@ export class UserService {
     });
     if (existingUser)
       throw new HttpException(
-        'User already exists',
+        'User already exists, Try new one',
         HttpStatus.METHOD_NOT_ALLOWED,
       );
 
