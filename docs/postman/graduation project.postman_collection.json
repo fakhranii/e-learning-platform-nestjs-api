@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"fullName\": \"ziad z. elfakhrany\",\r\n    \"email\": \"ziad@gmail.com\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"fullName\": \"ziad elfakhrany\",\r\n    \"email\": \"ziad@gmail.com\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,7 +251,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/user/signin",
+							"raw": "localhost:3000/v1/auth/user/signin?rememberMe=true",
 							"host": [
 								"localhost"
 							],
@@ -261,6 +261,12 @@
 								"auth",
 								"user",
 								"signin"
+							],
+							"query": [
+								{
+									"key": "rememberMe",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -291,7 +297,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/instructor/signin",
+							"raw": "localhost:3000/v1/auth/instructor/signin?rememberMe=true",
 							"host": [
 								"localhost"
 							],
@@ -301,6 +307,12 @@
 								"auth",
 								"instructor",
 								"signin"
+							],
+							"query": [
+								{
+									"key": "rememberMe",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -421,7 +433,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1MzU5NTcsImV4cCI6MTcxMjUzOTU1N30.hcmooIkBkmYjADG6MATmfSMG3hirT4jKMwCl5lkTsrs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MzA3MDUsImV4cCI6MTcxMzIzNTUwNX0.QPWgzmL-0j-eLNW9mhe53NPPIaFy4SdQrogbC5x1QV0",
 									"type": "string"
 								}
 							]
@@ -430,7 +442,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    // \"title\": \"test2024 aarabic\",\r\n    \"courseDescription\": \"this is a test to new adding\",\r\n    \"courseLink\": \"jhecjhajawbhshbj\",\r\n    \"prerequisites\": \"js ts rs\",\r\n    \"category\": \"backend\",\r\n    \"skillLevel\": \"intermediate\"\r\n\r\n}",
+							"raw": "{\r\n    \"title\": \"test\",\r\n    \"courseDescription\": \"this ts a course talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=TSBVpl2d5YE\",\r\n    \"prerequisites\": \"js ts rs\",\r\n    \"category\": \"backend\",\r\n    \"skillLevel\": \"intermediate\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,7 +491,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses?type=fullStack",
+							"raw": "localhost:3000/v1/courses",
 							"host": [
 								"localhost"
 							],
@@ -487,12 +499,6 @@
 							"path": [
 								"v1",
 								"courses"
-							],
-							"query": [
-								{
-									"key": "type",
-									"value": "fullStack"
-								}
 							]
 						}
 					},
@@ -680,7 +686,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instructorDescription\": \"the course in talking about programming\",\r\n    \"username\": \"ziad\",\r\n    \"email\": \"ziad@email.com\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"username\": \"ziad\",\r\n    \"email\": \"ziad@email.com\",\r\n    \"password\": \"ziad\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -759,7 +765,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzYW1laCIsImlhdCI6MTcxMDEyMTU3MSwiZXhwIjoxNzEwMTI1MTcxfQ.aIwGYxayVmTLnF5Pet39mYpcD5Ha9V6rPDftV7YjiDo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MjE0NDMsImV4cCI6MTcxMzIyNjI0M30.DVxPjXWaqLK1CDH_IkL3fGv-DWmgg_nmrjPAFqvXl4A",
 									"type": "string"
 								}
 							]
@@ -768,7 +774,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"sam\"\r\n}",
+							"raw": "{\r\n    \"username\": \"zero\",\r\n    \"password\": \"zero\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -798,7 +804,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzId1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJmYSIsImlhdCI6MTcxMDEyODIxNywiZXhwIjoxNzEwMTMxODE3fQ.rcEpWY9tkMt4OJCyM8ohLy0BTVK8jjutkJZ3O-wYXJo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MzA3MDUsImV4cCI6MTcxMzIzNTUwNX0.QPWgzmL-0j-eLNW9mhe53NPPIaFy4SdQrogbC5x1QV0",
 									"type": "string"
 								}
 							]
@@ -881,7 +887,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjU0MTkwOSwiZXhwIjoxNzEyNTQ1NTA5fQ.q5tOt_OxoxZFiRgqS3FTFzCu_JzWhGvO2HVBIY1wYAU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
 									"type": "string"
 								}
 							]
@@ -898,7 +904,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/test2024-arabic",
+							"raw": "localhost:3000/v1/reviews/learn-js-in-arabic",
 							"host": [
 								"localhost"
 							],
@@ -906,7 +912,7 @@
 							"path": [
 								"v1",
 								"reviews",
-								"test2024-arabic"
+								"learn-js-in-arabic"
 							]
 						}
 					},
@@ -1100,7 +1106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjQ2MTQxMCwiZXhwIjoxNzEyNDY1MDEwfQ.XpB_rYm9gz1AycVUxPKF0gJ9WSV_OhcsmqEOJ_g9lfs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
 									"type": "string"
 								}
 							]
@@ -1108,7 +1114,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/test-in-arabic/enroll",
+							"raw": "localhost:3000/v1/courses/learn-js-in-arabic/enroll",
 							"host": [
 								"localhost"
 							],
@@ -1116,7 +1122,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"test-in-arabic",
+								"learn-js-in-arabic",
 								"enroll"
 							]
 						}
@@ -1131,7 +1137,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjQ2MTQxMCwiZXhwIjoxNzEyNDY1MDEwfQ.XpB_rYm9gz1AycVUxPKF0gJ9WSV_OhcsmqEOJ_g9lfs",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
 									"type": "string"
 								}
 							]
@@ -1139,7 +1145,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/test-in-arabic/unenroll",
+							"raw": "localhost:3000/v1/courses/learn-js-in-arabic/unenroll",
 							"host": [
 								"localhost"
 							],
@@ -1147,7 +1153,7 @@
 							"path": [
 								"v1",
 								"courses",
-								"test-in-arabic",
+								"learn-js-in-arabic",
 								"unenroll"
 							]
 						}
@@ -1157,7 +1163,7 @@
 			]
 		},
 		{
-			"name": "user/courses",
+			"name": "user reviews on courses",
 			"item": [
 				{
 					"name": "all user Courses",
@@ -1167,7 +1173,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjM2MzEzOCwiZXhwIjoxNzEyMzY2NzM4fQ.cCYT15mOKQSyCqGZkDKxlkf7ctYjp0M8x6TJWo9Weos",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYwNDM2MywiZXhwIjoxNzEzMjA5MTYzfQ.kdjRsbMmmhNW4U18DXmyQZvkdSf9DsEF2kGFMPow2e4",
 									"type": "string"
 								}
 							]

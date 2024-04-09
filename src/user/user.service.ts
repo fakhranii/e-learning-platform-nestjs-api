@@ -38,7 +38,7 @@ export class UserService {
     return this.userRepo.find(); // find all
   }
 
-  async findUserCorses(req: any): Promise<any> {
+  async findUserCorses(req: any): Promise<any[]> {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
