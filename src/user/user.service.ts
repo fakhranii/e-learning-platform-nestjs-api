@@ -6,6 +6,9 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from 'src/common/Exceptions';
+import { Review } from 'src/review/entities/review.entity';
+import { Course } from 'src/course/entities/course.entity';
+import { Instructor } from '../instructor/entities/instructor.entity';
 
 @Injectable()
 export class UserService {
@@ -38,7 +41,7 @@ export class UserService {
     return this.userRepo.find(); // find all
   }
 
-  async findUserCorses(req: any): Promise<any> {
+  async findUserCorses(req: any): Promise<any[]> {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
@@ -61,6 +64,7 @@ export class UserService {
     });
 
     return coursesWithReviews;
+    // return { course, ...coursesWithReviews };
   }
 
   async update(

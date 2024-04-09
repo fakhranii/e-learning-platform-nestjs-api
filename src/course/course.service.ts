@@ -82,7 +82,6 @@ export class CourseService {
 
   async enrollCourse(req: any, slug: string) {
     const { id } = req.user;
-    console.log(id);
     const user = await this.userRepo.findOne({
       where: { id },
       relations: ['courses'],
@@ -90,7 +89,7 @@ export class CourseService {
     if (!user) throw this.exceptions.userNotFound;
     const course = await this.courseRepo.findOne({
       where: { slug },
-      relations: ['courseCreator'],
+      relations: ['courseCreator', 'reviews.reviewCreator'],
     });
     if (!course) throw this.exceptions.courseNotFound;
     const courseCreator = course.courseCreator;
@@ -124,7 +123,10 @@ export class CourseService {
       relations: ['courses'],
     });
     if (!user) throw this.exceptions.userNotFound;
-    const course = await this.courseRepo.findOneBy({ slug });
+    const course = await this.courseRepo.findOne({
+      where: { slug },
+      relations: ['courseCreator', 'reviews.reviewCreator'],
+    });
     if (!course) throw this.exceptions.courseNotFound;
     const courseCreator = course.courseCreator.id;
     const instructor = await this.instructorRepo.findOneBy({
@@ -150,14 +152,14 @@ export class CourseService {
     return course;
   }
 
-  async findInstructorCourses(req: any): Promise<Instructor> {
+  async findInstructorCourses(req: any): Promise<Course[]> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOne({
       where: { id },
-      relations: ['courses'],
+      relations: ['courses.reviews.reviewCreator'],
     });
     if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
-    return instructor;
+    return instructor.courses;
   }
 
   async allCourseReviews(
