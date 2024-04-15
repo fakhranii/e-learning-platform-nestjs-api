@@ -29,8 +29,6 @@ export class UserService {
       );
 
     const user = new User();
-    // user.toString(user.password);
-    user.password = createUserDto.password.toString();
     Object.assign(user, createUserDto);
     if (file) {
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
