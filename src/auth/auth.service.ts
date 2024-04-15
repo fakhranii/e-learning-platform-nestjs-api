@@ -36,9 +36,9 @@ export class AuthService {
     });
 
     if (!user) throw this.unauthorizedException;
-    const matched = comparePasswords(signInDto.password, user?.password);
+    const matched = comparePasswords(signInDto.password, user.password);
     if (!matched) throw this.unauthorizedException;
-    delete user.password;
+    delete user.password; 
     if (matched) {
       const payload = {
         id: user.id,

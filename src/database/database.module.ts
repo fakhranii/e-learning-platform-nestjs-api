@@ -21,7 +21,6 @@ import * as path from 'path';
         rejectUnauthorized: false, // Reject unauthorized connections in production
       },
     }),
-    // }),
   ],
 })
 export class DatabaseModule {}
