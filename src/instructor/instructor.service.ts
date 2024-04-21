@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { Instructor } from './entities/instructor.entity';
@@ -24,9 +24,7 @@ export class InstructorService {
     const existingInstructor = await this.instructorRepo.findOne({
       where: { email: createInstructorDto.email },
     });
-    if (existingInstructor) {
-      throw new Error('Instructor already exist');
-    }
+    if (existingInstructor) throw this.exceptions.instructorAlreadyExists;
     const instructor = new Instructor();
     Object.assign(instructor, createInstructorDto);
     if (file) {

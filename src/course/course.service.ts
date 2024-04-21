@@ -7,7 +7,6 @@ import { Repository } from 'typeorm';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
-// import { calculatePercentage } from 'src/common/calculate-percentage';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from '../common/Exceptions';
 
@@ -17,6 +16,7 @@ export class CourseService {
     private readonly exceptions: Exceptions,
     private readonly cloudinarySrv: CloudinaryService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
+    @InjectRepository(Review) private readonly reviewRepo: Repository<Review>,
     @InjectRepository(Course) private readonly courseRepo: Repository<Course>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
@@ -215,9 +215,19 @@ export class CourseService {
 
   async remove(req: any, courseId: number) {
     const { id } = req.user;
-    const instructor = await this.instructorRepo.findOneBy({ id });
+    const course = await this.courseRepo.findOne({
+      where: { id: courseId },
+      relations: ['reviews'],
+    });
+    if (!course) throw this.exceptions.courseNotFound;
+    const instructor = await this.instructorRepo.findOne({
+      where: { id },
+      relations: ['courses.reviews'],
+    });
     if (!instructor) throw this.exceptions.instructorNotFound;
-    return this.courseRepo.delete(courseId);
+    await this.reviewRepo.remove(course.reviews);
+    await this.courseRepo.remove(course);
+    return 'Couese Removed';
   }
 
   async removeThumbnail(req: any, courseId: number) {

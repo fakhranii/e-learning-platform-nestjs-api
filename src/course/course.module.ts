@@ -13,7 +13,7 @@ import { Exceptions } from 'src/common/Exceptions';
 @Module({
   imports: [
     CloudinaryModule,
-    TypeOrmModule.forFeature([User, Instructor, Course, Review]),
+    TypeOrmModule.forFeature([User, Instructor, Course, Review]), // database operations
   ],
   controllers: [CourseController],
   providers: [CourseService, UserService, Exceptions],

@@ -11,4 +11,9 @@ export class Exceptions {
   courseNotFound = new HttpException('Course not found', HttpStatus.NOT_FOUND);
 
   reviewNotFound = new HttpException('Review not found', HttpStatus.NOT_FOUND);
+
+  instructorAlreadyExists = new HttpException(
+    'Instructor already exist',
+    HttpStatus.METHOD_NOT_ALLOWED,
+  );
 }

@@ -25,7 +25,7 @@ export class UserController {
     private readonly cloudinarySrv: CloudinaryService,
   ) {}
 
-  @Post()
+  @Post() // v1/users -> Post method
   @UseInterceptors(FileInterceptor('file'))
   create(
     @UploadedFile() file: Express.Multer.File,
@@ -34,22 +34,22 @@ export class UserController {
     return this.userSrv.create(createUserDto, file);
   }
 
-  @Get()
+  @Get() // Get v1/users -> get method
   findAll() {
     return this.userSrv.findAll();
   }
 
-  @UseGuards(AuthGuard)
-  @Get('courses')
+  @UseGuards(AuthGuard) // protected route
+  @Get('courses') // v1/users/courses
   findOne(@Request() req) {
     return this.userSrv.findUserCorses(req);
   }
 
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  @Patch()
+  @Patch() //Patch v1/users
   update(
-    @Request() req,
+    @Request() req, // i can get the user Then i update it
     @Body() updateUserDto: UpdateUserDto,
     @UploadedFile() file: Express.Multer.File,
   ) {

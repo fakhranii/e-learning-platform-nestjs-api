@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from 'src/common/Exceptions';
+import { Course } from 'src/course/entities/course.entity';
 
 @Injectable()
 export class UserService {
@@ -19,9 +20,11 @@ export class UserService {
     createUserDto: CreateUserDto,
     file: Express.Multer.File,
   ): Promise<User> {
+    // * Query استعلام
     const existingUser = await this.userRepo.findOne({
       where: { email: createUserDto.email },
     });
+
     if (existingUser)
       throw new HttpException(
         'User already exists, Try new one',
@@ -29,11 +32,11 @@ export class UserService {
       );
 
     const user = new User();
-    Object.assign(user, createUserDto);
-    if (file) {
+    Object.assign(user, createUserDto); //target / source
+    if (file)
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
-    }
-    await this.userRepo.save(user);
+
+    await this.userRepo.save(user); // userRepo represent user table
     delete user.password;
     return user;
   }
@@ -48,6 +51,7 @@ export class UserService {
       where: { id },
       relations: ['courses.reviews.reviewCreator'],
     });
+
     if (!user) throw this.exceptions.userNotFound;
     const coursesWithReviews = user.courses.map((course) => {
       let hasReviewed = false;
@@ -63,7 +67,6 @@ export class UserService {
         hasReviewed,
       };
     });
-
     return coursesWithReviews;
   }
 
@@ -85,7 +88,7 @@ export class UserService {
   async remove(req: any) {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
-    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    if (!user) throw this.exceptions.userNotFound;
     return this.userRepo.delete(id);
   }
 
