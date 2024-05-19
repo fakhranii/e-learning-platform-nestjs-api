@@ -39,6 +39,7 @@ export class CourseService {
         HttpStatus.BAD_REQUEST,
       );
     }
+
     const existingCourse = await this.courseRepo.findOneBy({
       title: createCourseDto.title,
     });
@@ -47,6 +48,7 @@ export class CourseService {
         'There is one course with the same title',
         HttpStatus.METHOD_NOT_ALLOWED,
       );
+
     const newCourse = new Course();
     const requiredFields = [
       'title',
@@ -108,7 +110,7 @@ export class CourseService {
     }
     user.courses.push(course);
     instructor.studentsCount++;
-    course.courseCreator.studentsCount++;
+    // course.courseCreator.studentsCount++;
     course.numberOfStudents++;
     await this.userRepo.save(user);
     await this.instructorRepo.save(instructor);
@@ -143,9 +145,9 @@ export class CourseService {
       );
     }
     user.courses.splice(isCourseEnrolled[1], 1);
-    instructor.studentsCount--;
-    course.courseCreator.studentsCount--;
-    course.numberOfStudents--;
+    if (instructor.studentsCount >= 0) instructor.studentsCount--;
+    // course.courseCreator.studentsCount--;
+    if (course.numberOfStudents >= 0) course.numberOfStudents--;
     await this.courseRepo.save(course);
     await this.instructorRepo.save(instructor);
     await this.userRepo.save(user);
