@@ -144,7 +144,8 @@ export class CourseService {
         HttpStatus.METHOD_NOT_ALLOWED,
       );
     }
-    user.courses.splice(isCourseEnrolled[1], 1);
+
+    user.courses = user.courses.filter((cour) => cour.id !== course.id);
     if (instructor.studentsCount > 0) instructor.studentsCount--;
     // course.courseCreator.studentsCount--;
     if (course.numberOfStudents > 0) course.numberOfStudents--;
