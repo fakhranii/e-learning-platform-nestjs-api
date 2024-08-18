@@ -1,6 +1,4 @@
 import slugify from 'slugify';
-import { Instructor } from 'src/instructor/entities/instructor.entity';
-import { Review } from 'src/review/entities/review.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,6 +7,9 @@ import {
   OneToMany,
   BeforeInsert,
 } from 'typeorm';
+
+import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { Review } from 'src/review/entities/review.entity';
 
 @Entity({ name: 'courses' })
 export class Course {

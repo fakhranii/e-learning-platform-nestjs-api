@@ -11,11 +11,12 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+
 import { InstructorService } from './instructor.service';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('v1/instructors')
 export class InstructorController {

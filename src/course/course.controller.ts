@@ -1,3 +1,5 @@
+import { FileInterceptor } from '@nestjs/platform-express';
+
 import {
   Controller,
   Get,
@@ -12,11 +14,11 @@ import {
   UploadedFile,
   Query,
 } from '@nestjs/common';
+
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('v1/courses')
 export class CourseController {
@@ -39,7 +41,6 @@ export class CourseController {
     return this.courseService.findInstructorCourses(req);
   }
 
- 
   @Get()
   findAll(@Query('type') type: string) {
     return this.courseService.findAll(type);

@@ -1,12 +1,13 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+``
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { Exceptions } from '../utils/Exceptions';
+import { Course } from 'src/course/entities/course.entity';
 import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { Instructor } from './entities/instructor.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Exceptions } from '../common/Exceptions';
-import { Course } from 'src/course/entities/course.entity';
 
 @Injectable()
 export class InstructorService {

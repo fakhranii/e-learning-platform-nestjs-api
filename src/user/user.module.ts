@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
-import { Exceptions } from 'src/common/Exceptions';
+import { Exceptions } from 'src/utils/Exceptions';
 
 @Module({
   imports: [

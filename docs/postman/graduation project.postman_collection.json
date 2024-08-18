@@ -4,7 +4,7 @@
 		"name": "graduation project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31885780",
-		"_collection_link": "https://www.postman.com/gold-water-721915/workspace/public-collections/collection/31885780-ba7c45c9-d1f4-4192-b93c-dc629f65b059?action=share&source=collection_link&creator=31885780"
+		"_collection_link": "https://gold-water-721915.postman.co/workspace/Public-Collections~899f080b-3a13-42d0-895e-553e15ff281c/collection/31885780-ba7c45c9-d1f4-4192-b93c-dc629f65b059?action=share&source=collection_link&creator=31885780"
 	},
 	"item": [
 		{
@@ -27,7 +27,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"fullName\": \"ziad elfakhrany\",\r\n    \"email\": \"ziad@gmail.com\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"drMrmrer\",\r\n    \"fullName\": \"desha khalid\",\r\n    \"email\": \"ali5ddrlrkf5dsadf@gmail.com\",\r\n    \"password\": \"desha\",\r\n    \"isAdmin\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -35,14 +35,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/users",
+							"raw": "{{baseUrl}}/v1/users/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
-								"users"
+								"users",
+								""
 							]
 						}
 					},
@@ -64,11 +64,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/users",
+							"raw": "{{baseUrl}}/v1/users",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"users"
@@ -78,14 +77,14 @@
 					"response": []
 				},
 				{
-					"name": "get one user by id",
+					"name": "get user courses",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjM2NTk4OCwiZXhwIjoxNzEyMzY5NTg4fQ.xoBTpVRzJOfuWg_yPNovSerbGuI73J87diUD7JcLVlk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDksImlzQWRtaW4iOnRydWUsImlhdCI6MTcxODg4MTIxOSwiZXhwIjoxNzE5NDg2MDE5fQ.zCsctuei776GSFJ8qsFwqQEaJ6MDExhXOoCj-DErdWI",
 									"type": "string"
 								}
 							]
@@ -93,11 +92,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/users/courses",
+							"raw": "{{baseUrl}}/v1/users/courses",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"users",
@@ -115,7 +113,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExMDgyNCwiZXhwIjoxNzEyMTE0NDI0fQ.QaFMBaM2SJkbnyDUjUxquGW0wvB6UG0bfzJH2Eyq84g",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNTMyMTE5NSwiZXhwIjoxNzE1OTI1OTk1fQ.LhUc8jcmTUfvIM6qX7W3GZiBQka7nXrzuGpRcjDHDvw",
 									"type": "string"
 								}
 							]
@@ -124,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"Mustafa ali\"\r\n}",
+							"raw": "{\r\n    \"username\": \"mo-khalid\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -132,15 +130,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/users/",
+							"raw": "{{baseUrl}}/v1/users",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
-								"users",
-								""
+								"users"
 							]
 						}
 					},
@@ -171,11 +167,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/users/",
+							"raw": "{{baseUrl}}/v1/users/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"users",
@@ -210,11 +205,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/users/avatar",
+							"raw": "{{baseUrl}}/v1/users/avatar",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"users",
@@ -243,7 +237,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ali\",\r\n    \"password\": \"mokhalid1122\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,11 +245,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/user/signin?rememberMe=true",
+							"raw": "{{baseUrl}}/v1/auth/user/signin?rememberMe=true",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"auth",
@@ -289,7 +282,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"username\": \"ziad\",\r\n    \"password\": \"1122\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -297,11 +290,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/instructor/signin?rememberMe=true",
+							"raw": "{{baseUrl}}/v1/auth/instructor/signin?rememberMe=true",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"auth",
@@ -358,11 +350,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/user/profile",
+							"raw": "{{baseUrl}}/v1/auth/user/profile",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"auth",
@@ -405,11 +396,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/auth/user/signout",
+							"raw": "{{baseUrl}}/v1/auth/user/signout",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"auth",
@@ -450,11 +440,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses",
+							"raw": "{{baseUrl}}/v1/courses",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses"
@@ -491,11 +480,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses",
+							"raw": "{{baseUrl}}/v1/courses",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses"
@@ -532,15 +520,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/testOneeecefff",
+							"raw": "{{baseUrl}}/v1/courses/git-and-github",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
-								"testOneeecefff"
+								"git-and-github"
 							]
 						}
 					},
@@ -571,11 +558,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/course/16",
+							"raw": "{{baseUrl}}/v1/course/16",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"course",
@@ -593,7 +579,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTM3MzU2MzMsImV4cCI6MTcxNDM0MDQzM30.3cadSoNo6BTQ0XN-SLn8Hys4WdpCuLEKLH-yk-rNJK4",
 									"type": "string"
 								}
 							]
@@ -610,11 +596,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/5",
+							"raw": "{{baseUrl}}/v1/courses/5",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
@@ -649,11 +634,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/courses/5/thumbnail",
+							"raw": "{{baseUrl}}/v1/courses/5/thumbnail",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
@@ -686,7 +670,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"username\": \"ziad\",\r\n    \"email\": \"ziad@email.com\",\r\n    \"password\": \"ziad\"\r\n}",
+							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"fullName\": \"Ziaddff\",\r\n    \"username\": \"ajdlkfsfffddd\",\r\n    \"email\": \"dddffef22@email.com\",\r\n    \"password\": \"ahmed\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -694,11 +678,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructors/",
+							"raw": "{{baseUrl}}/v1/instructors/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"instructors",
@@ -714,11 +697,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructors",
+							"raw": "{{baseUrl}}/v1/instructors",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"instructors"
@@ -743,11 +725,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/instructors/ziad",
+							"raw": "{{baseUrl}}/v1/instructors/ziad",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"instructors",
@@ -821,11 +802,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructors/",
+							"raw": "{{baseUrl}}/v1/instructors/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"instructors",
@@ -860,11 +840,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/instructors/avatar",
+							"raw": "{{baseUrl}}/v1/instructors/avatar",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"instructors",
@@ -904,11 +883,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/learn-js-in-arabic",
+							"raw": "{{baseUrl}}/v1/reviews/learn-js-in-arabic",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"reviews",
@@ -943,11 +921,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/7",
+							"raw": "{{baseUrl}}/v1/reviews/7",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"reviews",
@@ -982,11 +959,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/v1/reviews/python-in-arabic",
+							"raw": "{{baseUrl}}/v1/reviews/python-in-arabic",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"reviews",
@@ -1017,11 +993,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/instructor",
+							"raw": "{{baseUrl}}/v1/courses/instructor",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
@@ -1052,11 +1027,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/reviews/instructor/ziad",
+							"raw": "{{baseUrl}}/v1/reviews/instructor/ziad",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"reviews",
@@ -1078,11 +1052,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/test2024-arabic/reviews",
+							"raw": "{{baseUrl}}/v1/courses/test2024-arabic/reviews",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
@@ -1106,7 +1079,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTYxNjUxNDMsImV4cCI6MTcxNjc2OTk0M30.jCrrx7lHtZZgR9zWRU61LRmJjYiERQ9_G-B25c21Wa8",
 									"type": "string"
 								}
 							]
@@ -1114,15 +1087,14 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/learn-js-in-arabic/enroll",
+							"raw": "{{baseUrl}}/v1/courses/Youssef/enroll",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
-								"learn-js-in-arabic",
+								"Youssef",
 								"enroll"
 							]
 						}
@@ -1137,7 +1109,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTYxNjcyOTksImV4cCI6MTcxNjc3MjA5OX0.mp_E9NyJwhH161s6DpfONpwRmVnux3r0enLNXkHQvIg",
 									"type": "string"
 								}
 							]
@@ -1145,15 +1117,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/courses/learn-js-in-arabic/unenroll",
+							"raw": "{{baseUrl}}/v1/courses/Youssef/unenroll",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"courses",
-								"learn-js-in-arabic",
+								"Youssef",
 								"unenroll"
 							]
 						}
@@ -1181,11 +1152,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/v1/users/courses",
+							"raw": "{{baseUrl}}/v1/users/courses",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"v1",
 								"users",

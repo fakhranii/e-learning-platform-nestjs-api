@@ -10,6 +10,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
+
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { SignInDto } from './dto/signin.dto';
@@ -19,12 +20,18 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @HttpCode(HttpStatus.OK)
   @Post('user/signin')
-  userSignIn(@Body() signInDto: SignInDto, @Query('rememberMe') rememberMe: string) {
+  userSignIn(
+    @Body() signInDto: SignInDto,
+    @Query('rememberMe') rememberMe: string,
+  ) {
     return this.authService.userSignIn(signInDto, rememberMe);
   }
 
   @Post('instructor/signin')
-  instructorSignIn(@Body() signInDto: SignInDto, @Query('rememberMe') rememberMe: string) {
+  instructorSignIn(
+    @Body() signInDto: SignInDto,
+    @Query('rememberMe') rememberMe: string,
+  ) {
     return this.authService.instructorSignIn(signInDto, rememberMe);
   }
 

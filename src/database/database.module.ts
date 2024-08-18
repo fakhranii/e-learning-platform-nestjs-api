@@ -6,7 +6,7 @@ dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
       url: process.env.DB_URl,
@@ -14,11 +14,13 @@ dotenv.config();
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: false, //* true only on dev env
-      ssl: {
-        ca: null, // Not using CA certificate
-        rejectUnauthorized: false, // Reject unauthorized connections in production
-      },
+      synchronize: true, //* true only on dev env
+      logging: true,
+
+      // ssl: {
+      //   ca: null, // Not using CA certificate
+      //   rejectUnauthorized: false, // Reject unauthorized connections in production
+      // },
     }),
   ],
 })

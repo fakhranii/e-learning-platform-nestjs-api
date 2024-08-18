@@ -1,4 +1,3 @@
-import { Course } from 'src/course/entities/course.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,6 +7,8 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
+
+import { Course } from 'src/course/entities/course.entity';
 
 @Entity({ name: 'instructors' })
 export class Instructor {

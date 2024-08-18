@@ -1,13 +1,15 @@
-import {  Injectable } from '@nestjs/common';
-import { CreateReviewDto } from './dto/create-review.dto';
-import { UpdateReviewDto } from './dto/update-review.dto';
+import { Injectable } from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { CreateReviewDto } from './dto/create-review.dto';
+import { UpdateReviewDto } from './dto/update-review.dto';
 import { User } from '../user/entities/user.entity';
 import { Course } from 'src/course/entities/course.entity';
 import { Review } from './entities/review.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
-import { Exceptions } from '../common/Exceptions';
+import { Exceptions } from '../utils/Exceptions';
 
 @Injectable()
 export class ReviewService {

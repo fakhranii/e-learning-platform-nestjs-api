@@ -5,8 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { Exceptions } from 'src/common/Exceptions';
-import { Course } from 'src/course/entities/course.entity';
+import { Exceptions } from 'src/utils/Exceptions';
 
 @Injectable()
 export class UserService {
@@ -20,7 +19,6 @@ export class UserService {
     createUserDto: CreateUserDto,
     file: Express.Multer.File,
   ): Promise<User> {
-    // * Query استعلام
     const existingUser = await this.userRepo.findOne({
       where: { email: createUserDto.email },
     });
@@ -42,7 +40,7 @@ export class UserService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userRepo.find(); // find all
+    return this.userRepo.find({ where: { active: true } }); // find all
   }
 
   async findUserCorses(req: any): Promise<any[]> {
@@ -89,7 +87,8 @@ export class UserService {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
     if (!user) throw this.exceptions.userNotFound;
-    return this.userRepo.delete(id);
+    user.active = false;
+    return this.userRepo.save(user);
   }
 
   async removeAvatar(req: any) {

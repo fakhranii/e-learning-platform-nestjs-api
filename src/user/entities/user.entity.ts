@@ -8,13 +8,12 @@ import {
   JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+
 import { Course } from 'src/course/entities/course.entity';
 import { Review } from 'src/review/entities/review.entity';
 
-//* table name
 @Entity({ name: 'users' })
 export class User {
-  //* table schema
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -33,11 +32,26 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean; // true or false
 
+  @Column({ default: true })
+  active: boolean;
+
   @Column({ nullable: true }) // typeorm package
   avatar: string;
 
+  @Column({ type: 'timestamp', nullable: true })
+  passwordChangedAt: Date;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @Column({ nullable: true })
+  passwordResetCode: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordResetExpires: Date;
+
+  @Column({ default: false })
+  passwordResetVerified: Boolean;
 
   @OneToMany(() => Review, (reviews) => reviews.reviewCreator)
   reviews: Review[];

@@ -1,73 +1,162 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# ERD: Educational-platform-api.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This document explores the design of Educational-platform-api, a social experience for sharing useful your Educational-platform-api.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+We'll use a basic server architecture, where the server is deployed
+on a cloud provider next to a relational database, and serving HTTP traffic from
+a public endpoint.
 
-## Description
+## Database Schema
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+We'll need at least the following entities to implement the service:
 
-## Installation
+**Users**
+| Column | Type |
+|---------------------------|--------------------|
+| id | number |
+| fullName | string |
+| username | string |
+| email | string |
+| password | string |
+| avatar | string |
+| isAdmin | boolean |
+| CreatedAt | datatime |
 
-```bash
-$ npm install
+**Courses**
+| Column | Type |
+|-----------------|-------------|
+| id | number |
+| title | string |
+| slug | string |
+| courseDescription | string |
+| courseLink | string |
+| Image | string |
+| numberOfStudents | number |
+| numberOfRatings | number |
+| isBestSelling | boolean |
+| whatYouWillLearn | string |
+| passPercentage | string |
+| prerequisites | string |
+| language | string |
+| category | string |
+| skillLevel | string |
+| thumbnails | string |
+| courseCreatorId | number |
+| CreatedAt | datatime |
+| UpdatedAt | datatime |
+
+**Reviews**
+| Column | Type |
+|-----------------|-------------|
+| id | number |
+| rating | number |
+| reviewBody | string |
+| reviewCreatorId | number |
+| courseId | number |
+
+**Instructors**
+| Column | Type |
+|-----------------|-------------|
+| id | number |
+| instructorDescription | string |
+| username | string |
+| fullName | string |
+| avatar | string |
+| email | string |
+| studentsCount | number |
+| coursesCount | number |
+| ratingsCount | number |
+| isInstructor | boolean |
+| password | string |
+| CreatedAt | datatime |
+
+**Users_courses_courses**
+| Column | Type |
+|-----------------|-------------|
+| userId | number |
+| courseId | number |
+
+## Server
+
+A simple HTTP server is responsible for authentication, serving stored data, and
+potentially ingesting and serving analytics data.
+
+- Node.js is selected for implementing the server for speed of development.
+- Nestjs.js is the web server framework.
+- TypeOrm to be used as an ORM.
+
+### Auth
+
+For v1, JWT-based auth mechanism is to be used, with passwords
+encrypted and stored in the database. potentially added OAuth
+for Google + Facebook and maybe others (Github?).
+
+### API
+
+**Auth**:
+
+```
+/v1/auth/user/signin         [POST]
+/v1/auth/instructor/signin   [POST]
+/v1/auth/user/profile        [GET]
 ```
 
-## Running the app
+**Users**
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+/v1/users                      [POST]
+/v1/users                      [GET]
+/v1/users/5                    [GET]
+/v1/users/                     [PATCH]
+/v1/users/                     [DELETE]
+/v1/users/avatar               [DELETE]
 ```
 
-## Test
+**Courses**
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+/v1/courses             [POST]
+/v1/courses             [GET]
+/v1/courses/18          [GET]
+/v1/course/16           [PATCH]
+/v1/courses/5           [DELETE]
+/v1/courses/5/thumbnail [DELETE]
 ```
 
-## Support
+**Instructors**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+/v1/instructors           [POST]
+/v1/instructors           [GET]
+/v1/instructors/1         [GET]
+/v1/instructors           [PATCH]
+/v1/instructors           [DELETE]
+/v1/instructors/avatar    [DELETE]
+```
 
-## Stay in touch
+**Reviews**
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+/v1/reviews/PG-in-arabic       [POST]
+/v1/reviews/7                  [PATCH]
+/v1/reviews/python-in-arabic   [DELETE]
+```
 
-## License
+**instructor/courses**
 
-Nest is [MIT licensed](LICENSE).
+```
+/v1/instructors/courses  [GET]
+```
+
+**course/reviews**
+
+```
+/v1/courses/PG-in-arabic/reviews [GET]
+```
+
+**course enroll**
+
+```
+/v1/courses/php-in-arabic/enroll    [POST]
+/v1/courses/php-in-arabic/unenroll  [DELETE]
+```
