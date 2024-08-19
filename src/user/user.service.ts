@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from 'src/utils/Exceptions';
+import { Course } from 'src/course/entities/course.entity';
+import { sanitizeUser } from 'src/utils/sanitize/sanitizeResponse';
 
 @Injectable()
 export class UserService {
@@ -39,10 +41,13 @@ export class UserService {
   // }
 
   async findAll(): Promise<User[]> {
-    return this.userRepo.find({ where: { active: true } }); // find all
+    return this.userRepo.find({
+      where: { active: true },
+      select: ['username', 'active', 'fullName'],
+    }); // find all
   }
 
-  async findUserCorses(req: any): Promise<any[]> {
+  async findUserCorses(req: any): Promise<any> {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
@@ -71,7 +76,7 @@ export class UserService {
     req: any,
     updateUserDto: UpdateUserDto,
     file: Express.Multer.File,
-  ): Promise<User> {
+  ): Promise<Partial<User>> {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
     if (!user) throw this.exceptions.userNotFound;
@@ -79,7 +84,7 @@ export class UserService {
     if (file) {
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
     }
-    return await this.userRepo.save(user);
+    return sanitizeUser(await this.userRepo.save(user));
   }
 
   async remove(req: any) {

@@ -5,9 +5,9 @@ import { Repository } from 'typeorm';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from '../utils/Exceptions';
 import { Course } from 'src/course/entities/course.entity';
-import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { Instructor } from './entities/instructor.entity';
+import { sanitizeInstructor } from 'src/utils/sanitize/sanitizeResponse';
 
 @Injectable()
 export class InstructorService {
@@ -39,23 +39,26 @@ export class InstructorService {
   // }
 
   async findAll(): Promise<Instructor[]> {
-    return await this.instructorRepo.find();
+    return await this.instructorRepo.find({
+      select: ['username', 'fullName', 'id'],
+    });
   }
 
-  async findOne(username: string): Promise<Instructor> {
+  // async findOne(username: string): Promise<Instructor> {
+  async findOne(username: string): Promise<Partial<Instructor>> {
     const instructor = await this.instructorRepo.findOne({
       where: { username },
       relations: ['courses.reviews.reviewCreator'],
     });
     if (!instructor) throw this.exceptions.instructorNotFound;
-    return instructor;
+    return sanitizeInstructor(instructor);
   }
 
   async update(
     req: any,
     updateInstructorDto: UpdateInstructorDto,
     file: Express.Multer.File,
-  ): Promise<Instructor> {
+  ): Promise<Partial<Instructor>> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor) throw this.exceptions.instructorNotFound;
@@ -65,7 +68,7 @@ export class InstructorService {
         await this.cloudinarySrv.uploadFile(file)
       ).secure_url;
     }
-    return await this.instructorRepo.save(instructor);
+    return sanitizeInstructor(await this.instructorRepo.save(instructor));
   }
 
   async remove(req: any) {

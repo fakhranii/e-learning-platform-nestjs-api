@@ -24,7 +24,10 @@ export class AdminDashboardService {
     data: User[];
     activeUserCount: number;
   }> {
-    const users = await this.userRepo.find({ where: { active: true } });
+    const users = await this.userRepo.find({
+      where: { active: true },
+      select: ['id', 'fullName', 'username'],
+    });
     const userCount = users.length;
     return { activeUserCount: userCount, data: users };
   }
@@ -33,7 +36,10 @@ export class AdminDashboardService {
     data: User[];
     inactiveUserCount: number;
   }> {
-    const users = await this.userRepo.find({ where: { active: false } });
+    const users = await this.userRepo.find({
+      where: { active: false },
+      select: ['id', 'fullName', 'username'],
+    });
     const userCount = users.length;
     return { inactiveUserCount: userCount, data: users };
   }
@@ -44,6 +50,7 @@ export class AdminDashboardService {
   }> {
     const instructors = await this.instructorRepo.find({
       where: { active: false },
+      select: ['id', 'fullName', 'username'],
     });
     const inactiveInstructorsCount = instructors.length;
     return {
@@ -58,6 +65,7 @@ export class AdminDashboardService {
   }> {
     const instructors = await this.instructorRepo.find({
       where: { active: true },
+      select: ['id', 'fullName', 'username'],
     });
     const activeInstructorsCount = instructors.length;
     return {
@@ -136,6 +144,7 @@ export class AdminDashboardService {
     const reviw = await this.reviewRepo.findOneBy({ id });
     const course = reviw.course;
     course.numberOfRatings--;
+    await this.courseRepo.save(course);
     return await this.reviewRepo.delete(id);
   }
 }

@@ -10,6 +10,7 @@ import { Exceptions } from '../utils/Exceptions';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
+import { sanitizeCourse } from 'src/utils/sanitize/sanitizeResponse';
 
 @Injectable()
 export class CourseService {
@@ -27,7 +28,7 @@ export class CourseService {
     req: any,
     createCourseDto: CreateCourseDto,
     file: Express.Multer.File,
-  ): Promise<Course> {
+  ): Promise<Partial<Course>> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor.isInstructor) throw this.exceptions.instructorNotFound;
@@ -80,10 +81,10 @@ export class CourseService {
         await this.cloudinarySrv.uploadFile(file)
       ).secure_url;
     }
-    return await this.courseRepo.save(newCourse);
+    return sanitizeCourse(await this.courseRepo.save(newCourse));
   }
 
-  async enrollCourse(req: any, slug: string) {
+  async enrollCourse(req: any, slug: string): Promise<Partial<Course>> {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
@@ -111,15 +112,14 @@ export class CourseService {
     }
     user.courses.push(course);
     instructor.studentsCount++;
-    // course.courseCreator.studentsCount++;
     course.numberOfStudents++;
     await this.userRepo.save(user);
     await this.instructorRepo.save(instructor);
     await this.courseRepo.save(course);
-    return course;
+    return sanitizeCourse(course);
   }
 
-  async unEnrollCourse(req: any, slug: string) {
+  async unEnrollCourse(req: any, slug: string): Promise<Partial<Course>> {
     const { id } = req.user;
     const user = await this.userRepo.findOne({
       where: { id },
@@ -148,12 +148,11 @@ export class CourseService {
 
     user.courses = user.courses.filter((cour) => cour.id !== course.id);
     if (instructor.studentsCount > 0) instructor.studentsCount--;
-    // course.courseCreator.studentsCount--;
     if (course.numberOfStudents > 0) course.numberOfStudents--;
     await this.courseRepo.save(course);
     await this.instructorRepo.save(instructor);
     await this.userRepo.save(user);
-    return course;
+    return sanitizeCourse(course);
   }
 
   async findInstructorCourses(req: any): Promise<Course[]> {
@@ -178,9 +177,28 @@ export class CourseService {
 
   async findAll(type: string): Promise<Course[]> {
     if (type == 'frontend' || type == 'backend' || type == 'fullStack') {
-      return await this.courseRepo.find({ where: { category: type } });
+      return await this.courseRepo.find({
+        where: { category: type },
+        select: [
+          'id',
+          'language',
+          'courseLink',
+          'title',
+          'thumbnails',
+          'courseCreator',
+        ],
+      });
     } else if (!type) {
-      return await this.courseRepo.find();
+      return await this.courseRepo.find({
+        select: [
+          'id',
+          'language',
+          'courseLink',
+          'title',
+          'thumbnails',
+          'courseCreator',
+        ],
+      });
     }
     throw new HttpException('Invalid category type', HttpStatus.NOT_FOUND);
   }
