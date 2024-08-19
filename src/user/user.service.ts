@@ -1,6 +1,5 @@
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -15,29 +14,29 @@ export class UserService {
     @InjectRepository(User) private readonly userRepo: Repository<User>,
   ) {}
 
-  async create(
-    createUserDto: CreateUserDto,
-    file: Express.Multer.File,
-  ): Promise<User> {
-    const existingUser = await this.userRepo.findOne({
-      where: { email: createUserDto.email },
-    });
+  // async create(
+  //   createUserDto: CreateUserDto,
+  //   file: Express.Multer.File,
+  // ): Promise<User> {
+  //   const existingUser = await this.userRepo.findOne({
+  //     where: { email: createUserDto.email },
+  //   });
 
-    if (existingUser)
-      throw new HttpException(
-        'User already exists, Try new one',
-        HttpStatus.METHOD_NOT_ALLOWED,
-      );
+  //   if (existingUser)
+  //     throw new HttpException(
+  //       'User already exists, Try new one',
+  //       HttpStatus.METHOD_NOT_ALLOWED,
+  //     );
 
-    const user = new User();
-    Object.assign(user, createUserDto);
-    if (file)
-      user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+  //   const user = new User();
+  //   Object.assign(user, createUserDto);
+  //   if (file)
+  //     user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
 
-    await this.userRepo.save(user);
-    delete user.password;
-    return user;
-  }
+  //   await this.userRepo.save(user);
+  //   delete user.password;
+  //   return user;
+  // }
 
   async findAll(): Promise<User[]> {
     return this.userRepo.find({ where: { active: true } }); // find all

@@ -15,7 +15,7 @@ dotenv.config();
       database: process.env.DB_NAME,
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true, //* true only on dev env
-      logging: true,
+      // logging: true,
 
       // ssl: {
       //   ca: null, // Not using CA certificate

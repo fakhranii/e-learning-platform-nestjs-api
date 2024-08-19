@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-``
+``;
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from '../utils/Exceptions';
 import { Course } from 'src/course/entities/course.entity';
@@ -18,25 +18,25 @@ export class InstructorService {
     private readonly cloudinarySrv: CloudinaryService,
     private readonly exceptions: Exceptions,
   ) {}
-  async create(
-    createInstructorDto: CreateInstructorDto,
-    file: Express.Multer.File,
-  ): Promise<Instructor> {
-    const existingInstructor = await this.instructorRepo.findOne({
-      where: { email: createInstructorDto.email },
-    });
-    if (existingInstructor) throw this.exceptions.instructorAlreadyExists;
-    const instructor = new Instructor();
-    Object.assign(instructor, createInstructorDto);
-    if (file) {
-      instructor.avatar = (
-        await this.cloudinarySrv.uploadFile(file)
-      ).secure_url;
-    }
-    await this.instructorRepo.save(instructor);
-    delete instructor.password;
-    return instructor;
-  }
+  // async create(
+  //   createInstructorDto: CreateInstructorDto,
+  //   file: Express.Multer.File,
+  // ): Promise<Instructor> {
+  //   const existingInstructor = await this.instructorRepo.findOne({
+  //     where: { email: createInstructorDto.email },
+  //   });
+  //   if (existingInstructor) throw this.exceptions.instructorAlreadyExists;
+  //   const instructor = new Instructor();
+  //   Object.assign(instructor, createInstructorDto);
+  //   if (file) {
+  //     instructor.avatar = (
+  //       await this.cloudinarySrv.uploadFile(file)
+  //     ).secure_url;
+  //   }
+  //   await this.instructorRepo.save(instructor);
+  //   delete instructor.password;
+  //   return instructor;
+  // }
 
   async findAll(): Promise<Instructor[]> {
     return await this.instructorRepo.find();

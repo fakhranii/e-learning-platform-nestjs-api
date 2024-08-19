@@ -1,10 +1,8 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
-  Param,
   Delete,
   UseGuards,
   Request,
@@ -12,7 +10,6 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -25,14 +22,14 @@ export class UserController {
     private readonly cloudinarySrv: CloudinaryService,
   ) {}
 
-  @Post() // v1/users -> Post method
-  @UseInterceptors(FileInterceptor('file'))
-  create(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() createUserDto: CreateUserDto,
-  ) {
-    return this.userSrv.create(createUserDto, file);
-  }
+  // @Post() // v1/users -> Post method
+  // @UseInterceptors(FileInterceptor('file'))
+  // create(
+  //   @UploadedFile() file: Express.Multer.File,
+  //   @Body() createUserDto: CreateUserDto,
+  // ) {
+  //   return this.userSrv.create(createUserDto, file);
+  // }
 
   @Get() // Get v1/users -> get method
   findAll() {

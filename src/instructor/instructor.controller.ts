@@ -22,15 +22,6 @@ import { AuthGuard } from 'src/auth/guards/auth.guard';
 export class InstructorController {
   constructor(private readonly instructorService: InstructorService) {}
 
-  @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  create(
-    @Body() createInstructorDto: CreateInstructorDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    return this.instructorService.create(createInstructorDto, file);
-  }
-
   @Get()
   findAll() {
     return this.instructorService.findAll();

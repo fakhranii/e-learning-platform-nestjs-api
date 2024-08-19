@@ -8,103 +8,8 @@
 	},
 	"item": [
 		{
-			"name": "user",
+			"name": "Logged User",
 			"item": [
-				{
-					"name": "create user",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExNTgxOCwiZXhwIjoxNzEyMTE5NDE4fQ.WvKkWLkOdJm7jfQrJYl-tSU1MKMCGP-aTpaC5iolatc",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"drMrmrer\",\r\n    \"fullName\": \"desha khalid\",\r\n    \"email\": \"ali5ddrlrkf5dsadf@gmail.com\",\r\n    \"password\": \"desha\",\r\n    \"isAdmin\": true\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/users/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all users",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/v1/users",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get user courses",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDksImlzQWRtaW4iOnRydWUsImlhdCI6MTcxODg4MTIxOSwiZXhwIjoxNzE5NDg2MDE5fQ.zCsctuei776GSFJ8qsFwqQEaJ6MDExhXOoCj-DErdWI",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/v1/users/courses",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"users",
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "update an user",
 					"request": {
@@ -113,7 +18,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjUsImlzQWRtaW4iOnRydWUsImlhdCI6MTcxNTMyMTE5NSwiZXhwIjoxNzE1OTI1OTk1fQ.LhUc8jcmTUfvIM6qX7W3GZiBQka7nXrzuGpRcjDHDvw",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -150,7 +55,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJtb3N0YWZhIiwiaWF0IjoxNzEwMTI4NzQwLCJleHAiOjE3MTAxMzIzNDB9.KWl8cV443nDuim6ntmzYxtD-LxCB5QlDNirmbkhwvKg",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -188,7 +93,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExNTgxOCwiZXhwIjoxNzEyMTE5NDE4fQ.WvKkWLkOdJm7jfQrJYl-tSU1MKMCGP-aTpaC5iolatc",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -217,6 +122,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get user courses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/users/courses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"courses"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -225,6 +159,18 @@
 			"item": [
 				{
 					"name": "user signIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -237,7 +183,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ali\",\r\n    \"password\": \"mokhalid1122\"\r\n}",
+							"raw": "{\r\n    \"username\": \"mostafa\",\r\n    \"password\": \"mostafa1122\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,6 +213,18 @@
 				},
 				{
 					"name": "instructor signIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -312,6 +270,18 @@
 				},
 				{
 					"name": "current user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -321,7 +291,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3MzY3OSwiZXhwIjoxNzEyMjc3Mjc5fQ.CRvTPrECzj-R4VRJJSrqJIxrvt0xZjyAJyF86WmKv3k",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -372,7 +342,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjI3NDM5MSwiZXhwIjoxNzEyMjc3OTkxfQ.G_XoW-QU8_6oCKYioeQkUerGWeZFWvXcBCkwW2jVl-k",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -409,6 +379,84 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user signup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJuYW1lIjoibXVzdGFmYSIsImlhdCI6MTcxMjExNTgxOCwiZXhwIjoxNzEyMTE5NDE4fQ.WvKkWLkOdJm7jfQrJYl-tSU1MKMCGP-aTpaC5iolatc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"eslllam\",\r\n    \"fullName\": \"eslllam El-fakhrany\",\r\n    \"email\": \"eslllam@gmail.com\",\r\n    \"password\": \"eslllam1122\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/user/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "instructor signup",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0luc3RydWN0b3IiOnRydWUsImlhdCI6MTcxMjMxODU3NywiZXhwIjoxNzEyMzIyMTc3fQ.yy_hqCg-bFItJIsfrzd2W7-MSe1yQqGJOxfNXjv__Y8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"username\": \"ajdlkfsfffddd\",\r\n    \"email\": \"dddffef22@email.com\",\r\n    \"password\": \"ahmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/instructor/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"instructor",
+								"signup"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -423,7 +471,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MzA3MDUsImV4cCI6MTcxMzIzNTUwNX0.QPWgzmL-0j-eLNW9mhe53NPPIaFy4SdQrogbC5x1QV0",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -463,7 +511,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -503,7 +551,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
+									"value": "",
 									"type": "string"
 								}
 							]
@@ -541,7 +589,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoiemlhZCIsImlhdCI6MTcwOTIwNTg3MSwiZXhwIjoxNzA5MjA5NDcxfQ.6_B95c37Jilz6HPOrcU8K--3-ZvU-nPiPPxk4qNlYHw",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -579,7 +627,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTM3MzU2MzMsImV4cCI6MTcxNDM0MDQzM30.3cadSoNo6BTQ0XN-SLn8Hys4WdpCuLEKLH-yk-rNJK4",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -617,7 +665,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -653,44 +701,6 @@
 		{
 			"name": "instructor",
 			"item": [
-				{
-					"name": "create an instructor",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0luc3RydWN0b3IiOnRydWUsImlhdCI6MTcxMjMxODU3NywiZXhwIjoxNzEyMzIyMTc3fQ.yy_hqCg-bFItJIsfrzd2W7-MSe1yQqGJOxfNXjv__Y8",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"fullName\": \"Ziaddff\",\r\n    \"username\": \"ajdlkfsfffddd\",\r\n    \"email\": \"dddffef22@email.com\",\r\n    \"password\": \"ahmed\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/v1/instructors/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v1",
-								"instructors",
-								""
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "get all instructors",
 					"request": {
@@ -746,7 +756,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MjE0NDMsImV4cCI6MTcxMzIyNjI0M30.DVxPjXWaqLK1CDH_IkL3fGv-DWmgg_nmrjPAFqvXl4A",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -785,7 +795,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI2MzA3MDUsImV4cCI6MTcxMzIzNTUwNX0.QPWgzmL-0j-eLNW9mhe53NPPIaFy4SdQrogbC5x1QV0",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -823,7 +833,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzId1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJmYSIsImlhdCI6MTcxMDEyODIxNywiZXhwIjoxNzEwMTMxODE3fQ.rcEpWY9tkMt4OJCyM8ohLy0BTVK8jjutkJZ3O-wYXJo",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -866,7 +876,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYyMTk0NSwiZXhwIjoxNzEzMjI2NzQ1fQ.cihLa8MKYTlWBnfaLPjYCq0zhbY0AC-3mKkqPefR9bA",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -904,7 +914,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJlc2xhbSIsImlhdCI6MTcxMDExNTQ3OCwiZXhwIjoxNzEwMTE5MDc4fQ.x3xegsR41TeXSZaT1vgZXO-vLCckpxlt_srxYrvSBvg",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -942,7 +952,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ6aWFkIiwiaWF0IjoxNzEwNDE4MzUyLCJleHAiOjE3MTA0MjE5NTJ9.TW9sXYAX6cvdnaAJX4W3vGk294p3CECosTkOGBjL4Tc",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -985,7 +995,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1NDc2NTUsImV4cCI6MTcxMjU1MTI1NX0.tqX_N1d39kB85WkWCtN-XTwlEyMRmbvd8CwyD09AkL0",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -1019,7 +1029,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3MTI1NDQ5NTcsImV4cCI6MTcxMjU0ODU1N30.Ssopem6KHUduv43sK2H1nV9U0z_LopmUPyBYlQONW20",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -1079,7 +1089,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTYxNjUxNDMsImV4cCI6MTcxNjc2OTk0M30.jCrrx7lHtZZgR9zWRU61LRmJjYiERQ9_G-B25c21Wa8",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -1109,7 +1119,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MTYxNjcyOTksImV4cCI6MTcxNjc3MjA5OX0.mp_E9NyJwhH161s6DpfONpwRmVnux3r0enLNXkHQvIg",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -1144,7 +1154,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcxMjYwNDM2MywiZXhwIjoxNzEzMjA5MTYzfQ.kdjRsbMmmhNW4U18DXmyQZvkdSf9DsEF2kGFMPow2e4",
+									"value": "{{JWT}}",
 									"type": "string"
 								}
 							]
@@ -1160,6 +1170,207 @@
 								"v1",
 								"users",
 								"courses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin-dashboard",
+			"item": [
+				{
+					"name": "findAll active users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/activeUsers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"activeUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll inactive users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/inactiveUsers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"inactiveUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll inactive instructors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/inactiveInstructors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"inactiveInstructors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll active instructors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/activeInstructors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"activeInstructors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactive user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/deactiveUser/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"deactiveUser",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deactive Instructor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/deactiveInstructor/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"deactiveInstructor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "active Instructor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/activeInstructor/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"activeInstructor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "active user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/activeUser/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"activeUser",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete course",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/courses/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"courses",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/admin-dashboard/reviews/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"admin-dashboard",
+								"reviews",
+								"4"
 							]
 						}
 					},

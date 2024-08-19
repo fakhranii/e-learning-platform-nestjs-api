@@ -42,6 +42,9 @@ export class Instructor {
   @Column({ default: true })
   isInstructor: boolean;
 
+  @Column({ default: true })
+  active: boolean;
+
   @Column({ select: false })
   password: string;
 
