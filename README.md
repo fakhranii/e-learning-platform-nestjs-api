@@ -1,4 +1,5 @@
 # ERD: Educational-platform-api.
+...
 
 This document explores the design of Educational-platform-api, a social experience for sharing useful your Educational-platform-api.
 
