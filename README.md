@@ -1,4 +1,29 @@
 # ERD: Educational-platform-api.
+# Table of Contents
+
+1. [Introduction](#erd-educational-platform-api)
+2. [Database Schema](#database-schema)
+   - [Users](#users)
+   - [Courses](#courses)
+   - [Reviews](#reviews)
+   - [Instructors](#instructors)
+   - [Users_Courses_Courses](#users_courses_courses)
+3. [Server](#server)
+   - [Auth](#auth)
+   - [API](#api)
+     - [Auth API](#auth-api)
+     - [Users API](#users-api)
+     - [Courses API](#courses-api)
+     - [Instructors API](#instructors-api)
+     - [Reviews API](#reviews-api)
+     - [Instructor Courses API](#instructor-courses-api)
+     - [Course Reviews API](#course-reviews-api)
+     - [Course Enroll API](#course-enroll-api)
+
+# ERD: Educational-platform-api
+...
+
+
 
 This document explores the design of Educational-platform-api, a social experience for sharing useful your Educational-platform-api.
 
