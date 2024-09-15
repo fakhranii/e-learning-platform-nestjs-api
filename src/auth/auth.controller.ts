@@ -3,8 +3,7 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
-  HttpStatus,
+  Patch,
   Post,
   Query,
   Request,
@@ -66,7 +65,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Delete('user/signout')
-  userSignOut(@Request() req) {
+  userSignOut(@Request() req: any) {
     const token = req.headers.authorization.replaceAll(
       req.headers.authorization,
       'it became a invalid token',
@@ -74,6 +73,22 @@ export class AuthController {
     return { message: 'Signout successful', token };
   }
 
+  @Post('forgotPassword')
+  forgotPassword(@Request() req: any) {
+    return this.authService.forgotPassword(req);
+  }
 
-  
+  @Post('verifyResetCode')
+  verifyPasswordResetCode(@Request() req: any) {
+    return this.authService.verifyPasswordResetCode(req);
+  }
+
+  @Patch('resetPassword')
+  resetPassword(@Request() req: any) {
+    return this.authService.resetPassword(req);
+  }
+
+  //   router.post("/forgotPassword", forgotPassword);
+  // router.post("/verifyResetCode", verifyPasswordResetCode);
+  // router.patch("/resetPassword", resetPassword);
 }
