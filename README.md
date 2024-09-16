@@ -1,4 +1,4 @@
-# Educational-Platform-Api
+# E-learning-Platform-Api
 
 ## Table of Contents
 
