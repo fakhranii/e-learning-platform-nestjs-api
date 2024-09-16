@@ -1,163 +1,142 @@
-# ERD: Educational-platform-api.
-...
+# Educational-Platform-Api
 
-This document explores the design of Educational-platform-api, a social experience for sharing useful your Educational-platform-api.
+## Table of Contents
 
-We'll use a basic server architecture, where the server is deployed
-on a cloud provider next to a relational database, and serving HTTP traffic from
-a public endpoint.
+- [Project Description](#project-description)
+  - [Admin Dashboard](#admin-dashboard)
+  - [Authentication Management](#authentication-management)
+  - [Instructor](#instructor)
+  - [Course Management](#course-management)
+  - [User Interaction](#user-interaction)
+  - [Dealing with images](#dealing-with-images)
+  - [Robust Security System](#robust-security-system)
+  - [Seamless Integration](#seamless-integration)
+- [Used Technologies](#used-technologies)
+- [How to Install and Run the Project](#how-to-install-and-run-the-project)
+  - [Prerequisites](#prerequisites)
+  - [Dependencies Installation via Docker-Compose](#dependencies-installation-via-docker-compose)
+- [API Documentation](#api-documentation)
 
-## Database Schema
+## Project Description
 
-We'll need at least the following entities to implement the service:
+**The E-Learning API Project is a robust backend system for managing users, instructors, and courses. There is admin dashboard that can manages everything in the platform. The Platform offers the following key features:**
 
-**Users**
-| Column | Type |
-|---------------------------|--------------------|
-| id | number |
-| fullName | string |
-| username | string |
-| email | string |
-| password | string |
-| avatar | string |
-| isAdmin | boolean |
-| CreatedAt | datatime |
+### _Admin Dashboard:_
 
-**Courses**
-| Column | Type |
-|-----------------|-------------|
-| id | number |
-| title | string |
-| slug | string |
-| courseDescription | string |
-| courseLink | string |
-| Image | string |
-| numberOfStudents | number |
-| numberOfRatings | number |
-| isBestSelling | boolean |
-| whatYouWillLearn | string |
-| passPercentage | string |
-| prerequisites | string |
-| language | string |
-| category | string |
-| skillLevel | string |
-| thumbnails | string |
-| courseCreatorId | number |
-| CreatedAt | datatime |
-| UpdatedAt | datatime |
+- **The admin is able to view the full number of users and review all statistics of the platform.**
+- **Admins have the ability to manage users, instructors, reviews and courses and everything in the platform. He can delete anything he deemed unsuitable.**
 
-**Reviews**
-| Column | Type |
-|-----------------|-------------|
-| id | number |
-| rating | number |
-| reviewBody | string |
-| reviewCreatorId | number |
-| courseId | number |
+### _Authentication Management:_
 
-**Instructors**
-| Column | Type |
-|-----------------|-------------|
-| id | number |
-| instructorDescription | string |
-| username | string |
-| fullName | string |
-| avatar | string |
-| email | string |
-| studentsCount | number |
-| coursesCount | number |
-| ratingsCount | number |
-| isInstructor | boolean |
-| password | string |
-| CreatedAt | datatime |
+- **Users can register as students who consume the courses or instructors who create and manage courses.**
+- **It includes a password recovery feature, allowing users to receive a reset code via email and easily set a new password if they forget theirs.**
 
-**Users_courses_courses**
-| Column | Type |
-|-----------------|-------------|
-| userId | number |
-| courseId | number |
+### _Instructor:_
 
-## Server
+- **Instructors can create and manage courses, providing important details such as course descriptions, prerequisites, what students will learn, and the course language.**
 
-A simple HTTP server is responsible for authentication, serving stored data, and
-potentially ingesting and serving analytics data.
+- **Instructors can also upload course images using Cloudinary, with built-in image compression to ensure optimized performance.**
 
-- Node.js is selected for implementing the server for speed of development.
-- Nestjs.js is the web server framework.
-- TypeOrm to be used as an ORM.
+### _Course Management:_
 
-### Auth
+- **Instructors can create and manage courses with rich details such as course descriptions, prerequisites, learning outcomes, and course language.**
 
-For v1, JWT-based auth mechanism is to be used, with passwords
-encrypted and stored in the database. potentially added OAuth
-for Google + Facebook and maybe others (Github?).
+### _User Interaction:_
 
-### API
+- **Students can browse and enroll in courses, leave reviews, and rate courses using a star-based rating system along with written feedback.**
 
-**Auth**:
+### _Dealing with images:_
 
-```
-/v1/auth/user/signin         [POST]
-/v1/auth/instructor/signin   [POST]
-/v1/auth/user/profile        [GET]
-```
+- **The platform integrates `Cloudinary` for image uploading for users' profile picture & courses'cover** - **Also use `compression` package to anutilizes image compression, making the process faster and more efficient.**
 
-**Users**
+### _Robust Security System:_
 
-```
-/v1/users                      [POST]
-/v1/users                      [GET]
-/v1/users/5                    [GET]
-/v1/users/                     [PATCH]
-/v1/users/                     [DELETE]
-/v1/users/avatar               [DELETE]
+**The platform includes a solid security system with multiple protections:**
+
+- **CSRF Token Protection:** Prevents cross-site request forgery attacks.
+- **Spam Request Prevention:** Limits the number of requests per second to block spam attacks.
+- **Input Data Sanitization:** Ensures the application is safe from malicious scripts by cleaning user inputs.
+- **Request Body Size Limitation:** Prevents overloading the server memory by restricting large request payloads.
+
+### _Seamless Integration:_
+
+- **The API is designed to work effortlessly with frontend applications, mobile apps, and desktop apps, ensuring compatibility and flexibility across platforms.**
+- **This combination of user-friendly features and strong security measures makes the API a scalable and reliable solution for e-learning platforms.**
+
+---
+
+## _Used Technologies_
+
+- **Node.js**
+- **Nest.js**
+- **MySQL.**
+- **TypeORM**
+- **Docker**
+- **Docker-Compose**
+- **JWT**
+- **Bcrypt**
+- **Class-Transformer.**
+- **Class-Validator.**
+- **Cloudinary.**
+- **Compression.**
+- **Helmet.**
+- **Hpp.**
+- **Nodemailer.**
+- **Sanitize-Html.**
+- **slugify.**
+
+## How to Install and Run the Project
+
+### _Prerequisites_
+
+- **Node.js**
+- **Docker**
+- **Docker-Compose**
+
+### _dependencies Installation via `Docker-Compose`_
+
+- **hit the command in your terminal This will create and start the necessary containers for the project [ `phpmyadmin-ui` - `mysql-db`].**
+
+```terminal
+docker-compose up -d
 ```
 
-**Courses**
+- **Also you should create a `.env` file in the root directory of the project and add the following environment variables:**
 
-```
-/v1/courses             [POST]
-/v1/courses             [GET]
-/v1/courses/18          [GET]
-/v1/course/16           [PATCH]
-/v1/courses/5           [DELETE]
-/v1/courses/5/thumbnail [DELETE]
-```
+```example.env
+DB_HOST =
+DB_PORT =
+DB_NAME =
+DB_USERNAME =
+DB_PASSWORD =
 
-**Instructors**
+jwtSecret =
 
-```
-/v1/instructors           [POST]
-/v1/instructors           [GET]
-/v1/instructors/1         [GET]
-/v1/instructors           [PATCH]
-/v1/instructors           [DELETE]
-/v1/instructors/avatar    [DELETE]
-```
+CLOUDINARY_URL=
+CLOUDINARY_CLOUD_NAME =
+CLOUDINARY_API_KEY =
+CLOUDINARY_API_SECRET=
 
-**Reviews**
+#? NodeMailer - Email settings
+# EMAIL_HOST=smtp.ethereal.email
+# Email_PORT=587
+EMAIL_USER=
+EMAIL_PASSWORD=
 
-```
-/v1/reviews/PG-in-arabic       [POST]
-/v1/reviews/7                  [PATCH]
-/v1/reviews/python-in-arabic   [DELETE]
+COOKIE_SECRET_KEY=
 ```
 
-**instructor/courses**
+- **Or you can see the file that includes all variables from here: [example.env](./example.env)**
+- **After that, you should run the command ` npm install` to install all the project dependencies.**
+- **After that, you can run the project finally via `npm` to start the project in dev mode.**
 
-```
-/v1/instructors/courses  [GET]
-```
-
-**course/reviews**
-
-```
-/v1/courses/PG-in-arabic/reviews [GET]
+```terminal
+npm run start:dev
 ```
 
-**course enroll**
+---
 
-```
-/v1/courses/php-in-arabic/enroll    [POST]
-/v1/courses/php-in-arabic/unenroll  [DELETE]
-```
+## _API Documentation_
+
+- **The API documentation is available at the following URL: [API Documentation](https://gold-water-721915.postman.co/workspace/Public-Collections~899f080b-3a13-42d0-895e-553e15ff281c/collection/31885780-ba7c45c9-d1f4-4192-b93c-dc629f65b059?action=share&creator=31885780&active-environment=31885780-d855adc6-c38e-47cc-b535-cb7f12eda7a2)**
+- **You can also find the API documentation in the project's root directory in the [postman-collections](./docs/postman/graduation%20project.postman_collection.json) file.**
