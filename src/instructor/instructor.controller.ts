@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Delete,
@@ -14,7 +13,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { InstructorService } from './instructor.service';
-import { CreateInstructorDto } from './dto/create-instructor.dto';
 import { UpdateInstructorDto } from './dto/update-instructor.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 

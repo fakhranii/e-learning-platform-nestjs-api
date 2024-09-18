@@ -73,22 +73,18 @@ export class AuthController {
     return { message: 'Signout successful', token };
   }
 
-  @Post('forgotPassword')
+  @Post('forgot-password')
   forgotPassword(@Request() req: any) {
     return this.authService.forgotPassword(req);
   }
 
-  @Post('verifyResetCode')
+  @Post('verify-reset-code')
   verifyPasswordResetCode(@Request() req: any) {
     return this.authService.verifyPasswordResetCode(req);
   }
 
-  @Patch('resetPassword')
+  @Patch('reset-password')
   resetPassword(@Request() req: any) {
     return this.authService.resetPassword(req);
   }
-
-  //   router.post("/forgotPassword", forgotPassword);
-  // router.post("/verifyResetCode", verifyPasswordResetCode);
-  // router.patch("/resetPassword", resetPassword);
 }

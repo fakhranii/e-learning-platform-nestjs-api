@@ -5,42 +5,42 @@ import { AdminDashboardService } from './admin-dashboard.service';
 export class AdminDashboardController {
   constructor(private readonly adminDashboardService: AdminDashboardService) {}
 
-  @Get('activeUsers')
+  @Get('active-users')
   findAllActiveUsers() {
     return this.adminDashboardService.findAllActiveUsers();
   }
 
-  @Get('inactiveUsers')
+  @Get('inactive-users')
   findAllInactiveUsers() {
     return this.adminDashboardService.findAllInactiveUsers();
   }
 
-  @Post('activeUser/:id')
+  @Post('active-user/:id')
   activeUser(@Param('id') id: number) {
     return this.adminDashboardService.activeUser(id);
   }
 
-  @Delete('deactiveUser/:id')
+  @Delete('deactive-user/:id')
   deactiveUser(@Param('id') id: number) {
     return this.adminDashboardService.deactiveUser(id);
   }
 
-  @Get('activeInstructors')
+  @Get('active-instructors')
   findAllActiveInstructors() {
     return this.adminDashboardService.findAllactiveInstructors();
   }
 
-  @Get('inactiveInstructors')
+  @Get('inactive-instructors')
   findAllInactiveInstructors() {
     return this.adminDashboardService.findAllInactiveInstructors();
   }
 
-  @Post('activeInstructor/:id')
+  @Post('active-instructor/:id')
   activeInstructor(@Param('id') id: number) {
     return this.adminDashboardService.activeInstructor(id);
   }
 
-  @Delete('deactiveInstructor/:id')
+  @Delete('deactive-instructor/:id')
   deactiveInstructor(@Param('id') id: number) {
     return this.adminDashboardService.deactiveInstructor(id);
   }
