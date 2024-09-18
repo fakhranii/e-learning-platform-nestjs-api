@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { ReviewModule } from './review/review.module';
 import { InstructorModule } from './instructor/instructor.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
-import { AppController } from './app.controller';
 import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
 
 @Module({
@@ -24,6 +23,5 @@ import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
     CloudinaryModule,
     AdminDashboardModule,
   ],
-  controllers: [AppController],
 })
 export class AppModule {}
