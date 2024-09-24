@@ -128,12 +128,6 @@ COOKIE_SECRET_KEY=
 ```
 
 - **Or you can see the file that includes all variables from here: [example.env](./example.env)**
-- **After that, you should run the command ` npm install` to install all the project dependencies.**
-- **After that, you can run the project finally via `npm` to start the project in dev mode.**
-
-```terminal
-npm run start:dev
-```
 
 ---
 
