@@ -89,9 +89,8 @@
 
 ### _Prerequisites_
 
-- **Node.js**
-- **Docker**
-- **Docker-Compose**
+- **[Docker-Desktop](https://www.docker.com/products/docker-desktop/)**
+
 
 ### _dependencies Installation via `Docker-Compose`_
 
