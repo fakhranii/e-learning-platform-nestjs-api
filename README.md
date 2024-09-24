@@ -95,10 +95,12 @@
 
 ### _dependencies Installation via `Docker-Compose`_
 
-- **hit the command in your terminal This will create and start the necessary containers for the project [ `phpmyadmin-ui` - `mysql-db`].**
+- **This command will install specific version of Nodejs and all packages with their versions which are exist in `package.json` and start the necessary containers for the project [ `phpmyadmin-ui` - `mysql-db`]. At the end the project gonna run .. all with one command**
+
+  **Here You are the Command :**
 
 ```terminal
-docker-compose up -d
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d
 ```
 
 - **Also you should create a `.env` file in the root directory of the project and add the following environment variables:**

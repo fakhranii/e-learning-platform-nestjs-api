@@ -61,7 +61,6 @@ async function bootstrap() {
 
   // Response Compression for better performance
   app.use(compression());
-
   await app.listen(3000);
 }
 
