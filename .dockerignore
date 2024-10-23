@@ -1,4 +1,7 @@
-/node_modules
 Dockerfile*
-.env
 docker-compose*
+node_modules
+dist
+node_modules
+.git
+.env

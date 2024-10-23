@@ -8,6 +8,7 @@ import { ReviewModule } from './review/review.module';
 import { InstructorModule } from './instructor/instructor.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
+import { AppController } from './app.controller';
 
 @Module({
   //? app module is the root module
@@ -23,5 +24,6 @@ import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
     CloudinaryModule,
     AdminDashboardModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

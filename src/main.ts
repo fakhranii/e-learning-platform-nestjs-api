@@ -18,7 +18,7 @@ async function bootstrap() {
   app.use(helmet());
 
   app.use(cookieParser()); // should implement this line before ➡   app.use(csurf({ cookie: true }));
-  app.use(csurf({ cookie: true }));
+  // app.use(csurf({ cookie: true }));
 
   app.use(express.json({ limit: '10kb' }));
 

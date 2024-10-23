@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { comparePasswords } from './bcrypt/bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MoreThan, Repository } from 'typeorm';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 import { User } from 'src/user/entities/user.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
@@ -302,10 +302,10 @@ export class AuthService {
 
     // 3) If all processes are valid, change the password
     user.password = req.body.newPassword;
-    user.passwordChangedAt = new Date();
     user.passwordResetCode = undefined;
+    user.passwordChangedAt = new Date();
     user.passwordResetExpires = undefined;
-    user.passwordResetVerified = undefined;
+    user.passwordResetVerified = false;
 
     await this.userRepo.save(user);
 

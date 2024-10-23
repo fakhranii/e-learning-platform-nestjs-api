@@ -6,6 +6,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  BeforeUpdate,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
@@ -61,6 +62,7 @@ export class User {
   courses: Course[];
 
   @BeforeInsert()
+  @BeforeUpdate()
   async correctInputs(): Promise<any> {
     try {
       this.email = this.email.toLowerCase().trim();
