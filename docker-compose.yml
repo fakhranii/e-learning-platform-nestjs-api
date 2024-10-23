@@ -1,42 +1,42 @@
-version: '3'
+  version: '3'
 
-services:
-  # e-learning-api-app:
-  # container_name: e-learning-api-container
-  # ports:
-  #   - '3000:3000'
-  # env_file:
-  #   - ./.env
-  # depends_on:
-  #   - db
-  #   - phpmyadmin
-  # command: npm run start:dev # This will ensure hot reload is enabled
+  services:
+    # e-learning-api-app:
+    # container_name: e-learning-api-container
+    # ports:
+    #   - '3000:3000'
+    # env_file:
+    #   - ./.env
+    # depends_on:
+    #   - db
+    #   - phpmyadmin
+    # command: npm run start:dev # This will ensure hot reload is enabled
 
-  db:
-    image: mysql:5.7
-    container_name: db-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
-    restart: always
-    ports:
-      - '8886:3306'
-    volumes:
-      - dbdata:/var/lib/mysql
+    db:
+      image: mysql:5.7
+      container_name: db-mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: root
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: password
+      restart: always
+      ports:
+        - '8886:3306'
+      volumes:
+        - dbdata:/var/lib/mysql
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pmadmin
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-    restart: always
-    ports:
-      - '8899:80'
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: pmadmin
+      links:
+        - db
+      environment:
+        PMA_HOST: db
+        PMA_PORT: 3306
+      restart: always
+      ports:
+        - '8899:80'
 
-volumes:
-  dbdata:
+  volumes:
+    dbdata:
