@@ -21,6 +21,7 @@ export function sanitizeInstructor(instructor: Instructor) {
 
 export function sanitizeCourse(course: Course) {
   return {
+    slug: course.slug,
     id: course.id,
     title: course.title,
     category: course.category,

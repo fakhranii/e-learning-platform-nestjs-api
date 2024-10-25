@@ -30,13 +30,13 @@ export class ReviewController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch(':id')
+  @Patch(':reviewId')
   update(
     @Request() req,
-    @Param('id') id: string,
+    @Param('reviewId') reviewId: string,
     @Body() updateReviewDto: UpdateReviewDto,
   ) {
-    return this.reviewService.update(req, +id, updateReviewDto);
+    return this.reviewService.update(req, +reviewId, updateReviewDto);
   }
 
   @UseGuards(AuthGuard)

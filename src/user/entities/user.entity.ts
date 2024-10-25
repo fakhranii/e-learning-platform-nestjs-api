@@ -30,28 +30,32 @@ export class User {
   @Column({ select: false }) // typeorm package
   password: string;
 
-  @Column({ default: false })
+  @Column({ default: false, select: false })
   isAdmin: boolean; // true or false
 
-  @Column({ default: true })
+  @Column({ default: true, select: false })
   active: boolean;
 
   @Column({ nullable: true }) // typeorm package
   avatar: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, select: false })
   passwordChangedAt: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    select: false,
+  })
   createdAt: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, select: false })
   passwordResetCode: string;
 
-  @Column({ type: 'timestamp', nullable: true })
+  @Column({ type: 'timestamp', nullable: true, select: false })
   passwordResetExpires: Date;
 
-  @Column({ default: false })
+  @Column({ default: false, select: false })
   passwordResetVerified: Boolean;
 
   @OneToMany(() => Review, (reviews) => reviews.reviewCreator)

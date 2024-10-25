@@ -26,7 +26,7 @@ export class AdminDashboardService {
   }> {
     const users = await this.userRepo.find({
       where: { active: true },
-      select: ['id', 'fullName', 'username'],
+      select: ['id', 'fullName', 'username', 'active'],
     });
     const userCount = users.length;
     return { activeUserCount: userCount, data: users };
@@ -38,7 +38,7 @@ export class AdminDashboardService {
   }> {
     const users = await this.userRepo.find({
       where: { active: false },
-      select: ['id', 'fullName', 'username'],
+      select: ['id', 'fullName', 'username', 'active'],
     });
     const userCount = users.length;
     return { inactiveUserCount: userCount, data: users };
@@ -50,7 +50,7 @@ export class AdminDashboardService {
   }> {
     const instructors = await this.instructorRepo.find({
       where: { active: false },
-      select: ['id', 'fullName', 'username'],
+      select: ['id', 'fullName', 'username', 'active'],
     });
     const inactiveInstructorsCount = instructors.length;
     return {
@@ -65,7 +65,7 @@ export class AdminDashboardService {
   }> {
     const instructors = await this.instructorRepo.find({
       where: { active: true },
-      select: ['id', 'fullName', 'username'],
+      select: ['id', 'fullName', 'username', 'active'],
     });
     const activeInstructorsCount = instructors.length;
     return {

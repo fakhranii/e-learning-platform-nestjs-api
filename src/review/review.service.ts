@@ -55,9 +55,12 @@ export class ReviewService {
     const { id } = req.user;
     const user = await this.userRepo.findOneBy({ id });
     if (!user) throw this.exceptions.userNotFound;
-    const review = await this.reviewRepo.findOneBy({ id: reviewId });
+    const review = await this.reviewRepo.findOne({
+      where: { id: reviewId },
+      relations: ['reviewCreator'],
+    });
     if (!review) throw this.exceptions.reviewNotFound;
-    if (user.id !== review.reviewCreator.id) throw this.exceptions.userNotFound;
+    if (user.id != review.reviewCreator.id) throw this.exceptions.userNotFound;
     Object.assign(review, updateReviewDto);
     return await this.reviewRepo.save(review);
   }

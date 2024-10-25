@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import slugify from 'slugify';
 
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
@@ -72,6 +73,7 @@ export class CourseService {
     }
 
     newCourse.courseCreator = instructor;
+    newCourse.slug = slugify(createCourseDto.title, '-');
     Object.assign(newCourse, createCourseDto);
     newCourse.isCertified = createCourseDto.isCertified === 'true';
     instructor.coursesCount++;

@@ -284,6 +284,15 @@ export class AuthService {
     // 1) Get user based on email
     const user = await this.userRepo.findOne({
       where: { email: req.body.email },
+      select: [
+        'id',
+        'email',
+        'username',
+        'password',
+        'passwordResetCode',
+        'passwordResetExpires',
+        'passwordResetVerified',
+      ],
     });
     if (!user) {
       throw new HttpException(
