@@ -6,6 +6,10 @@ export class CreateInstructorDto {
 
   @IsString()
   @IsNotEmpty()
+  fulllName: string;
+
+  @IsString()
+  @IsNotEmpty()
   username: string;
 
   @IsNotEmpty()

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -65,22 +65,27 @@ export class ReviewService {
     return await this.reviewRepo.save(review);
   }
 
-  async remove(req: any, slug: string) {
+  async remove(req: any, slug: string, reviewId: number): Promise<Review> {
     const { id } = req.user;
-    const user = await this.userRepo.findOne({
-      where: { id },
-      relations: ['reviews'],
-    });
-    if (!user) this.exceptions.userNotFound;
-    const deletedReviews = user.reviews.splice(-1);
     const course = await this.courseRepo.findOneBy({ slug });
     if (!course) throw this.exceptions.courseNotFound;
-    if (course && user) {
-      course.numberOfRatings--;
-      await this.courseRepo.save(course);
-      return await this.reviewRepo.remove(deletedReviews);
+
+    const user = await this.userRepo.findOneBy({ id });
+    if (!user) throw this.exceptions.userNotFound;
+
+    const review = await this.reviewRepo.findOne({
+      where: { id: reviewId },
+      relations: ['reviewCreator'],
+    });
+    if (!review) throw this.exceptions.reviewNotFound;
+
+    if (review.reviewCreator.id !== user.id) {
+      throw this.exceptions.notAuthorized;
     }
-    throw this.exceptions.courseNotFound;
+
+    course.numberOfRatings--;
+    await this.courseRepo.save(course);
+    return await this.reviewRepo.remove(review);
   }
 
   async findInstructorCoursesReviews(username: string): Promise<any> {

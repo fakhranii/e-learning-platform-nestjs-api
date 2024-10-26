@@ -183,7 +183,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"mostafa\",\r\n    \"password\": \"mostafa1122\"\r\n}",
+							"raw": "{\r\n    \"username\": \"eslam\",\r\n    \"password\": \"eslameslam\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -382,6 +382,18 @@
 				},
 				{
 					"name": "user signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -397,7 +409,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"eslllam\",\r\n    \"fullName\": \"eslllam El-fakhrany\",\r\n    \"email\": \"eslllam@gmail.com\",\r\n    \"password\": \"eslllam1122\"\r\n}",
+							"raw": "{\r\n    \"username\": \"eslam\",\r\n    \"fullName\": \"eslam El-fakhrany\",\r\n    \"email\": \"eslam@gmail.com\",\r\n    \"password\": \"eslam1122\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,6 +433,18 @@
 				},
 				{
 					"name": "instructor signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -436,7 +460,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"username\": \"ajdlkfsfffddd\",\r\n    \"email\": \"dddffef22@email.com\",\r\n    \"password\": \"ahmed\"\r\n}",
+							"raw": "{\r\n    \"instructorDescription\": \"the instructor in talking about programming\",\r\n    \"username\": \"ahmed\",\r\n    \"email\": \"ahmed@email.com\",\r\n    \"password\": \"ahmed\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -457,6 +481,91 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Password ResetCode",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resetCode\": \"259225\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/verify-reset-code",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"verify-reset-code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eslam@gmail.com\",\r\n    \"newPassword\": \"eslameslam11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/reset-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -471,7 +580,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{JWT}}",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaXNJbnN0cnVjdG9yIjp0cnVlLCJpYXQiOjE3Mjk4NzQ0MzYsImV4cCI6MTczMDEzMzYzNn0.lZgFE9zW4Euw-iPCXX46YobXGdvm-TSZfEW8PYKIWqY",
 									"type": "string"
 								}
 							]
@@ -480,7 +589,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test\",\r\n    \"courseDescription\": \"this ts a course talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=TSBVpl2d5YE\",\r\n    \"prerequisites\": \"js ts rs\",\r\n    \"category\": \"backend\",\r\n    \"skillLevel\": \"intermediate\"\r\n\r\n}",
+							"raw": "{\r\n    \"title\": \"test one\",\r\n    \"courseDescription\": \"this ts a course talking about js\",\r\n    \"courseLink\": \"https://www.youtube.com/watch?v=TSBVpl2d5YE\",\r\n    \"prerequisites\": \"js ts rs\",\r\n    \"category\": \"backend\",\r\n    \"skillLevel\": \"intermediate\",\r\n    \"language\": \"arabic\",\r\n    \"whatYouWillLearn\": \"dealing with web programming\",\r\n    \"isCertified\": \"true\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -893,14 +1002,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/reviews/learn-js-in-arabic",
+							"raw": "{{baseUrl}}/v1/reviews/test-one",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"reviews",
-								"learn-js-in-arabic"
+								"test-one"
 							]
 						}
 					},
@@ -923,7 +1032,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 5,\r\n    \"reviewBody\": \"very zezo\"\r\n}",
+							"raw": "{\r\n    \"rating\": 2,\r\n    \"reviewBody\": \"very zezo 2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -931,14 +1040,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/reviews/7",
+							"raw": "{{baseUrl}}/v1/reviews/1",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"reviews",
-								"7"
+								"1"
 							]
 						}
 					},
@@ -969,14 +1078,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/v1/reviews/python-in-arabic",
+							"raw": "{{baseUrl}}/v1/reviews/test-one/2",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"v1",
 								"reviews",
-								"python-in-arabic"
+								"test-one",
+								"2"
 							]
 						}
 					},

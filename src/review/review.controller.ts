@@ -40,9 +40,13 @@ export class ReviewController {
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':slug')
-  remove(@Request() req, @Param(':slug') slug: string) {
-    return this.reviewService.remove(req, slug);
+  @Delete(':slug/:reviewId')
+  remove(
+    @Request() req,
+    @Param('slug') slug: string,
+    @Param('reviewId') reviewId: string,
+  ) {
+    return this.reviewService.remove(req, slug, +reviewId);
   }
 
   @Get('instructor/:username/')
