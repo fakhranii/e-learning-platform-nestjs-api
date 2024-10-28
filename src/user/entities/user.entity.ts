@@ -30,7 +30,7 @@ export class User {
   @Column({ select: false }) // typeorm package
   password: string;
 
-  @Column({ default: false, select: false })
+  @Column({ default: false })
   isAdmin: boolean; // true or false
 
   @Column({ default: true, select: false })
