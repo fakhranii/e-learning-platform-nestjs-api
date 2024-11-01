@@ -141,8 +141,8 @@ export class AdminDashboardService {
   }
 
   async removeReview(id: number) {
-    const reviw = await this.reviewRepo.findOneBy({ id });
-    const course = reviw.course;
+    const review = await this.reviewRepo.findOne({where: { id }, relations: ['course'] });
+    const course = review.course;
     course.numberOfRatings--;
     await this.courseRepo.save(course);
     return await this.reviewRepo.delete(id);

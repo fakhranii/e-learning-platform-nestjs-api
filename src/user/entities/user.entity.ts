@@ -33,7 +33,7 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean; // true or false
 
-  @Column({ default: true, select: false })
+  @Column({ default: true })
   active: boolean;
 
   @Column({ nullable: true }) // typeorm package
@@ -45,7 +45,6 @@ export class User {
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
-    select: false,
   })
   createdAt: Date;
 

@@ -8,6 +8,7 @@ export function sanitizeUser(user: User) {
     id: user.id,
     username: user.username,
     fullname: user.fullName,
+    avatar: user.avatar
   };
 }
 
@@ -16,6 +17,7 @@ export function sanitizeInstructor(instructor: Instructor) {
     id: instructor.id,
     username: instructor.username,
     fullname: instructor.fullName,
+    avatar: instructor.avatar,
   };
 }
 

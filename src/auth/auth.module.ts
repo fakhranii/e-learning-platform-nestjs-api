@@ -7,9 +7,12 @@ import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { User } from 'src/user/entities/user.entity';
 import { Instructor } from 'src/instructor/entities/instructor.entity';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { Exceptions } from '../utils/Exceptions';
 
 @Module({
   imports: [
+    CloudinaryModule,
     TypeOrmModule.forFeature([User, Instructor]), // db repos
     UserModule,
     JwtModule.register({
@@ -19,6 +22,6 @@ import { Instructor } from 'src/instructor/entities/instructor.entity';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, Exceptions],
 })
 export class AuthModule {}

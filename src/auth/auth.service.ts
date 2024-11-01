@@ -11,18 +11,19 @@ import { SignInDto } from './dto/signin.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { CreateInstructorDto } from 'src/instructor/dto/create-instructor.dto';
 import { sendEmail } from 'src/utils/sendEmail';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { Exceptions } from '../utils/Exceptions';
 
 @Injectable()
 export class AuthService {
-  cloudinarySrv: any;
-  exceptions: any;
-  // unauthorizedException: any;
   constructor(
     private jwtService: JwtService,
     @InjectRepository(User) private readonly userRepo: Repository<User>,
     @InjectRepository(Instructor)
     private readonly instructorRepo: Repository<Instructor>,
-  ) {}
+    private readonly exceptions: Exceptions,
+    private readonly cloudinarySrv: CloudinaryService,
+  ){}
 
   async userSignup(
     createUserDto: CreateUserDto,
@@ -40,8 +41,10 @@ export class AuthService {
 
     const user = new User();
     Object.assign(user, createUserDto);
-    if (file)
+    if (file){
       user.avatar = (await this.cloudinarySrv.uploadFile(file)).secure_url;
+    }
+
 
     await this.userRepo.save(user);
     delete user.password;
