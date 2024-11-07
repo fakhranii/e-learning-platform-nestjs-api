@@ -1,18 +1,18 @@
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
   Request,
+  UploadedFile,
   UseGuards,
   UseInterceptors,
-  UploadedFile,
-  Query,
 } from '@nestjs/common';
 
 import { CourseService } from './course.service';
@@ -70,25 +70,25 @@ export class CourseController {
 
   @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
-  @Patch(':id')
+  @Patch(':slug')
   update(
     @Request() req,
-    @Param('id') id: string,
+    @Param('slug') slug: string,
     @Body() updateCourseDto: UpdateCourseDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    return this.courseService.update(req, +id, updateCourseDto, file);
+    return this.courseService.update(req, slug, updateCourseDto, file);
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':id')
-  remove(@Request() req, @Param('id') id: string) {
-    return this.courseService.remove(req, +id);
+  @Delete(':slug')
+  remove(@Request() req, @Param('slug') slug: string) {
+    return this.courseService.remove(req, slug);
   }
 
   @UseGuards(AuthGuard)
-  @Delete(':id/thumbnail')
-  removeThumbnail(@Request() req, @Param('id') id: string) {
-    return this.courseService.removeThumbnail(req, +id);
+  @Delete(':slug/thumbnail')
+  removeThumbnail(@Request() req, @Param('slug') slug: string) {
+    return this.courseService.removeThumbnail(req, slug);
   }
 }

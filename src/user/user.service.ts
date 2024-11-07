@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { Exceptions } from 'src/utils/Exceptions';
-import { Course } from 'src/course/entities/course.entity';
 import { sanitizeUser } from 'src/utils/sanitize/sanitizeResponse';
 
 @Injectable()

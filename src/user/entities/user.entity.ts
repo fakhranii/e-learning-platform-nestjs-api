@@ -36,6 +36,7 @@ export class User {
   @Column({ default: true })
   active: boolean;
 
+
   @Column({ nullable: true }) // typeorm package
   avatar: string;
 

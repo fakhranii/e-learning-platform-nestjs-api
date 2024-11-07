@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import slugify from 'slugify';
-
 import { Instructor } from 'src/instructor/entities/instructor.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { User } from 'src/user/entities/user.entity';
@@ -65,6 +64,7 @@ export class CourseService {
     const missingFields = requiredFields.filter(
       (field) => !(field in createCourseDto),
     );
+
     if (missingFields.length > 0) {
       throw new HttpException(
         `Missing required fields: ${missingFields.join(', ')}`,
@@ -219,14 +219,14 @@ export class CourseService {
 
   async update(
     req: any,
-    courseId: number,
+    slug: string,
     updateCourseDto: UpdateCourseDto,
     file: Express.Multer.File,
   ): Promise<Course> {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor) throw this.exceptions.instructorNotFound;
-    const course = await this.courseRepo.findOneBy({ id: courseId });
+    const course = await this.courseRepo.findOneBy({ slug });
     if (!course) throw this.exceptions.courseNotFound;
     Object.assign(course, updateCourseDto);
     if (file) {
@@ -237,10 +237,10 @@ export class CourseService {
     return await this.courseRepo.save(course);
   }
 
-  async remove(req: any, courseId: number) {
+  async remove(req: any, slug: string) {
     const { id } = req.user;
     const course = await this.courseRepo.findOne({
-      where: { id: courseId },
+      where: { slug },
       relations: ['reviews'],
     });
     if (!course) throw this.exceptions.courseNotFound;
@@ -251,14 +251,14 @@ export class CourseService {
     if (!instructor) throw this.exceptions.instructorNotFound;
     await this.reviewRepo.remove(course.reviews);
     await this.courseRepo.remove(course);
-    return 'Couese Removed';
+    return 'Course Removed';
   }
 
-  async removeThumbnail(req: any, courseId: number) {
+  async removeThumbnail(req: any, slug: string) {
     const { id } = req.user;
     const instructor = await this.instructorRepo.findOneBy({ id });
     if (!instructor) throw this.exceptions.instructorNotFound;
-    const course = await this.courseRepo.findOneBy({ id: courseId });
+    const course = await this.courseRepo.findOneBy({ slug });
     if (!course) throw this.exceptions.courseNotFound;
     course.thumbnails = null;
     return await this.courseRepo.save(course);
